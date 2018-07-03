@@ -1,0 +1,49 @@
+z <- list(a = 1, b = "c", c = 1:3)
+names(z)
+library(chutils)
+?ch.plot.lm
+x <- 3
+y <- (x<2) ? 1 : 2
+y <- (x<2) ? 1 , 2
+y <- (x<2) ? 1 : 2
+library(devtools)#
+library(roxygen2)#
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages")
+create("chuMorals")
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/chMorals")
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/chutils")
+ls
+create("chMorals")
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/chMorals")
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/chMorals")
+library(devtools)#
+library(roxygen2)#
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages")
+create("chMorals")
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/chMorals")
+df <- data.frame(A=1:10, B=2:11, C=3:12)
+df
+fun1 <- function(x, column){
+y <- x[x[,column] <= 5,]
+}
+fun1(df, b)
+fun1(df, B)
+fun1 <- function(x, column){
+y <- x[[column]] <= 5,]
+fun1 <- function (x, column) {#
+y <- x[x[[column]] <= 5,]#
+}
+fun1(x,B)
+fun1(df,B)
+df
+fun1 <- function (x, column) {#
+y <- x[[column]]#
+return (y)#
+}
+fun1(df,B)
+fun1(df,"B")
+fun1 <- function (x, column) {#
+y <- x[x[[column]] <= 5,]#
+return (y)#
+}
+fun1(df,"B")
