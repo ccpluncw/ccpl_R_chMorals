@@ -35,7 +35,6 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
 		DprimeFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$dPrime, cex1 = 1.5, printR2 = printR2, yLabel  = "d'")
 		betaFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$beta, cex1 = 1.5, printR2 = printR2, yLabel  = 'beta')
-
 		if (!is.null(filenameID)) {
 				filename <- file.path(gpDir,paste(params$dt.set, filenameID, "d prime.pdf"))
 				dev.copy(pdf, filename, width=6, height=9)

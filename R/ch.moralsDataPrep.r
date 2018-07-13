@@ -18,7 +18,6 @@
 ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, yesNoCol, yesNoVal = c("Yes", "No"), params) {
 
 ######_____PACKAGES NEEDED FOR CODE______######
-	library(plyr)
 	library(dplyr)
 	library(rowr)
 	library(chutils)
@@ -48,6 +47,12 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 	######_____CALCULATE MEAN AND STANDARD DEVIATION OF RT BY SUBJECT_____######
 
 		sub.avgRT <- as.data.frame(data %>% group_by_(snCol) %>% summarise (avgRT = mean(eval(parse(text=RTcol))),sdRT=sd(eval(parse(text=RTcol)))))
+
+	######_____MERGE MORALS DATA WITH OVERLAP DATA_____######
+	## to do that, we get all possible permutations of the items presented in the experiment
+	## then we use those permutations to merge the morals data and the overlap dataset
+	## We have to do this because the overlap data exists only in one order (e.g., a-b, not b-a)
+	## and the morals data can have any order (e.g, a-b, and b-a)
 
 		#fill the group vectors
 		groupA <- seq(params$minGroupAnum, params$maxGroupAnum, 1)
@@ -95,7 +100,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 						dt.merged.a$direct.xVy <-ifelse(dt.merged.a[[directionCol]]==1,-1,1)
 					}
 					#round dt.merged$overlap
-					dt.merged.a$overlapRound <- round_any(dt.merged.a[[overlapCol]], params$roundThreshold, params$roundDirection)
+					dt.merged.a$overlapRound <- ch.round_any(dt.merged.a[[overlapCol]], params$roundThreshold, params$roundDirection)
 					#create the Correct Response column. This is necessary to calculate "percentHit", "freq.pred"
 					#Here, correct == 1 indicates the person chose the item with the highest value
 					dt.merged.a$correct <- ifelse(dt.merged.a$direct.xVy==-1 & dt.merged.a[[yesNoCol]]==yesNoVal[2], 1, ifelse(dt.merged.a$direct.xVy==1 & dt.merged.a[[yesNoCol]]==yesNoVal[1], 1, 0))

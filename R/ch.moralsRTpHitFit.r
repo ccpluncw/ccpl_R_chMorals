@@ -13,8 +13,10 @@
 #' @examples ch.moralsRTpHitFit (data=moralsData,"overlapRound", "resdRT", "predict", filename = "plot.pdf")
 
 ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, printR2 = F, filename = NULL, cex1 = 1.5, ...) {
+		library(dplyr)
 
-	  df.tmp <- ddply(data, overlapRoundCol, summarise, aveRT = mean(eval(parse(text = RTCol))), medianRT = median(eval(parse(text = RTCol))), pHit = mean(eval(parse(text =correctCol))))
+		df.tmp <- as.data.frame(data %>% group_by_(overlapRoundCol) %>% summarise (aveRT = mean(eval(parse(text = RTCol))), medianRT = median(eval(parse(text = RTCol))), pHit = mean(eval(parse(text =correctCol))) ) )
+
     pHitFit <- ch.plot.pHit(df.tmp[[overlapRoundCol]], df.tmp$pHit, cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
     RTfit <- ch.plot.lm(df.tmp[[overlapRoundCol]], df.tmp$aveRT, cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
 

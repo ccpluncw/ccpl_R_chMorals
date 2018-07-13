@@ -15,7 +15,7 @@
 
 ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol, params) {
 
-	library(plyr)
+	library(dplyr)
 	library(dplyr)
 	library(chutils)
 	library(chMorals)
@@ -44,7 +44,8 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				sn.removed.belowchance	<- outList$datRemoved
 				final.numSbj <- length(unique(data[[snCol]]))
 
-				substats <- ddply(data, c(snCol), summarise, mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(eval(parse(text=correctCol))))
+				substats <- as.data.frame(data %>% group_by_(snCol) %>% summarise (mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(eval(parse(text=correctCol))) ) )
+
 				mean.avePred <-mean(substats$avePred)
 
 
@@ -69,7 +70,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				dt.Removed <- outList$pRemoved
 
 			#	set dt.raw.merged for raw.table
-				dt.raw.table <- ddply(data, .(), summarise, MEAN = mean(eval(parse(text=RTcol))), SD = sd(eval(parse(text=RTcol))))
+				dt.raw.table <- as.data.frame(data %>% summarise (MEAN = mean(eval(parse(text=RTcol))), SD = sd(eval(parse(text=RTcol))) ) )
 
 			#	log dt.merged$keybRT
 				if ( params$keybRTtransform == "log") {

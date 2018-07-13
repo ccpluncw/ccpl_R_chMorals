@@ -17,7 +17,6 @@
 #' @examples ch.moralsGrpRTpHit (data=moralsData,"trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, params) {
-	library(plyr)
 	library(chutils)
 	library(chMorals)
 

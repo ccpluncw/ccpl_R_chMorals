@@ -19,7 +19,6 @@
 
 
 ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, params) {
-	library(plyr)
 	library(chutils)
 	library(chMorals)
 
@@ -31,7 +30,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
     setwd(mainDir)
 
 		#calculate overlapRound values to use for individual subject analysis
-    data$overlapRoundSN <- round_any(data[[overlapCol]], params$roundThresholdSN, params$roundDirection)
+    data$overlapRoundSN <- ch.round_any(data[[overlapCol]], params$roundThresholdSN, params$roundDirection)
 		#prepare stats output file
 		statsOutputFile <- file.path(mainDir,paste(params$dt.set, params$statsOutputFilePrefix))
 		#identify our subjects
