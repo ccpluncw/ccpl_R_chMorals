@@ -68,7 +68,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				dt.Removed <- outList$pRemoved
 
 			#	set dt.raw.merged for raw.table
-				dt.raw.table <- as.data.frame(data %>% summarise (MEAN = mean(eval(parse(text=RTcol))), SD = sd(eval(parse(text=RTcol))) ) )
+				dt.raw.table <- as.data.frame(data %>% dplyr::summarise (MEAN = mean(eval(parse(text=RTcol))), SD = sd(eval(parse(text=RTcol))) ) )
 
 			#	log dt.merged$keybRT
 				if ( params$keybRTtransform == "log") {

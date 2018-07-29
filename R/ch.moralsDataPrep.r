@@ -14,6 +14,7 @@
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
 #' @export
 #' @import chutils
+#' @importFrom dplyr %>%
 #' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", yesNoVal = c("Yes", "No"), params=parameters)
 
 ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, yesNoCol, yesNoVal = c("Yes", "No"), params) {
