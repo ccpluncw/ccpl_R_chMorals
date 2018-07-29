@@ -19,10 +19,6 @@
 
 ch.moralsItemChoiceAnalysis <- function (data, item1Col, item2Col, overlapRoundCol, dirOverlapCol,yesNoCol, yesNoVal = c("Yes", "No"), params, saveFigures = T) {
 
-######_____PACKAGES NEEDED FOR CODE______######
-	library(dplyr)
-	library(chutils)
-
 ##### Functions ######
 
 		#create new directories
@@ -39,38 +35,35 @@ ch.moralsItemChoiceAnalysis <- function (data, item1Col, item2Col, overlapRoundC
 	itemOutData <- NULL
   # plots for each item
   		for (j in items)  {
-
-				#find all the item_i in probe 1
-  		  tmp1 <- data[data[[item1Col]]==j, ]
-  		  tmp1$probe1 <- tmp1[[item1Col]]
-  		  tmp1$probe2 <- tmp1[[item2Col]]
-  		  tmp1$chose <- ifelse(tmp1[[yesNoCol]]==yesNoVal[1], 1, 0)
+				tmp1 <- data[data[[item1Col]]==j, ]
 				tmp1$probeOrder <- "original"
+				tmp1$chose <- ifelse(tmp1[[yesNoCol]]==yesNoVal[1], 1, 0)
 
-				#find all the item_i in probe 2 and put it in probe 1
-				#this way we are finding all instances of item_i
+				# #find all the item_i in probe 2 and put it in probe 1
+				# #this way we are finding all instances of item_i
   		  tmp2 <- data[data[[item2Col]]==j, ]
   		  tmp2[[dirOverlapCol]] <- -1*tmp2[[dirOverlapCol]]
-  		  tmp2$chose <- ifelse(tmp2[[yesNoCol]]==yesNoVal[2], 1, 0)
-  		  tmp2$probe2 <- tmp2[[item1Col]]
-  		  tmp2$probe1 <- tmp2[[item2Col]]
+				tmp2$ItemTmp <- tmp2[[item2Col]]
+  		  tmp2[[item2Col]] <- tmp2[[item1Col]]
+  		  tmp2[[item1Col]] <- tmp2$ItemTmp
+				tmp2$ItemTmp <- NULL
 				tmp2$probeOrder <- "reversed"
+				tmp2$chose <- ifelse(tmp2[[yesNoCol]]==yesNoVal[2], 1, 0)
 
   		  temp.merge <-rbind(tmp1,tmp2)
 				#even though there are duplicates in temp.merge (reverse order duplicates), they do not affect the following call because
 				#we are calculating means by probe1 first, so the duplicates are necessary to get all the data recorded.
 
-				table.hold <- as.data.frame(temp.merge %>% group_by_(overlapRoundCol, "probe1", "probe2") %>% summarise (N = length(chose), pctChosen=mean(chose), value.spVp= mean(eval(parse(text=dirOverlapCol))) ) )
-
+				table.hold <- as.data.frame(temp.merge %>% dplyr::group_by_(overlapRoundCol, item1Col, item2Col) %>% dplyr::summarise(N = length(chose), pctChosen=mean(chose), mDirOverlap= mean(eval(parse(text=dirOverlapCol))) ) )
   		  table.hold <-droplevels(table.hold)
 
-  			levels(table.hold$probe2)[which(levels(table.hold$probe2)=="an adult with a deadly contagious disease")] <- "an adult w/ DCD*"
+  			levels(table.hold[[item2Col]])[which(levels(table.hold[[item2Col]])=="an adult with a deadly contagious disease")] <- "an adult w/ DCD*"
 
 				itemOutData <- ch.rbind(itemOutData, temp.merge)
 
   		 	par(mfrow=c(2,1), omi=c(1,.25,.25,.25))
-  		  stripchart(table.hold$pctChosen ~ reorder(table.hold$probe2, table.hold$value.spVp), vertical= T, las=2, pch=16, main= paste0("Probability of Choosing ",ch.capwords(j) , " by Probe"), ylab= paste0("p(", j, ")"), ylim=c(0,1))
-  		  stripchart(table.hold$N ~ reorder(table.hold$probe2, table.hold$value.spVp), vertical= T, las=2, pch=16, ylab="Number of Trials")
+  		  stripchart(table.hold$pctChosen ~ reorder(table.hold[[item2Col]], table.hold$mDirOverlap), vertical= T, las=2, pch=16, main= paste0("Probability of Choosing ",ch.capwords(j) , " by Probe"), ylab= paste0("p(", j, ")"), ylim=c(0,1))
+  		  stripchart(table.hold$N ~ reorder(table.hold[[item2Col]], table.hold$mDirOverlap), vertical= T, las=2, pch=16, ylab="Number of Trials")
 
 				if (saveFigures) {
   		 		dev.copy(pdf, file.path(itemDir,paste0(params$dt.set, "Choosing ", ch.capwords(j),".pdf")), width=12, height=9)

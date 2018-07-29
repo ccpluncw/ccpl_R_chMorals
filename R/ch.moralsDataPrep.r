@@ -13,20 +13,12 @@
 #' @keywords morals data prep
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
 #' @export
+#' @import chutils
 #' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", yesNoVal = c("Yes", "No"), params=parameters)
 
 ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, yesNoCol, yesNoVal = c("Yes", "No"), params) {
 
-######_____PACKAGES NEEDED FOR CODE______######
-	library(dplyr)
-	library(rowr)
-	library(chutils)
-  library(chMorals)
-
 	mainDir <- getwd()
-
-
-# DATA PREPERATION
 
 	######_____	READ IN  RAW DATA and FILES WITH OVERLAP VALUES AND PROBE INFORMATION_____######
 
@@ -46,7 +38,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 
 	######_____CALCULATE MEAN AND STANDARD DEVIATION OF RT BY SUBJECT_____######
 
-		sub.avgRT <- as.data.frame(data %>% group_by_(snCol) %>% summarise (avgRT = mean(eval(parse(text=RTcol))),sdRT=sd(eval(parse(text=RTcol)))))
+		sub.avgRT <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(avgRT = mean(eval(parse(text=RTcol))),sdRT=sd(eval(parse(text=RTcol)))))
 
 	######_____MERGE MORALS DATA WITH OVERLAP DATA_____######
 	## to do that, we get all possible permutations of the items presented in the experiment
@@ -67,7 +59,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 
 		xTot1 <- NULL
 		for (i in 1:nrow(xColPermA)) {
-			xTmp <- cbind.fill(t(xColPermA[i,]), xColPermB)
+			xTmp <- rowr::cbind.fill(t(xColPermA[i,]), xColPermB)
 			xTot1 <- ch.rbind(xTot1, xTmp)
 		}
 

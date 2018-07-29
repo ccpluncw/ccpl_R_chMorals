@@ -4,8 +4,9 @@
 \alias{ch.moralsRTpHitFit}
 \title{A function to fit the RT and pHit function to morals data}
 \usage{
-ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol, printR2 = F,
-  filename = NULL, cex1 = 1.5, ...)
+ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
+  correctVals = c(TRUE, FALSE), printR2 = F, filename = NULL,
+  cex1 = 1.5, ...)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -13,6 +14,8 @@ ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol, printR2 = F,
 \item{overlapRoundCol}{a string that specifies the name of the column in "data" that contains the overlap column.}
 
 \item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
+
+\item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
 
 \item{printR2}{a boolean that specifies whether to print the R2 on the graphs.}
 
@@ -27,7 +30,7 @@ a list containing: RTfit = lm object with the fit of the RT data; pHitFit = the 
 This function attempts to fit a non-linear, decelerating function to the pHit data; a linear function to the RT data;  plots the  functions on a single graph; and returns a list with the fit statistics.
 }
 \examples{
-ch.moralsRTpHitFit (data=moralsData,"overlapRound", "resdRT", "predict", filename = "plot.pdf")
+ch.moralsRTpHitFit (data=moralsData,"overlapRound", "resdRT", "correct", c("yes", "no"), filename = "plot.pdf")
 }
 \keyword{RT}
 \keyword{fit}

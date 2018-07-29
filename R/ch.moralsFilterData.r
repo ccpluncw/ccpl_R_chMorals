@@ -7,18 +7,14 @@
 #' @param overlapRoundCol a string that specifies the name of the column in "data" that contains the rounded overlaps for the item in each trial. Column occured in ch.moralsDataPrep().
 #' @param aveRTcol a string that specifies the name of the column in "data" that contains the average RT by subject. Column created in ch.moralsDataPrep().
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
+#' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data filter
 #' @return a dataframe of filtered data.  It also writes the data to "analysisReadyData.txt," which will be used by other functions.
 #' @export
 #' @examples ch.moralsFilterData (data=moralsData, "sn", "RT", "overlapRound", "aveRT", "avePred", params=parameters)
 
-ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol, params) {
-
-	library(dplyr)
-	library(dplyr)
-	library(chutils)
-	library(chMorals)
+ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol, correctVals = c(TRUE, FALSE), params) {
 
 				#create new directories
 				mainDir <- getwd()
@@ -28,6 +24,8 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				setwd(mainDir)
 				statsOutputFile <- file.path(mainDir,paste(params$dt.set, params$statsOutputFilePrefix))
 
+				#ensure correct/incorrect is coded as 1/0
+				data$correct01 <- ifelse (data[[correctCol]]==correctVals[1], 1, 0)
 
 				total.rawsubs <-length(levels(factor(data[[snCol]])))
 
@@ -38,13 +36,13 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				sn.removed.RT.sum <- outList$datRemoved
 
 				#calculate the num of subject whose prediction is below the chance //
-				outList <- ch.filterGrpBtwn(data, correctCol, snCol, lowThresh = params$chanceThreshold, FUN=mean)
+				outList <- ch.filterGrpBtwn(data, "correct01", snCol, lowThresh = params$chanceThreshold, FUN=mean)
 				data <- outList$datKeptRaw
 				numSb.belowchance <- outList$numRemoved
 				sn.removed.belowchance	<- outList$datRemoved
 				final.numSbj <- length(unique(data[[snCol]]))
 
-				substats <- as.data.frame(data %>% group_by_(snCol) %>% summarise (mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(eval(parse(text=correctCol))) ) )
+				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01) ) )
 
 				mean.avePred <-mean(substats$avePred)
 
@@ -53,7 +51,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				outList <- ch.filterGrpBtwn(data, RTcol, overlapRoundCol, lowThresh = params$minOverlapN, FUN=length)
 				data <- outList$datKeptRaw
 				overlapsToRemove <- outList$datRemoved
-				overlapStats <- as.data.frame(data %>% group_by_(overlapRoundCol) %>% summarise (mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(eval(parse(text=correctCol))), N = length(eval(parse(text=RTcol)))))
+				overlapStats <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(eval(parse(text=RTcol)))))
 
 				sink(statsOutputFile, append = F)
 					cat("\nMinimum Overlap N:")

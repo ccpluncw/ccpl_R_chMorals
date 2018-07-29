@@ -5,7 +5,7 @@
 \title{A function to filter the morals data for analysis}
 \usage{
 ch.moralsFilterData(data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol,
-  params)
+  correctVals = c(TRUE, FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -19,6 +19,8 @@ ch.moralsFilterData(data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol,
 \item{aveRTcol}{a string that specifies the name of the column in "data" that contains the average RT by subject. Column created in ch.moralsDataPrep().}
 
 \item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
+
+\item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }

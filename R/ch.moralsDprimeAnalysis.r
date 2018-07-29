@@ -11,12 +11,11 @@
 #' @param addCorrection a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data analysis dPrime d prime
-#' @return .
+#' @return a dataframe with the dPrime tatistics.
 #' @export
 #' @examples ch.moralsDprimeAnalysis (data=moralsData,"overlapRound", "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params = params)
 
 ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, resCol, addCorrection = TRUE, params, printR2 = TRUE, filenameID = NULL) {
-		library(chutils)
 
 		#create new directories
 		mainDir <- getwd()
@@ -32,20 +31,19 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 		df.dPrime <- ch.calculateDprimeStats(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, addCorrection = TRUE)
 
 		#plot d prime and beta by overlap round
-		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
-		DprimeFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$dPrime, cex1 = 1.5, printR2 = printR2, yLabel  = "d'")
-		betaFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$beta, cex1 = 1.5, printR2 = printR2, yLabel  = 'beta')
+
+		filename <- NULL
 		if (!is.null(filenameID)) {
-				filename <- file.path(gpDir,paste(params$dt.set, filenameID, "d prime.pdf"))
-				dev.copy(pdf, filename, width=6, height=9)
-				dev.off();
+			filename <- file.path(gpDir,paste(params$dt.set, filenameID, "d prime.pdf"))
 		}
+		dp.outList <- ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = printR2, filename = filename)
 
 		#get RT summarized by overlap for plot
 		df.sum <- ch.summariseBy(data, overlapRoundCol, resCol, "aveRT", mean)
 		df.dPrime <- merge (df.dPrime, df.sum)
 
 		#plot d prime and beta by RT
+		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.25, las=1)
 		DprimeRTFit <- ch.plot.lm(df.dPrime$aveRT, df.dPrime$dPrime, cex1 = 1.5, printR2 = printR2, yLabel  = "d'")
 		betaRTFit <- ch.plot.lm(df.dPrime$aveRT, df.dPrime$beta, cex1 = 1.5, printR2 = printR2, yLabel  = 'beta')
 
@@ -65,9 +63,9 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 			cat("\n\n**** Summary d primes ****\n\n")
 			print(df.dPrime)
 			cat("\n\n**** D Prime by Overlap lm fit ****\n\n")
-			print(summary(DprimeFit))
+			print(summary(dp.outList$dPrimeFit))
 			cat("\n\n**** Beta by Overlap lm fit ****\n\n")
-			print(summary(betaFit))
+			print(summary(dp.outList$betaFit))
 			cat("\n\n**** D Prime by RT lm fit ****\n\n")
 			print(summary(DprimeRTFit))
 			cat("\n\n**** Beta by RT lm fit ****\n\n")

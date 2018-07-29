@@ -11,6 +11,7 @@
 #' @param yesNoCol a string the specifies the column name in "data" that contains the variable with the participant's yes/no response.
 #' @param yesNoVal a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2). e.g, c("yes", "no")
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
+#' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data analysis by subject
 #' @return dataframe with the learning function fit and residuals
@@ -18,9 +19,7 @@
 #' @examples ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 
-ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, params) {
-	library(chutils)
-	library(chMorals)
+ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), params) {
 
     #create new directories
     mainDir <- getwd()
@@ -59,7 +58,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 		### fit RT and pHit data for All data with Sn resids
 		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
 		plotFilename = file.path(snDir,paste(params$dt.set, "snAll rt p(Hit).pdf"))
-		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, filename = plotFilename)
+		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, filename = plotFilename)
 
 		sink(statsOutputFile, append = T)
 			cat("\n\n********************************** Analysis By SN  **********************************\n\n")
@@ -80,7 +79,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
     rowNum <- 1
     for (j in subs)  {
 			tmp <- subData[subData[[snCol]]==j,]
-			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, plotTitle = paste("sn", j), printR2 = T, cex1=1)
+			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, correctVals, plotTitle = paste("sn", j), printR2 = T, cex1=1)
 
 	    if(rowNum %% params$numPlotRows == 0) {
 				plotFilename <- file.path(snDir,paste(params$dt.set, "sn", j, "rt p(Hit).pdf"))

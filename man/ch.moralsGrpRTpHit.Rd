@@ -5,7 +5,8 @@
 \title{A function to analyze the group Morals data}
 \usage{
 ch.moralsGrpRTpHit(data, trialCol, RTCol, fitCol, resCol, overlapRoundCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol, params)
+  yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE,
+  FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -24,6 +25,8 @@ ch.moralsGrpRTpHit(data, trialCol, RTCol, fitCol, resCol, overlapRoundCol,
 
 \item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
 
+\item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
+
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 
 \item{RTcol}{a string that specifies the name of the column in "data" that contains the RT for each trial.}
@@ -35,7 +38,7 @@ dataframe with the learning function fit and residuals
 This function analyzes the group  morals data.
 }
 \examples{
-ch.moralsGrpRTpHit (data=moralsData,"trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
+ch.moralsGrpRTpHit (data=moralsData,"trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", c("yes", "no"), params=parameters)
 }
 \keyword{analysis}
 \keyword{data}

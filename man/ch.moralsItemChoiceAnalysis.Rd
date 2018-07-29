@@ -36,7 +36,7 @@ the dataset used to create the graphs.  Because this dataset doubles the actual 
 This function graphs the response choice pattern per item in the morals experiment.
 }
 \examples{
-ch.moralsItemChoiceAnalysis (analysisReadyData.gp, "Item1", "Item2", "dirOverlap","keyDef", yesNoVal = c("Yes", "No"), params, printFigures = T)
+ch.moralsItemChoiceAnalysis (analysisReadyData.gp, "Item1", "Item2", "overlapRound", "dirOverlap","keyDef", yesNoVal = c("Yes", "No"), params, printFigures = T)
 }
 \keyword{analysis}
 \keyword{choice}

@@ -13,7 +13,6 @@
 #' @examples ch.moralsRmLearningEffect (data=moralsData,"trial", "RT", "fitRT", "resRT")
 
 ch.moralsRmLearningEffect <- function (data, x, y, fitCol, resCol, ...) {
-	library(chutils)
 
 		fit.nls <- ch.getLearningEffect(data, x,y, a = 2000, b = -1, c = 100)
 
