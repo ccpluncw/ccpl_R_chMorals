@@ -5,8 +5,8 @@
 \title{A function to fit the RT and pHit function to morals data}
 \usage{
 ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
-  correctVals = c(TRUE, FALSE), printR2 = F, filename = NULL,
-  cex1 = 1.5, ...)
+  correctVals = c(TRUE, FALSE), cex1 = 1.5, cex.topTile = 1.25,
+  printR2 = F, topTitle = NULL, filename = NULL, ...)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -17,7 +17,13 @@ ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
 
-\item{printR2}{a boolean that specifies whether to print the R2 on the graphs.}
+\item{cex1}{sets the default font size. DEFAULT = 1.25.}
+
+\item{cex.topTile}{sets the default font size of the title at the top of the page. DEFAULT = 1.25.}
+
+\item{printR2}{a boolean that determines whether to print the r square on the graph. DEFAULT = FALSE.}
+
+\item{topTitle}{a string that will be the title at the top of the page. DEFAULT = NULL.}
 
 \item{filename}{the filename (pdf) to save the output of the graph. DEFAULT = NULL (no graph saved)}
 

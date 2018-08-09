@@ -5,7 +5,7 @@
 \title{A function to graph the response choice pattern per item in the morals experiment}
 \usage{
 ch.moralsItemChoiceAnalysis(data, item1Col, item2Col, overlapRoundCol,
-  dirOverlapCol, yesNoCol, yesNoVal = c("Yes", "No"), params,
+  dirOverlapCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), params,
   saveFigures = T)
 }
 \arguments{
@@ -19,9 +19,9 @@ ch.moralsItemChoiceAnalysis(data, item1Col, item2Col, overlapRoundCol,
 
 \item{dirOverlapCol}{a string that specifies the name of the column in "data" that contains the directional Overlap for the item in each trial.}
 
-\item{yesNoCol}{a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.}
+\item{respChoiceCol}{a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.}
 
-\item{yesNoVal}{a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2).}
+\item{respChoiceVal}{a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants) value (index 2).}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 
@@ -36,7 +36,7 @@ the dataset used to create the graphs.  Because this dataset doubles the actual 
 This function graphs the response choice pattern per item in the morals experiment.
 }
 \examples{
-ch.moralsItemChoiceAnalysis (analysisReadyData.gp, "Item1", "Item2", "overlapRound", "dirOverlap","keyDef", yesNoVal = c("Yes", "No"), params, printFigures = T)
+ch.moralsItemChoiceAnalysis (analysisReadyData.gp, "Item1", "Item2", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Yes", "No"), params, printFigures = T)
 }
 \keyword{analysis}
 \keyword{choice}

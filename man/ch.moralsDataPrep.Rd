@@ -5,7 +5,7 @@
 \title{A function to prepare the morals data for analysis}
 \usage{
 ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), params)
+  respChoiceCol, respChoiceVal = c("Item1", "Item2"), params)
 }
 \arguments{
 \item{data}{morals dataframe.}
@@ -20,9 +20,9 @@ ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
 
 \item{trialCol}{a string that specifies the name of the column in "data" that contains the trial number.}
 
-\item{yesNoCol}{a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.}
+\item{respChoiceCol}{a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.}
 
-\item{yesNoVal}{a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2).}
+\item{respChoiceVal}{a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants, thus saving Item1) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants, thus saving Item2) value (index 2).}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }
@@ -33,7 +33,7 @@ a dataframe of prepared data.  It also writes the data to prepDataOutFile (speci
 This function prepares the morals data for analysis by creating overlapRound, correct, and a few other columns.  It also makes sure the trials starts at 1, and computes average p(hit) and RT for each subject.
 }
 \examples{
-ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", yesNoVal = c("Yes", "No"), params=parameters)
+ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"), params=parameters)
 }
 \keyword{data}
 \keyword{morals}

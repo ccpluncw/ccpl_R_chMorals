@@ -27,8 +27,6 @@ ch.getMoralsItemsInOverlap <- function(data, overlapCol, itemCols, overlap) {
 #' @examples ch.getItemsInAllOverlaps (df, "overlapRound", c("Item1", "Item2"))
 
 ch.getMoralsItemsInAllOverlaps <- function(data, overlapCol, itemCols) {
-  library(chutils)
-
     data1 <- unique(data[,c(itemCols,overlapCol)])
     data2 <- data1[!duplicated(t(apply(data1, 1, sort))),]
     data2 <- data2[order(data2[[overlapCol]]),]

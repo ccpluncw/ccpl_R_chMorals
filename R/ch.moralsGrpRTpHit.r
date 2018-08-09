@@ -56,7 +56,6 @@ ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRo
 			cat("\n\n**** p(No) ****\n\n")
 			print(summary(fitno))
 		sink(NULL)
-		par(op)
 
 		### fit RT and pHit data
 		plotFilename <- file.path(gpDir,paste(params$dt.set,"gp rt p(Hit).pdf"))

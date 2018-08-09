@@ -5,8 +5,7 @@
 \title{A function to analyze the Morals data by subject}
 \usage{
 ch.moralsSnRTpHit(data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE,
-  FALSE), params)
+  correctCol, correctVals = c(TRUE, FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -20,12 +19,6 @@ ch.moralsSnRTpHit(data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol,
 \item{resCol}{a string that specifies the name of the new column that will contain the residual datapoints.}
 
 \item{overlapCol}{a string that specifies the name of the column in "data" that contains the overlap column.}
-
-\item{yesNoCol}{a string the specifies the column name in "data" that contains the variable with the participant's yes/no response.}
-
-\item{yesNoVal}{a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2). e.g, c("yes", "no")}
-
-\item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
 

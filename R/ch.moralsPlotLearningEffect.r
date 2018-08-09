@@ -9,7 +9,7 @@
 #' @param yLabel a string that specifies the yLabel for the graphs
 #' @param filenameID a string that will be added to the file names and titles that makes them unique if you run this call several times.
 #' @keywords morals learning plots
-#' @return
+#' @return .
 #' @export
 #' @examples ch.moralsPlotLearningEffects (data=moralsData,"trial", "RT", "fitRT", "resRT", RTlabel)
 

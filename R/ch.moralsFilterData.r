@@ -28,13 +28,11 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				data$correct01 <- ifelse (data[[correctCol]]==correctVals[1], 1, 0)
 
 				total.rawsubs <-length(levels(factor(data[[snCol]])))
-
 				#remove subs with average RT outside of thresholds
 				outList <- ch.filterGrpBtwn(data, RTcol, snCol, params$lowAveThresholdRT, params$highAveThresholdRT, FUN=mean)
 				data <- outList$datKeptRaw
 				numSn.Removed.aveRT <- outList$numRemoved
 				sn.removed.RT.sum <- outList$datRemoved
-
 				#calculate the num of subject whose prediction is below the chance //
 				outList <- ch.filterGrpBtwn(data, "correct01", snCol, lowThresh = params$chanceThreshold, FUN=mean)
 				data <- outList$datKeptRaw
@@ -45,7 +43,6 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01) ) )
 
 				mean.avePred <-mean(substats$avePred)
-
 
 				#remove overlapRound whose trials are fewer than the minimum
 				outList <- ch.filterGrpBtwn(data, RTcol, overlapRoundCol, lowThresh = params$minOverlapN, FUN=length)

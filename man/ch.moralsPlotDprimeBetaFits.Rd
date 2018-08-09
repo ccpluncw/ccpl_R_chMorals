@@ -5,8 +5,9 @@
 \title{A function to plot the dPrime and Beta by OverlapRound for the Morals data.}
 \usage{
 ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals,
-  targetPresentCol, targetPresentVals, addCorrection = TRUE,
-  filename = NULL, cex1 = 1.25, printR2 = T)
+  targetPresentCol, targetPresentVals, addCorrection = TRUE, cex1 = 1.25,
+  cex.topTile = 1.25, printR2 = T, topTitle = NULL, filename = NULL,
+  ...)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -22,6 +23,16 @@ ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals,
 \item{targetPresentVals}{a vector of two values that specifies the "target present" value (index 1) and the "target absent" value (index 2). e.g, c("yes", "no")}
 
 \item{addCorrection}{a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.}
+
+\item{cex1}{sets the default font size. DEFAULT = 1.25.}
+
+\item{cex.topTile}{sets the default font size of the title at the top of the page. DEFAULT = 1.25.}
+
+\item{printR2}{a boolean that determines whether to print the r square on the graph. DEFAULT = FALSE.}
+
+\item{topTitle}{a string that will be the title at the top of the page. DEFAULT = NULL.}
+
+\item{filename}{the filename (pdf) to save the output of the graph. DEFAULT = NULL (no graph saved)}
 }
 \value{
 a list containing the lm fit for the dPrime by OverlapRound (dPrimeFit) and the lm fit for the beta by OverlapRound (betaFit).

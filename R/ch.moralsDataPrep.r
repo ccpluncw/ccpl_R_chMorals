@@ -7,17 +7,17 @@
 #' @param overlapCol a string that specifies the name of the column in "data" that contains the overlaps for the item in each trial.
 #' @param directionCol a string that specifies the name of the column in "data" that contains the direction of the overlap for each trial.
 #' @param trialCol a string that specifies the name of the column in "data" that contains the trial number.
-#' @param yesNoCol a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.
-#' @param yesNoVal a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2).
+#' @param respChoiceCol a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.
+#' @param respChoiceVal a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants, thus saving Item1) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants, thus saving Item2) value (index 2).
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data prep
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
 #' @export
 #' @import chutils
 #' @importFrom dplyr %>%
-#' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", yesNoVal = c("Yes", "No"), params=parameters)
+#' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"), params=parameters)
 
-ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, yesNoCol, yesNoVal = c("Yes", "No"), params) {
+ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), params) {
 
 	mainDir <- getwd()
 
@@ -30,7 +30,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 	data <- ch.removeBadSNs(data, snCol, params$removeBadSNFile)
 
 	#### only keep data in which the participant responds yes or no. Get rid of bad button presses
-		data <- data[data[[yesNoCol]]==yesNoVal[1] | data[[yesNoCol]]==yesNoVal[2], ]
+		data <- data[data[[respChoiceCol]]==respChoiceVal[1] | data[[respChoiceCol]]==respChoiceVal[2], ]
 
 		#add 1 to trials if they start at 0
 		if (min(data[[trialCol]])==0) {
@@ -96,7 +96,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 					dt.merged.a$overlapRound <- ch.round_any(dt.merged.a[[overlapCol]], params$roundThreshold, params$roundDirection)
 					#create the Correct Response column. This is necessary to calculate "percentHit", "freq.pred"
 					#Here, correct == 1 indicates the person chose the item with the highest value
-					dt.merged.a$correct <- ifelse(dt.merged.a$direct.xVy==-1 & dt.merged.a[[yesNoCol]]==yesNoVal[2], 1, ifelse(dt.merged.a$direct.xVy==1 & dt.merged.a[[yesNoCol]]==yesNoVal[1], 1, 0))
+					dt.merged.a$correct <- ifelse(dt.merged.a$direct.xVy==-1 & dt.merged.a[[respChoiceCol]]==respChoiceVal[2], 1, ifelse(dt.merged.a$direct.xVy==1 & dt.merged.a[[respChoiceCol]]==respChoiceVal[1], 1, 0))
 					#merge it all into a big dataset and remove some extraneous columns
 					dt.merged.d <- ch.rbind(dt.merged.d, dt.merged.a)
 			}

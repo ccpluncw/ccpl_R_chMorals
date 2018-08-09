@@ -22,6 +22,9 @@ ch.moralsPlotLearningEffect(data, trialCol, RTCol, fitCol, resCol, yLabel,
 
 \item{RTcol}{a string that specifies the name of the column in "data" that contains the RT for each trial.}
 }
+\value{
+.
+}
 \description{
 This function plots the learning function.
 }

@@ -28,7 +28,6 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
 		setwd(mainDir)
 
     statsOutputFile <- file.path(mainDir,paste(params$dt.set, params$statsOutputFilePrefix))
-    data$NoResp <- ifelse(data[[yesNoCol]]==yesNoVal[2],1,0)
 
     for (i in grpCols) {
       #force each grouping variable to a character type
@@ -44,6 +43,7 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
     grpOutModels <- list()
     ### plot individually
     op <-	par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(5,6,4,7), las=1, cex=1)
+
     #for every group subset, plot p(no), p(hit), and RT for each condition on separate graphs
     for (i in 1:nrow(dfIndex)) {
       colNames <- paste(grpCols, collapse="-")
@@ -51,10 +51,12 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
 
       tmpDF <- list.DFbyGroups[[dfIndex$indexNum[i]]]
 
+      title <- paste(colNames,"=",colValues)
+
       if(savePlots) {
-        filenamePno <-file.path(gpDir,paste(params$dt.set,colNames,"=",colValues,"p(no).pdf"))
-        filenameRT <-file.path(gpDir,paste(params$dt.set,colNames,"=",colValues,"p(hit) and RT.pdf"))
-        filenameDP <- file.path(gpDir,paste(params$dt.set, colNames,"=",colValues, "d prime.pdf"))
+        filenamePno <-file.path(gpDir,paste(params$dt.set,title,"p(no).pdf"))
+        filenameRT <-file.path(gpDir,paste(params$dt.set,title,"p(hit) and RT.pdf"))
+        filenameDP <- file.path(gpDir,paste(params$dt.set, title, "d prime.pdf"))
       } else {
         filenamePno <- NULL
         filenameRT <- NULL
@@ -62,16 +64,16 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
       }
 
       #plot p(No) by overlap round
-      probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, plotFilename = filenamePno)
+      probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, plotFilename = filenamePno, plotTitle = title)
       pNoModel <- ch.getLmModel(probNoFit, yLab="p(No)")
 
       #plot RT and p(Hit) by overlap round
-      rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, printR2 = T, filename = filenameRT)
+      rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, printR2 = T, filename = filenameRT, topTitle = title)
       RTModel <- ch.getLmModel(rt.outList$RTfit, yLab="RT")
       pHitModel <- ch.getPhitModel(rt.outList$pHitFit)
 
   		#plot d prime and beta by overlap round
-      dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = T, filename = filenameDP)
+      dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = T, filename = filenameDP, topTitle = title)
       dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
       betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
 
@@ -81,6 +83,7 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
       grpOutModels$pHitModel[i] <- list(pHitModel)
       grpOutModels$dPrimeModel[i] <- list(dPrimeModel)
       grpOutModels$betaModel[i] <- list(betaModel)
+      grpOutModels$pNoModel[i] <- list(pNoModel)
 
       #output stats
 			sink(statsOutputFile, append=T)

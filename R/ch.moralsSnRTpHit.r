@@ -8,9 +8,6 @@
 #' @param fitCol a string that specifies the name of the new column that will contain the predicted datapoints.
 #' @param resCol a string that specifies the name of the new column that will contain the residual datapoints.
 #' @param overlapCol a string that specifies the name of the column in "data" that contains the overlap column.
-#' @param yesNoCol a string the specifies the column name in "data" that contains the variable with the participant's yes/no response.
-#' @param yesNoVal a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2). e.g, c("yes", "no")
-#' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data analysis by subject
@@ -19,7 +16,7 @@
 #' @examples ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 
-ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), params) {
+ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, correctCol, correctVals = c(TRUE, FALSE), params) {
 
     #create new directories
     mainDir <- getwd()
@@ -49,14 +46,23 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 					outList <- ch.moralsRmLearningEffect(data[data[[snCol]] == j,], trialCol,RTCol, fitCol, resCol)
 					subData <- ch.rbind (subData, outList$data)
 				}
+
+        op1 <-	par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(5,6,4,7), las=1, cex=1)
+  			setwd(snDir)
+  			ReactionTimeLabel <- ch.getMoralsRTaxisName(params$keybRTtransform, params$RTresid)
+  			ch.moralsPlotLearningEffect(subData, trialCol, RTCol, fitCol, resCol, yLabel = ReactionTimeLabel, filenameID = paste(params$dt.set,"snAll"), cex1 = 1)
+  			setwd(mainDir)
+        par(op1)
+
 			} else {
-				data[[resCol]] <- data[[RTCol]]
-				data[[fitCol]] <- 0.0
+        subData <- data
+				subData[[resCol]] <- data[[RTCol]]
+				subData[[fitCol]] <- 0.0
 			}
 		}
 
 		### fit RT and pHit data for All data with Sn resids
-		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
+		op2 <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
 		plotFilename = file.path(snDir,paste(params$dt.set, "snAll rt p(Hit).pdf"))
 		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, filename = plotFilename)
 
@@ -71,10 +77,10 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 			print(summary(outList$pHitFit))
 			cat("r_square: ",outList$pHitR2)
 		sink(NULL)
-		par(op)
+		par(op2)
 
 		### fit RT and pHit data for individual Subjects
-		op <- par(mfrow=c(params$numPlotRows,2),bty="n", font=1, family='serif', mar=c(5,6,4,2), cex=1, las=1)
+		op3 <- par(mfrow=c(params$numPlotRows,2),bty="n", font=1, family='serif', mar=c(5,6,4,2), cex=1, las=1)
 		subOutData <- NULL
     rowNum <- 1
     for (j in subs)  {
@@ -110,15 +116,14 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
     dev.off();
 
     write.table(subOutData, file="snOutParams.txt", quote=F, sep="\t", row.names=F)
-
     sink(statsOutputFile, append = T)
 	    cat("\n\n********************************** Parameter Stats **********************************\n\n")
 			cat("\n\n**** Summary Sn Fits ****\n\n")
-	    print(summary(subOutData))
+	    print(summary(subOutData[2:length(subOutData)]))
 			cat("\n\n**** Mean Sn Fits ****\n\n")
-	    print(apply(subOutData, 2, mean))
+	    print(colMeans(subOutData[2:length(subOutData)]))
 			cat("\n\n**** SD Sn Fits ****\n\n")
-	    print(apply(subOutData, 2, sd))
+	    print(apply(subOutData[2:length(subOutData)], 2, sd))
 			cat("\n\n**** T-test Subjects' RT Intercept == 0 ****\n\n")
 	    print(t.test(subOutData$rtInt, mu=0))
 			cat("\n\n**** T-test Subjects' RT Slope == 0 ****\n\n")
@@ -136,6 +141,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 		xAll <- with(subData, tapply(overlapRoundSN, overlapRoundSN, mean))
 		ch.moralsPlotSnRTpHitFits(subOutData, "sn", "rtSlo", "rtInt", "rtR2", "phB", "phR2", xAll, filename)
 
+    par(op)
 		#return a dataframe with the residuals based on fitting individual subjects learning functions
 		return(subData)
 }
