@@ -38,7 +38,7 @@ ch.moralsQuantAnalyis <- function (data, probe1Col, probe2Col, quantValueCuts, r
 
   #plot and get fits for p(Hit)quant = quantityDifference
   filename = file.path(itemDir,paste(params$dt.set,"all pHitQ by Qdiff.pdf",sep=""))
-  outList <- ch.plotTwoLinearFits(data.1, "qDiff", "res.RT", "pHitQ", y1Label = ReactionTime, y2Label = ReactionTime, xlab="Quantity Difference", filename=filename)
+  outList <- ch.plotTwoLinearFits(data.1, "qDiff", "res.RT", "pHitQ", y1Label = ReactionTime, y2Label = "p(Hit)u", xlab="Quantity Difference", minN = params$minOverlapN, ylimMax2 = 1, filename=filename)
   #plot and get fits for p(Hit)quant = a function of (overlap)
   filename = file.path(itemDir,paste(params$dt.set,"Overlap Model predicts pHitQ.pdf",sep=""))
   OtoPmodel.fit <- ch.moralsModelOvrlpPredPhitQ(data.1, "OvrlpQuantConsistent", "qDiff", overlapRoundCol, "pHitQ", minN = params$minOverlapN, filename=filename)
