@@ -4,8 +4,8 @@
 \alias{ch.moralsPlotSnRTpHitFits}
 \title{A function to plot the subject fits}
 \usage{
-ch.moralsPlotSnRTpHitFits(snSummaryArray, snCol, rtSloCol, rtIntCol, rtR2Col,
-  phBCol, phR2Col, xAll, filename = NULL)
+ch.moralsPlotSnRTpHitFits(snSummaryArray, snCol, rtSloCol, rtIntCol,
+  rtR2Col, phBCol, phR2Col, xAll, filename = NULL)
 }
 \arguments{
 \item{snSummaryArray}{a dataframe containing the morals fit coeficients and r square for RT and p(Hit) for each subject.}

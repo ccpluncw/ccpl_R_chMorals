@@ -4,8 +4,8 @@
 \alias{ch.moralsFilterData}
 \title{A function to filter the morals data for analysis}
 \usage{
-ch.moralsFilterData(data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol,
-  correctVals = c(TRUE, FALSE), params)
+ch.moralsFilterData(data, snCol, RTcol, overlapRoundCol, aveRTcol,
+  correctCol, correctVals = c(TRUE, FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

@@ -10,7 +10,7 @@ ch.readMoralsDBfile(dbfile = "moralsDBfile.txt")
 \item{dbfile}{the filename of the dbfile.}
 }
 \value{
-a list with all the parameterd
+a list with all the parameters
 }
 \description{
 This function reads the dbfile for the morals analysis.  The dbfile contains key words and their values for the analysis.

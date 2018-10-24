@@ -5,8 +5,8 @@
 \title{A function to analyze the group Morals data}
 \usage{
 ch.moralsGrpRTpHit(data, trialCol, RTCol, fitCol, resCol, overlapRoundCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE,
-  FALSE), params)
+  yesNoCol, yesNoVal = c("Yes", "No"), correctCol,
+  correctVals = c(TRUE, FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

@@ -4,8 +4,8 @@
 \alias{ch.moralsAnalyzeLearningEffect}
 \title{A function to analyze learning effects}
 \usage{
-ch.moralsAnalyzeLearningEffect(data, trialCol, RTCol, fitCol, resCol, params,
-  filenameID = "gp")
+ch.moralsAnalyzeLearningEffect(data, trialCol, RTCol, fitCol, resCol,
+  params, filenameID = "gp")
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

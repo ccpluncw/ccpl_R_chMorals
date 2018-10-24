@@ -5,9 +5,9 @@
 \title{A function to analyze the Morals data by grouping variables}
 \usage{
 ch.moralsPlotsByGrpsAndGetModels(data, grpCols, RTCol, overlapRoundCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE,
-  FALSE), targetPresentCol, targetPresentVals, params, addCorrection = TRUE,
-  savePlots = T)
+  yesNoCol, yesNoVal = c("Yes", "No"), correctCol,
+  correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals,
+  params, addCorrection = TRUE, savePlots = T)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

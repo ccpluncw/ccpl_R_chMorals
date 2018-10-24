@@ -3,7 +3,7 @@
 #' This function reads the dbfile for the morals analysis.  The dbfile contains key words and their values for the analysis.
 #' @param dbfile the filename of the dbfile.
 #' @keywords morals dbfile read
-#' @return a list with all the parameterd
+#' @return a list with all the parameters
 #' @export
 #' @examples ch.readMoralsDBfile ("myDBfile.txt")
 

@@ -5,8 +5,8 @@
 \title{A function to calculate a dPrime analysis on the Morals data.}
 \usage{
 ch.moralsDprimeAnalysis(data, overlapRoundCol, correctCol, correctVals,
-  targetPresentCol, targetPresentVals, resCol, addCorrection = TRUE, params,
-  printR2 = TRUE, filenameID = NULL)
+  targetPresentCol, targetPresentVals, resCol, addCorrection = TRUE,
+  params, printR2 = TRUE, filenameID = NULL)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

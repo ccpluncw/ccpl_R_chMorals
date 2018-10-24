@@ -40,7 +40,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				sn.removed.belowchance	<- outList$datRemoved
 				final.numSbj <- length(unique(data[[snCol]]))
 
-				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01) ) )
+				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
 
 				mean.avePred <-mean(substats$avePred)
 
@@ -123,6 +123,8 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				cat("\n\t", mean.avePred)
 				cat("\n\nRT Mean and SD of Entire Dataset:\n")
 				print(dt.raw.table)
+				cat("\n\nMean and SD number of trials of Entire Dataset:\n")
+				cat("\n\t", mean(substats$N), "\t", sd(substats$N))
 				cat("\n\nProportion of Trials Removed because of Trial RT Thresholds:")
 				cat("\n\t",dt.Removed)
 				cat("\n\nSummary of Overlaps Removed because of Minimum N Overlap Threshold:\n")

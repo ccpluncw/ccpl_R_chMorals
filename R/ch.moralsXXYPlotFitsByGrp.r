@@ -17,6 +17,8 @@
 
 ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol, data, subsetCond = NULL, subsetString = NULL, addLegend = T, filenameID = NULL) {
 
+  op <-	par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(6,7,5,8), las=1)
+
   x <- unique(data[[xCol]])
   y <- rep(0, length(x))
   if(!is.null(subsetString)) {
@@ -118,4 +120,6 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
     }
 
   }
+  par(op)
+
 }
