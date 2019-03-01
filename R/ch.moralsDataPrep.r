@@ -9,6 +9,10 @@
 #' @param trialCol a string that specifies the name of the column in "data" that contains the trial number.
 #' @param respChoiceCol a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.
 #' @param respChoiceVal a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants, thus saving Item1) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants, thus saving Item2) value (index 2).
+#' @param item1cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.
+#' @param item2cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.
+#' @param overlapItem1cols a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 1.
+#' @param overlapItem2cols a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 2.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data prep
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
@@ -17,7 +21,7 @@
 #' @importFrom dplyr %>%
 #' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"), params=parameters)
 
-ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), params) {
+ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),params) {
 
 	mainDir <- getwd()
 
@@ -52,11 +56,13 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 		groupB <- seq(params$minGroupBnum, params$maxGroupBnum, 1)
 
 		#get all combinations that produce the same outcomes
-		xCol <- ch.stringSeq ("Item", groupA)
-		xColPermA <- matrix(xCol[ch.permute(length(groupA))], ncol=length(groupA))
+		# xCol <- ch.stringSeq ("Item", groupA)
+		# xColPermA <- matrix(xCol[ch.permute(length(groupA))], ncol=length(groupA))
+		# xCol <- ch.stringSeq ("Item", groupB)
+		# xColPermB <- matrix(xCol[ch.permute(length(groupB))], ncol=length(groupB))
+		xColPermA <- matrix(item1cols[ch.permute(length(item1cols))], ncol=length(item1cols))
+		xColPermB <- matrix(item2cols[ch.permute(length(item2cols))], ncol=length(item2cols))
 
-		xCol <- ch.stringSeq ("Item", groupB)
-		xColPermB <- matrix(xCol[ch.permute(length(groupB))], ncol=length(groupB))
 
 		xTot1 <- NULL
 		for (i in 1:nrow(xColPermA)) {
@@ -68,9 +74,10 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 		xTot2 <- xTot1[,ncol(xTot1):1]
 
 		#now get y vector: it only needs one order because all variations were in xTot1 and 2
-		yTot1 <- ch.stringSeq ("IA", seq(1,length(groupA),1))
-		yTot2 <- ch.stringSeq ("IB", seq(1,length(groupB),1))
-		yTot <- c(yTot1, yTot2)
+		# yTot1 <- ch.stringSeq ("IA", seq(1,length(groupA),1))
+		# yTot2 <- ch.stringSeq ("IB", seq(1,length(groupB),1))
+		# yTot <- c(yTot1, yTot2)
+		yTot <- c(overlapItem1cols, overlapItem2cols)
 
 		dt.merged.d <- NULL
 

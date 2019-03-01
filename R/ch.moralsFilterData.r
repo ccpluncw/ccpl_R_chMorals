@@ -8,13 +8,15 @@
 #' @param aveRTcol a string that specifies the name of the column in "data" that contains the average RT by subject. Column created in ch.moralsDataPrep().
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
+#' @param item1cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.
+#' @param item2cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data filter
 #' @return a dataframe of filtered data.  It also writes the data to "analysisReadyData.txt," which will be used by other functions.
 #' @export
 #' @examples ch.moralsFilterData (data=moralsData, "sn", "RT", "overlapRound", "aveRT", "avePred", params=parameters)
 
-ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol, correctVals = c(TRUE, FALSE), params) {
+ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, correctCol, correctVals = c(TRUE, FALSE), item1cols = c("Item1"), item2cols = c("Item2"), params) {
 
 				#create new directories
 				mainDir <- getwd()
@@ -73,7 +75,8 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				}
 
 				### output a list of items by overlap
-				itemCols <- ch.getMoralsItemColumnNames(params, colBaseName = "Item")
+				#itemCols <- ch.getMoralsItemColumnNames(params, colBaseName = "Item")
+				itemCols <- c(item1cols, item2cols)
 				outList <- ch.getMoralsItemsInAllOverlaps(data, overlapRoundCol, itemCols)
 				overlapSummaryOutFile <- file.path(mainDir,"Probes in OverlapRound.txt")
 				sink(overlapSummaryOutFile, append = F)

@@ -5,7 +5,9 @@
 \title{A function to prepare the morals data for analysis}
 \usage{
 ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
-  respChoiceCol, respChoiceVal = c("Item1", "Item2"), params)
+  respChoiceCol, respChoiceVal = c("Item1", "Item2"),
+  item1cols = c("Item1"), item2cols = c("Item2"),
+  overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"), params)
 }
 \arguments{
 \item{data}{morals dataframe.}
@@ -23,6 +25,14 @@ ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
 \item{respChoiceCol}{a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.}
 
 \item{respChoiceVal}{a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants, thus saving Item1) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants, thus saving Item2) value (index 2).}
+
+\item{item1cols}{a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.}
+
+\item{item2cols}{a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.}
+
+\item{overlapItem1cols}{a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 1.}
+
+\item{overlapItem2cols}{a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 2.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }
