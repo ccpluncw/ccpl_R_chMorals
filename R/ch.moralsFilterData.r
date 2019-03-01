@@ -8,8 +8,8 @@
 #' @param aveRTcol a string that specifies the name of the column in "data" that contains the average RT by subject. Column created in ch.moralsDataPrep().
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
-#' @param item1cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.
-#' @param item2cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.
+#' @param item1cols a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 1.
+#' @param item2cols a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 2.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data filter
 #' @return a dataframe of filtered data.  It also writes the data to "analysisReadyData.txt," which will be used by other functions.

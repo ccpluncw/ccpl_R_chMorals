@@ -23,9 +23,9 @@ ch.moralsFilterData(data, snCol, RTcol, overlapRoundCol, aveRTcol,
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
 
-\item{item1cols}{a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.}
+\item{item1cols}{a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 1.}
 
-\item{item2cols}{a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.}
+\item{item2cols}{a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 2.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }

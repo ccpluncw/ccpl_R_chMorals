@@ -9,10 +9,10 @@
 #' @param trialCol a string that specifies the name of the column in "data" that contains the trial number.
 #' @param respChoiceCol a string that specifies the name of the column in "data" that contains the the participant's response to the prompt - yes take action or no take no action.
 #' @param respChoiceVal a vector of two values that specifies the choose Item1 option ("yes" take action in many morals experimants, thus saving Item1) value (index 1) and the choose Item1 option ("no" take no action in many morals experimants, thus saving Item2) value (index 2).
-#' @param item1cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 1.
-#' @param item2cols a vector of strings that specifies the names of the column in "data" that contains the the probes in Item 2.
-#' @param overlapItem1cols a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 1.
-#' @param overlapItem2cols a vector of strings that specifies the names of the column in the overlaps file that contains the correspoinding probes in Item 2.
+#' @param item1cols a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 1.
+#' @param item2cols a vector of strings that specifies the names of the columns in "data" that contains the the probes in Item 2.
+#' @param overlapItem1cols a vector of strings that specifies the names of the columns in the overlaps file that contains the correspoinding probes in Item 1.
+#' @param overlapItem2cols a vector of strings that specifies the names of the columns in the overlaps file that contains the correspoinding probes in Item 2.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data prep
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
