@@ -6,7 +6,7 @@
 \usage{
 ch.moralsItemChoiceAnalysis(data, item1Col, item2Col, overlapRoundCol,
   dirOverlapCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"),
-  params, saveFigures = T)
+  params, saveFigures = T, comparisonItemName = NULL)
 }
 \arguments{
 \item{data}{morals dataframe.}
@@ -26,6 +26,8 @@ ch.moralsItemChoiceAnalysis(data, item1Col, item2Col, overlapRoundCol,
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 
 \item{saveFigures}{a boolean to state whether to save the figures}
+
+\item{comparisonItemName}{a string that states the exact item that you want to compare to all the other items.  If this parameter is used, then only one item will be compared to all the others.  Otherwise, all items will be compared to each other. Default comparisonItemName = NULL.}
 
 \item{directionCol}{a string that specifies the name of the column in "data" that contains the direction of the overlap for each trial.}
 }
