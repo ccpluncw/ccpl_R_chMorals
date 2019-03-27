@@ -51,9 +51,11 @@ ch.moralsPlotSnRTpHitFits <- function (snSummaryArray, snCol, rtSloCol, rtIntCol
 
   #add data
   for (j in 1:length(snSummaryArray[[snCol]]))  {
-    y <- .5*(1-(xAll^snSummaryArray[[phBCol]][j]))+.5
-    lineCol <- rgb(1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j])
-    lines(xAll, y, col=lineCol, lwd=1)
+    if(!is.na(snSummaryArray[[phR2Col]][j])) {
+      y <- .5*(1-(xAll^snSummaryArray[[phBCol]][j]))+.5
+      lineCol <- rgb(1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j])
+      lines(xAll, y, col=lineCol, lwd=1)
+    }
   }
 
   par(lwd=2)

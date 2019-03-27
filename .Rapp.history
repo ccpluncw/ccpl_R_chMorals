@@ -1,253 +1,93 @@
-xc <- ch.getHSVcolors(67)
-xc <- data.matrix(xc)
-showLty(out, col=hsv(xc))
-xc
-showLty(out, col=hsv(xc[1,]))
-showLty(out, col=hsv(xc[2,]))
-?hsv
-showLty(out, col=hsv(0,0,0))
-xc <- ch.getHSVcolors(67)
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-ch.updateRpackage (packageName = "chutils")
-xc <- ch.getHSVcolors(67)
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-xc
-ch.updateRpackage (packageName = "chutils")
-xc <- ch.getHSVcolors(67)
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-ch.updateRpackage (packageName = "chutils")
-xc <- ch.getHSVcolors(67)
-ch.updateRpackage (packageName = "chutils")
-xc <- ch.getHSVcolors(67)
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-outS <- rep("solid", 67)
-showLty(outS, col=hsv(xc$h,xc$s,xc$v))
-xc
-showLty(out, col=hsv(xc$h,xc$s,xc$v))
-ch.updateRpackage (packageName = "chutils")
-xc <- ch.getHSVcolors(67)
-showLty(outS, col=hsv(xc$h,xc$s,xc$v))
-ch.updateRpackage (packageName = "chutils")
-x4
-x4.out <- ch.getPlotLegendVals(x4)
-x4.out
-ch.updateRpackage (packageName = "chutils")
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-xl
-xl$dfIndex[-1]
-xl$dfIndex[1:length(xl$dfIndex)-1]
-names(xl)
-names(xl[-"dfIndex"])
-names(xl[-c("dfIndex")])
-names(xl[c("dfIndex")])
-names(xl[- c("dfIndex")])
-names(xl[-c("dfIndex")])
-subset(df, select=-c("dfIndex"))
-subset(xl, select=-c("dfIndex"))
-subset(xl, select=-c(dfIndex))
-names(xl[-dfIndex])
-subset(xl, select=-c(dfIndex))
-subset(xl$dfIndex, select=-c(dfIndex))
-xn <- names(xl)
-xn
-xn[-dfIndex]
-xn[-1]
-xn[-c("dfIndex")]
-xn[-c(dfIndex)]
-names(xl[1]==dfIndex)
-names(xn[1]==dfIndex)
-if(xn[1]=="dfIndex") print("yes")
-xl$dfIndex
-grpNames <- names(xl$dfIndex) #
-  if(grpNames[length(grpNames)]=="indexNum") {#
-    grpNames <- grpNames[-length(grpNames)]#
-  }
-grpNames
-with(xx, plot(xl$pHitModel[[1]]))
-with(xx, plot(eval(xl$pHitModel[[1]])))
-xy <- xx
-xy
-xy$x <- xy$overlapRound
-with(xy, plot(eval(xl$pHitModel[[1]])))
-with(xy, plot(eval(xl$pHitModel[[1]]), type="l"))
-with(xy, lines(eval(xl$pHitModel[[2]]), type="l"))
-xl$dfIndex
-xg <- c("targetPresent", "title")
-subset(xl$dfIndex, select = cg)
-subset(xl$dfIndex, select = xg)
-unique(subset(xl$dfIndex, select = xg))
-x4.out
-xl
-xn
-xl[[xn[2]]][[1]]
-xl[[xn[2]]][[2]]
-xl[[xn[2]]][[3]]
-subset(xl$dfIndex, select = c(xg,"indexNum")
-)
-xl[[xn[2]]][[xl$dfIndex$indexNum[1]]]
-xl[[xn[2]]][[xl$dfIndex$indexNum[2]]]
-xn[[2]]
-ch.updateRpackage (packageName = "chMorals")
-x4.out
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-xl
-xl$dfIndex
-xg
-unique(subset(xl$dfIndex, select = xg))
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-x
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-xl
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-abline(1,0, lty="32")
-abline(1,.5, lty="32")
-lines(1,.5, lty="32")
-lines(1,.75, lty="32")
-ch.updateRpackage (packageName = "chMorals")
-lines(1,.75, lty="32")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-?lines
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+library(chutils)
+require(chutils)
+ch.updateRpackage (packageName = "RRW")
+?RRW
+xx <- data.frame (a = c(1,2,3), b = c(1,2,3), d = c(1,2,3))
 xx
-with(xx, plot(overlapRound, pHit))
-with(xx, lines(overlapRound, pHit, lty="32"))
-with(xx, plot(overlapRound, pHit, type="l",  col="white", lwd=1))
-with(xx, lines(overlapRound, pHit, lty="32"))
-xv1 <- 32
-as.character(xv1)
-with(xx, plot(overlapRound, pHit, type="l",  col="white", lwd=1))
-with(xx, lines(overlapRound, pHit, lty=as.character(xv1)))
-with(xx, lines(overlapRound, pHit, lty=as.character("solid")))
-with(xx, lines(overlapRound, pHit, lty=as.character(xv1)))
-with(xx, lines(overlapRound, pHit-.2, lty=as.character(xv1)))
+xx1 < xx[xx$a == 4,]
+xx1 <- xx[xx$a == 4,]
+xx1
+is.null(xx1)
+length(xx1$a)
+library(chMorals)#
+library(chutils)#
+fitCol<-"fit.RT"#
+resCol<-"res.RT"#
+params<-ch.readMoralsDBfile("charityYouDBfile.txt")#
+mainDir<-getwd()#
+ch.newDir (mainDir, params$gpSubDir)#
+gpDir<- getwd()#
+setwd(mainDir)#
+#
+ch.newDir (mainDir, params$itemSubDir)#
+itemDir<-getwd()#
+setwd(mainDir)#
+#
+data.raw<-read.table(params$moralsTaskDataFile, header = T, sep="\t")#
+data.ovrlp<-read.table(params$valueOverlapDataFile, header=T, sep="\t", quote="\"")#
+#
+data.raw<-data.raw[data.raw$trial_type>=1, ]#
+processedData<-ch.moralsDataPrep(data.raw, "sn", "keybRT", "overlap", "direction", "trial", "keyDef", respChoiceVal = c("Donate", "Keep"), item1cols = c("Item1"), item2cols = c("you_holder"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"), params)#
+#
+analysisReadyData<-ch.moralsFilterData(processedData, "sn", "keybRT", "overlapRound", "avgRT", "correct", c(1,0), item1cols = c("Item1"), item2cols = c("you_holder"), params)#
+#
+analysisReadyData.gp<-ch.moralsGrpRTpHit(analysisReadyData, "trial", "keybRT", fitCol, resCol, "overlapRound", "keyDef", c("Donate", "Keep"), "correct", c(1,0), params)#
+#
+analysisReadyData.sn <- ch.moralsSnRTpHit(analysisReadyData.gp, "sn", "trial", "keybRT", fitCol, resCol, "overlap", "correct", c(1,0),  params)#
+#
+df.dPrime <- ch.moralsDprimeAnalysis(analysisReadyData.sn, "overlapRound", "correct", c(1,0), "targetPresent", c(TRUE,FALSE), resCol, params = params, filenameID = "gp")
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-par(ask=T)
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-par(ask=F)
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+itemAnalDat <- ch.moralsItemChoiceAnalysis(analysisReadyData.gp, "Item1", "you_holder", "overlapRound", "dirOverlap","keyDef", respChoiceVal = c("Donate", "Keep"), params, saveFigures = T, comparisonItemName = "you")
+library(chutils)#
+unloadNamespace("chMorals")#
+unloadNamespace("chValues")#
+ch.updateRpackage (packageName = "chutils")#
 ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-with(xx, plot(overlapRound, pHit, type="l",  col="white", lwd=1))
-with(xx, lines(overlapRound, pHit, lty="33"))
-with(xx, lines(overlapRound, pHit-.1, lty="32"))
-with(xx, lines(overlapRound, pHit-.1, lty="34"))
-with(xx, lines(overlapRound, pHit-.2, lty="34"))
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chutils")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chutils")
-ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
-ch.updateRpackage (packageName = "chMorals")
-xl <- ch.moralsRTpHitByX(analysisReadyData.gp, c("targetPresent", "title"), resCol, "overlapRound", "keyDef", yesNoVal = c("Yes", "No"), "correct", c(1,0), "targetPresent", c(TRUE,FALSE), params)
+?RRW
+ch.updateRpackage (packageName = "RRW")
+require(chutils)
+ch.updateRpackage (packageName = "RRW")
+?pCrossBoundaryDist
+wd <- getwd()
+wd <- getwd()
+setwd("~/Dropbox/UNCW/Active UNCW/research/Programming/R Packages/RRW")
+use_package("drc")
+setwd(wd)
+ch.updateRpackage (packageName = "RRW")
+ch.updateRpackage (packageName = "RRW")
+ch.updateRpackage (packageName = "RRW")
+?overlapToP
