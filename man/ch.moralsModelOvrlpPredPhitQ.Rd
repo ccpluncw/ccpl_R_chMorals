@@ -7,8 +7,9 @@
 ch.moralsModelOvrlpPredPhitQ(data, OvrlpQuantConsistentCol,
   itemQuantDiffCol, overlapRoundCol, pHitQCol, minN = NULL,
   filename = NULL, grpLgndNames = NULL, lgndPlacement = "topright",
-  cex1 = 1, cexLegend = 0.75, ylim = c(0, 1), yLab = "p(HitQuant)",
-  xlab = "Overlap", parOp = NULL, ...)
+  cex1 = 1.5, cexLegend = 0.75, ylim = c(0, 1),
+  yLab = "p(HitQuant)", xlab = "Overlap", parOp = NULL,
+  showLegend = TRUE, ...)
 }
 \arguments{
 \item{data}{a morals dataframe.}
@@ -36,6 +37,8 @@ ch.moralsModelOvrlpPredPhitQ(data, OvrlpQuantConsistentCol,
 \item{yLab}{y axis label. DEFAULT = "p(HitQuant)".}
 
 \item{parOp}{the parameter list to enter into par.  DEFAULT = NULL}
+
+\item{showLegend}{A boolean to print the legend on the graph.  DEFAULT = TRUE}
 
 \item{xLab}{x axis label. DEFAULT = "Overlap".}
 }

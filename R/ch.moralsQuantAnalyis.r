@@ -16,7 +16,7 @@
 #' @export
 #' @examples ch.moralsQuantAnalyis (moralsData, "Item1", "Item2", c(1,10,40), "keyDef", respChoiceVal = c("Yes", "No"),"targetPresent", c(TRUE, FALSE), "overlapRound", params)
 
-ch.moralsQuantAnalyis <- function (data, probe1Col, probe2Col, quantValueCuts, respChoiceCol, respChoiceVal = c("Item1", "Item2"), targetPresentCol, targetPresentVals, overlapRoundCol, params) {
+ch.moralsQuantAnalyis <- function (data, probe1Col, probe2Col, quantValueCuts, respChoiceCol, respChoiceVal = c("Item1", "Item2"), targetPresentCol, targetPresentVals, overlapRoundCol, params, ...) {
 
   #set up item directory, where the graphs will be stored
   mainDir <- getwd()
@@ -41,7 +41,7 @@ ch.moralsQuantAnalyis <- function (data, probe1Col, probe2Col, quantValueCuts, r
   outList <- ch.plotTwoLinearFits(data.1, "qDiff", "res.RT", "pHitQ", y1Label = ReactionTime, y2Label = "p(Hit)u", xlab="Quantity Difference", minN = params$minOverlapN, ylimMax2 = 1, filename=filename)
   #plot and get fits for p(Hit)quant = a function of (overlap)
   filename = file.path(itemDir,paste(params$dt.set,"Overlap Model predicts pHitQ.pdf",sep=""))
-  OtoPmodel.fit <- ch.moralsModelOvrlpPredPhitQ(data.1, "OvrlpQuantConsistent", "qDiff", overlapRoundCol, "pHitQ", minN = params$minOverlapN, filename=filename)
+  OtoPmodel.fit <- ch.moralsModelOvrlpPredPhitQ(data.1, "OvrlpQuantConsistent", "qDiff", overlapRoundCol, "pHitQ", minN = params$minOverlapN, filename=filename, ...)
 
   #output data
   sink(statsOutputFile, append = T)

@@ -6,7 +6,7 @@
 \usage{
 ch.moralsQuantAnalyis(data, probe1Col, probe2Col, quantValueCuts,
   respChoiceCol, respChoiceVal = c("Item1", "Item2"), targetPresentCol,
-  targetPresentVals, overlapRoundCol, params)
+  targetPresentVals, overlapRoundCol, params, ...)
 }
 \arguments{
 \item{data}{a morals dataframe.}

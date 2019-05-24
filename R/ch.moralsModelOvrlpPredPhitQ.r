@@ -17,17 +17,18 @@
 #' @param yLab y axis label. DEFAULT = "p(HitQuant)".
 #' @param xLab x axis label. DEFAULT = "Overlap".
 #' @param parOp the parameter list to enter into par.  DEFAULT = NULL
+#' @param showLegend A boolean to print the legend on the graph.  DEFAULT = TRUE
 #' @return the lm model fit.
 #' @keywords morals quantity overlap model fit
 #' @export
 #' @examples ch.moralsQuantAnalyis (analysisReadyData.gp, "probe1", "probe2")
 
 
-ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQuantDiffCol, overlapRoundCol, pHitQCol, minN = NULL, filename = NULL, grpLgndNames = NULL, lgndPlacement = "topright", cex1 = 1,cexLegend = 0.75, ylim=c(0,1), yLab = "p(HitQuant)", xlab = "Overlap", parOp = NULL, ...) {
+ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQuantDiffCol, overlapRoundCol, pHitQCol, minN = NULL, filename = NULL, grpLgndNames = NULL, lgndPlacement = "topright", cex1 = 1.5,cexLegend = 0.75, ylim=c(0,1), yLab = "p(HitQuant)", xlab = "Overlap", parOp = NULL, showLegend = TRUE, ...) {
 
   #set par if they are not input
   if(is.null(parOp)) {
-    op <- par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(5,8,4,12), las=1, xpd=T)
+    op <- par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(5,8,4,12), las=1, xpd=T, cex=1.25, cex.axis=1.5)
   }
 
   #make sure all the data is complete and then get averages
@@ -51,6 +52,7 @@ ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQua
 
   #run the model
   modelFit <- lm(percentHit ~ 1 + negStype + sTypeOv, data=df.tmp)
+  df.tmp$fit <- predict(modelFit)
 
   ##### plot data and model prediction
   #get the groups and add "model to the groups"
@@ -66,7 +68,9 @@ ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQua
   xLims <- ch.getPlotAxisMinMax(df.tmp$meanOv)
   with(df.tmp[df.tmp[[OvrlpQuantConsistentCol]] == grps[1], ], plot(meanOv, percentHit,  ylab = NA, xlab = expression(paste("", Psi,"(value) Distributional overlap", sep="")), ylim = ylim, xlim=xLims, cex = cex1, pch=16, col=hsv(hsvCols$h[1], hsvCols$s[1], hsvCols$v[1]), ...))
   with(df.tmp[df.tmp[[OvrlpQuantConsistentCol]] == grps[2], ], points(meanOv, percentHit, cex = cex1, pch=16, col=hsv(hsvCols$h[2], hsvCols$s[2], hsvCols$v[2]), ...))
-  with(df.tmp, points(meanOv, predict(modelFit), cex = cex1, pch=16, col=hsv(hsvCols$h[3], hsvCols$s[3], hsvCols$v[3]),... ))
+#  with(df.tmp, points(meanOv, predict(modelFit), cex = cex1, pch=16, col=hsv(hsvCols$h[3], hsvCols$s[3], hsvCols$v[3]),... ))
+  with(df.tmp[df.tmp[[OvrlpQuantConsistentCol]] == grps[1], ], lines(meanOv, fit, cex = cex1, lty='solid', lwd = 3, col=hsv(hsvCols$h[3], hsvCols$s[3], hsvCols$v[3]),... ))
+  with(df.tmp[df.tmp[[OvrlpQuantConsistentCol]] == grps[2], ], lines(meanOv, fit, cex = cex1, lty='solid', lwd = 3, col=hsv(hsvCols$h[3], hsvCols$s[3], hsvCols$v[3]),... ))
   mtext(side=2,expression('p(Hit)'["quant"]), line=3, cex = cex1)
 
   #create and add the legend
@@ -79,11 +83,12 @@ ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQua
     }
     lNames[nGrps] <- "Model"
   }
-  legend(lgndPlacement, legend=lNames, pch=16, col=hsv(hsvCols$h,hsvCols$s,hsvCols$v), bty="n", cex=cexLegend, inset = c(-.6,0), x.intersp = .35,y.intersp = 1)
-
+  if(showLegend) {
+    legend(lgndPlacement, legend=lNames, pch=16, col=hsv(hsvCols$h,hsvCols$s,hsvCols$v), bty="n", cex=cexLegend, inset = c(-.6,0), x.intersp = .35,y.intersp = 1)
+  }
   #print and reset the par options
   if(!is.null(filename)) {
-    dev.copy(pdf, filename, width=12, height=9)
+    dev.copy(pdf, filename, width=12, height=6)
     dev.off();
   }
 
