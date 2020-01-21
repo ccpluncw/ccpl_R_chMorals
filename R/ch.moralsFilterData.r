@@ -77,6 +77,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				### output a list of items by overlap
 				#itemCols <- ch.getMoralsItemColumnNames(params, colBaseName = "Item")
 				itemCols <- c(item1cols, item2cols)
+print(itemCols)
 				outList <- ch.getMoralsItemsInAllOverlaps(data, overlapRoundCol, itemCols)
 				overlapSummaryOutFile <- file.path(mainDir,"Probes in OverlapRound.txt")
 				sink(overlapSummaryOutFile, append = F)
