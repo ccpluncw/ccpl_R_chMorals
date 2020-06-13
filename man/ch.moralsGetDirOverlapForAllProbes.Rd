@@ -4,8 +4,13 @@
 \alias{ch.moralsGetDirOverlapForAllProbes}
 \title{A function to calculates the directional overlap for all probes.}
 \usage{
-ch.moralsGetDirOverlapForAllProbes(data, probe1Col, probe2Col, overlapCol,
-  directionCol)
+ch.moralsGetDirOverlapForAllProbes(
+  data,
+  probe1Col,
+  probe2Col,
+  overlapCol,
+  directionCol
+)
 }
 \arguments{
 \item{data}{a dataframe containing overlap data for probe combinations.}

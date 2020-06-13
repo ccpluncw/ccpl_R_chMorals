@@ -4,9 +4,17 @@
 \alias{ch.moralsXXYPlotFitsByGrp}
 \title{A function to plot multiple model fits on one graph}
 \usage{
-ch.moralsXXYPlotFitsByGrp(df.models, grp1Col, grp2Col = NULL, xCol, data,
-  subsetCond = NULL, subsetString = NULL, addLegend = T,
-  filenameID = NULL)
+ch.moralsXXYPlotFitsByGrp(
+  df.models,
+  grp1Col,
+  grp2Col = NULL,
+  xCol,
+  data,
+  subsetCond = NULL,
+  subsetString = NULL,
+  addLegend = T,
+  filenameID = NULL
+)
 }
 \arguments{
 \item{df.models}{a models list containing: a dfIndex, created by ch.subsetDFbyGroups() and a series of model fits output by ch.getLmModel() or ch.getPhitModel();}

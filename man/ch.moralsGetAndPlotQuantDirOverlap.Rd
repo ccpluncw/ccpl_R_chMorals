@@ -4,8 +4,16 @@
 \alias{ch.moralsGetAndPlotQuantDirOverlap}
 \title{A function to get and plot directional overlaps by quantity.}
 \usage{
-ch.moralsGetAndPlotQuantDirOverlap(data, probe1Col, probe2Col, overlapCol,
-  directionCol, quantValueCuts, filename = NULL, ...)
+ch.moralsGetAndPlotQuantDirOverlap(
+  data,
+  probe1Col,
+  probe2Col,
+  overlapCol,
+  directionCol,
+  quantValueCuts,
+  filename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{a dataframe containing overlap data for probe combinations.}

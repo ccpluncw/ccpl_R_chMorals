@@ -4,9 +4,19 @@
 \alias{ch.moralsQuantAnalyis}
 \title{A function to analyze the quantity variation in morals data.}
 \usage{
-ch.moralsQuantAnalyis(data, probe1Col, probe2Col, quantValueCuts,
-  respChoiceCol, respChoiceVal = c("Item1", "Item2"), targetPresentCol,
-  targetPresentVals, overlapRoundCol, params, ...)
+ch.moralsQuantAnalyis(
+  data,
+  probe1Col,
+  probe2Col,
+  quantValueCuts,
+  respChoiceCol,
+  respChoiceVal = c("Item1", "Item2"),
+  targetPresentCol,
+  targetPresentVals,
+  overlapRoundCol,
+  params,
+  ...
+)
 }
 \arguments{
 \item{data}{a morals dataframe.}

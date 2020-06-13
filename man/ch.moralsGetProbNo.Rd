@@ -4,8 +4,15 @@
 \alias{ch.moralsGetProbNo}
 \title{A function to assess the participants bias to say no as a function of "x"}
 \usage{
-ch.moralsGetProbNo(data, x, yesNoCol, yesNoVal = c("Yes", "No"),
-  summarize = T, plotFilename = NULL, ...)
+ch.moralsGetProbNo(
+  data,
+  x,
+  yesNoCol,
+  yesNoVal = c("Yes", "No"),
+  summarize = T,
+  plotFilename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the dataframe.}

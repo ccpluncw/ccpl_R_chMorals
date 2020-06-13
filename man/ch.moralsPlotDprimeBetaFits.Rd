@@ -4,10 +4,21 @@
 \alias{ch.moralsPlotDprimeBetaFits}
 \title{A function to plot the dPrime and Beta by OverlapRound for the Morals data.}
 \usage{
-ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals,
-  targetPresentCol, targetPresentVals, addCorrection = TRUE,
-  cex1 = 1.25, cex.topTile = 1.25, printR2 = T, topTitle = NULL,
-  filename = NULL, ...)
+ch.moralsPlotDprimeBetaFits(
+  data,
+  overlapRoundCol,
+  correctCol,
+  correctVals,
+  targetPresentCol,
+  targetPresentVals,
+  addCorrection = TRUE,
+  cex1 = 1.25,
+  cex.topTile = 1.25,
+  printR2 = T,
+  topTitle = NULL,
+  filename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
