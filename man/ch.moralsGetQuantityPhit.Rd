@@ -4,15 +4,9 @@
 \alias{ch.moralsGetQuantityPhit}
 \title{A function to get the predicted p(hit)Quant: that is, p(hit)==TRUE if the participant chooses the item with the greatest quantity.}
 \usage{
-ch.moralsGetQuantityPhit(
-  data,
-  p1QuantCol,
-  p2QuantCol,
-  respChoiceCol,
-  respChoiceVal = c("Item1", "Item2"),
-  targetPresent,
-  targetPresentVals = c(TRUE, FALSE)
-)
+ch.moralsGetQuantityPhit(data, p1QuantCol, p2QuantCol, respChoiceCol,
+  respChoiceVal = c("Item1", "Item2"), targetPresent,
+  targetPresentVals = c(TRUE, FALSE))
 }
 \arguments{
 \item{data}{a morals dataframe.}

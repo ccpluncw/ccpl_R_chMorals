@@ -4,18 +4,8 @@
 \alias{ch.moralsSnRTpHit}
 \title{A function to analyze the Morals data by subject}
 \usage{
-ch.moralsSnRTpHit(
-  data,
-  snCol,
-  trialCol,
-  RTCol,
-  fitCol,
-  resCol,
-  overlapCol,
-  correctCol,
-  correctVals = c(TRUE, FALSE),
-  params
-)
+ch.moralsSnRTpHit(data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol,
+  correctCol, correctVals = c(TRUE, FALSE), params)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

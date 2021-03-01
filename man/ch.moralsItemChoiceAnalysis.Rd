@@ -4,18 +4,9 @@
 \alias{ch.moralsItemChoiceAnalysis}
 \title{A function to graph the response choice pattern per item in the morals experiment}
 \usage{
-ch.moralsItemChoiceAnalysis(
-  data,
-  item1Col,
-  item2Col,
-  overlapRoundCol,
-  dirOverlapCol,
-  respChoiceCol,
-  respChoiceVal = c("Item1", "Item2"),
-  params,
-  saveFigures = T,
-  comparisonItemName = NULL
-)
+ch.moralsItemChoiceAnalysis(data, item1Col, item2Col, overlapRoundCol,
+  dirOverlapCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"),
+  params, saveFigures = T, comparisonItemName = NULL)
 }
 \arguments{
 \item{data}{morals dataframe.}

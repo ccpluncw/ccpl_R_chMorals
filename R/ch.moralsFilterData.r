@@ -30,6 +30,9 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				data$correct01 <- ifelse (data[[correctCol]]==correctVals[1], 1, 0)
 
 				total.rawsubs <-length(levels(factor(data[[snCol]])))
+
+				substats.raw <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
+
 				#remove subs with average RT outside of thresholds
 				outList <- ch.filterGrpBtwn(data, RTcol, snCol, params$lowAveThresholdRT, params$highAveThresholdRT, FUN=mean)
 				data <- outList$datKeptRaw
@@ -77,7 +80,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				### output a list of items by overlap
 				#itemCols <- ch.getMoralsItemColumnNames(params, colBaseName = "Item")
 				itemCols <- c(item1cols, item2cols)
-print(itemCols)
+
 				outList <- ch.getMoralsItemsInAllOverlaps(data, overlapRoundCol, itemCols)
 				overlapSummaryOutFile <- file.path(mainDir,"Probes in OverlapRound.txt")
 				sink(overlapSummaryOutFile, append = F)
@@ -111,6 +114,8 @@ print(itemCols)
 				cat("\n\t",params$RTresid)
 				cat("\n\nTotal Raw Subjects:")
 				cat("\n\t",total.rawsubs)
+				cat("\n\nRaw Subject Stats:\n")
+				print(substats.raw)
 				cat("\n\nN Subjects Removed because of Average RT Threshold:")
 				cat("\n\t",numSn.Removed.aveRT)
 				cat("\n\nSummary of Subjects Removed because of Average RT Threshold:\n")
@@ -121,7 +126,7 @@ print(itemCols)
 				print(sn.removed.belowchance)
 				cat("\n\nFinal Analyzed Subjects:")
 				cat("\n\t",final.numSbj)
-				cat("\n\nSubject Stats:\n")
+				cat("\n\nFinal Subject Stats:\n")
 				print(substats)
 				cat("\nMean Average p(hit):")
 				cat("\n\t", mean.avePred)

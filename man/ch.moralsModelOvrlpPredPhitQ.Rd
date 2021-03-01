@@ -4,25 +4,12 @@
 \alias{ch.moralsModelOvrlpPredPhitQ}
 \title{A function to fit and plot a model whereby p(hit)quantity (that is, where the correct answer is the Item with the greatest quantity) is predicted by the overlap of value.}
 \usage{
-ch.moralsModelOvrlpPredPhitQ(
-  data,
-  OvrlpQuantConsistentCol,
-  itemQuantDiffCol,
-  overlapRoundCol,
-  pHitQCol,
-  minN = NULL,
-  filename = NULL,
-  grpLgndNames = NULL,
-  lgndPlacement = "topright",
-  cex1 = 1.5,
-  cexLegend = 0.75,
-  ylim = c(0, 1),
-  yLab = "p(HitQuant)",
-  xlab = "Overlap",
-  parOp = NULL,
-  showLegend = TRUE,
-  ...
-)
+ch.moralsModelOvrlpPredPhitQ(data, OvrlpQuantConsistentCol,
+  itemQuantDiffCol, overlapRoundCol, pHitQCol, minN = NULL,
+  filename = NULL, grpLgndNames = NULL, lgndPlacement = "topright",
+  cex1 = 1.5, cexLegend = 0.75, ylim = c(0, 1),
+  yLab = "p(HitQuant)", xlab = "Overlap", parOp = NULL,
+  showLegend = TRUE, ...)
 }
 \arguments{
 \item{data}{a morals dataframe.}

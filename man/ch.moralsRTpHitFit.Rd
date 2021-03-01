@@ -4,19 +4,9 @@
 \alias{ch.moralsRTpHitFit}
 \title{A function to fit the RT and pHit function to morals data}
 \usage{
-ch.moralsRTpHitFit(
-  data,
-  overlapRoundCol,
-  RTCol,
-  correctCol,
-  correctVals = c(TRUE, FALSE),
-  cex1 = 1.5,
-  cex.topTile = 1.25,
-  printR2 = F,
-  topTitle = NULL,
-  filename = NULL,
-  ...
-)
+ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
+  correctVals = c(TRUE, FALSE), cex1 = 1.5, cex.topTile = 1.25,
+  printR2 = F, topTitle = NULL, filename = NULL, ...)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
