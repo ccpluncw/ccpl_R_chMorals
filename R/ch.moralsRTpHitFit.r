@@ -6,6 +6,8 @@
 #' @param RTcol a string that specifies the name of the column in "data" that contains the RT for each trial.
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
+#' @param minNperOverlap an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.
+#' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param cex1 sets the default font size. DEFAULT = 1.25.
 #' @param cex.topTile sets the default font size of the title at the top of the page. DEFAULT = 1.25.
 #' @param printR2 a boolean that determines whether to print the r square on the graph. DEFAULT = FALSE.
@@ -16,7 +18,7 @@
 #' @export
 #' @examples ch.moralsRTpHitFit (data=moralsData,"overlapRound", "resdRT", "correct", c("yes", "no"), filename = "plot.pdf")
 
-ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, correctVals = c(TRUE, FALSE), cex1 = 1.5, cex.topTile =1.25, printR2 = F, topTitle = NULL, filename = NULL, ...) {
+ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, correctVals = c(TRUE, FALSE), minNperOverlap = 0, useTwoParameterModel = FALSE, cex1 = 1.5, cex.topTile =1.25, printR2 = F, topTitle = NULL, filename = NULL, ...) {
 
 		data$correct01 <- ifelse (data[[correctCol]]==correctVals[1], 1, 0)
 
@@ -24,10 +26,10 @@ ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, correc
 			op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.25, las=1)
 		}
 
-		df.tmp <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(aveRT = mean(eval(parse(text = RTCol))), medianRT = median(eval(parse(text = RTCol))), pHit = mean(correct01) ) )
+		df.tmp <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(aveRT = mean(eval(parse(text = RTCol)), na.rm=T), medianRT = median(eval(parse(text = RTCol)), na.rm=T), pHit = mean(correct01, na.rm=T), n =sum(!is.na(correct01)) ) )
 
-    pHitFit <- ch.plot.pHit(df.tmp[[overlapRoundCol]], df.tmp$pHit, cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
-    RTfit <- ch.plot.lm(df.tmp[[overlapRoundCol]], df.tmp$aveRT, cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
+    pHitFit <- ch.plot.pHit(df.tmp[df.tmp$n > minNperOverlap, overlapRoundCol], df.tmp[df.tmp$n > minNperOverlap, "pHit"], useTwoParameterModel = useTwoParameterModel, cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
+    RTfit <- ch.plot.lm(df.tmp[df.tmp$n > minNperOverlap, overlapRoundCol], df.tmp[df.tmp$n > minNperOverlap, "aveRT"], cex1 = cex1, printR2 = printR2, yLabel  = NA, ...)
 		if(!is.null(topTitle)) {
       mtext(topTitle, outer = TRUE, cex = cex.topTile)
     }
@@ -38,6 +40,6 @@ ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, correc
 				par(op)
 		}
 
-    return(list(RTfit = RTfit, pHitFit = pHitFit[["nlsObject"]], pHitR2 = pHitFit[["r2"]], pHitBeta = pHitFit[["beta"]]))
+    return(list(RTfit = RTfit, pHitFit = pHitFit[["nlsObject"]], pHitR2 = pHitFit[["r2"]], pHitBeta = pHitFit[["beta"]], pHitAlpha = pHitFit[["alpha"]]))
 
 }

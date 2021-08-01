@@ -4,9 +4,21 @@
 \alias{ch.moralsRTpHitFit}
 \title{A function to fit the RT and pHit function to morals data}
 \usage{
-ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
-  correctVals = c(TRUE, FALSE), cex1 = 1.5, cex.topTile = 1.25,
-  printR2 = F, topTitle = NULL, filename = NULL, ...)
+ch.moralsRTpHitFit(
+  data,
+  overlapRoundCol,
+  RTCol,
+  correctCol,
+  correctVals = c(TRUE, FALSE),
+  minNperOverlap = 0,
+  useTwoParameterModel = FALSE,
+  cex1 = 1.5,
+  cex.topTile = 1.25,
+  printR2 = F,
+  topTitle = NULL,
+  filename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -16,6 +28,10 @@ ch.moralsRTpHitFit(data, overlapRoundCol, RTCol, correctCol,
 \item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
+
+\item{minNperOverlap}{an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.}
+
+\item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 
 \item{cex1}{sets the default font size. DEFAULT = 1.25.}
 

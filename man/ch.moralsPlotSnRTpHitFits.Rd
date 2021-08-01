@@ -4,8 +4,18 @@
 \alias{ch.moralsPlotSnRTpHitFits}
 \title{A function to plot the subject fits}
 \usage{
-ch.moralsPlotSnRTpHitFits(snSummaryArray, snCol, rtSloCol, rtIntCol,
-  rtR2Col, phBCol, phR2Col, xAll, filename = NULL)
+ch.moralsPlotSnRTpHitFits(
+  snSummaryArray,
+  snCol,
+  rtSloCol,
+  rtIntCol,
+  rtR2Col,
+  phBCol,
+  phACol,
+  phR2Col,
+  xAll,
+  filename = NULL
+)
 }
 \arguments{
 \item{snSummaryArray}{a dataframe containing the morals fit coeficients and r square for RT and p(Hit) for each subject.}
@@ -20,6 +30,8 @@ ch.moralsPlotSnRTpHitFits(snSummaryArray, snCol, rtSloCol, rtIntCol,
 
 \item{phBCol}{a string that specifies the name of the column in "snSummaryArray" that contains the best fit beta for the p(hit) data of each subject.}
 
+\item{phACol}{a string that specifies the name of the column in "snSummaryArray" that contains the best fit alpha for the p(hit) data of each subject.}
+
 \item{phR2Col}{a string that specifies the name of the column in "snSummaryArray" that contains the r square the fit of the p(hit) data of each subject.}
 
 \item{xAll}{a vector containing the overlap rounds used when fitting the RT and p(hit) data.}
@@ -33,7 +45,7 @@ ch.moralsPlotSnRTpHitFits(snSummaryArray, snCol, rtSloCol, rtIntCol,
 This function plots the subject fits.
 }
 \examples{
-ch.moralsPlotSnRTpHitFits(subOutData, "sn", "rtSlo", "rtInt", "rtR2", "phB", "phR2", xAll, filename)
+ch.moralsPlotSnRTpHitFits(subOutData, "sn", "rtSlo", "rtInt", "rtR2", "phB", "phA", "phR2", xAll, filename)
 }
 \keyword{fit}
 \keyword{morals}

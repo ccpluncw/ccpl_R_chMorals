@@ -4,8 +4,19 @@
 \alias{ch.moralsSnRTpHit}
 \title{A function to analyze the Morals data by subject}
 \usage{
-ch.moralsSnRTpHit(data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol,
-  correctCol, correctVals = c(TRUE, FALSE), params)
+ch.moralsSnRTpHit(
+  data,
+  snCol,
+  trialCol,
+  RTCol,
+  fitCol,
+  resCol,
+  overlapCol,
+  correctCol,
+  correctVals = c(TRUE, FALSE),
+  useTwoParameterModel = FALSE,
+  params
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -21,6 +32,8 @@ ch.moralsSnRTpHit(data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol,
 \item{overlapCol}{a string that specifies the name of the column in "data" that contains the overlap column.}
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
+
+\item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 

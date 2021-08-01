@@ -4,10 +4,22 @@
 \alias{ch.moralsDataPrep}
 \title{A function to prepare the morals data for analysis}
 \usage{
-ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
-  respChoiceCol, respChoiceVal = c("Item1", "Item2"),
-  item1cols = c("Item1"), item2cols = c("Item2"),
-  overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"), params)
+ch.moralsDataPrep(
+  data,
+  snCol,
+  RTcol,
+  overlapCol,
+  directionCol,
+  trialCol,
+  respChoiceCol,
+  respChoiceVal = c("Item1", "Item2"),
+  item1cols = c("Item1"),
+  item2cols = c("Item2"),
+  overlapItem1cols = c("IA1"),
+  overlapItem2cols = c("IB1"),
+  statsOutputFile = NULL,
+  params
+)
 }
 \arguments{
 \item{data}{morals dataframe.}
@@ -33,6 +45,8 @@ ch.moralsDataPrep(data, snCol, RTcol, overlapCol, directionCol, trialCol,
 \item{overlapItem1cols}{a vector of strings that specifies the names of the columns in the overlaps file that contains the correspoinding probes in Item 1.}
 
 \item{overlapItem2cols}{a vector of strings that specifies the names of the columns in the overlaps file that contains the correspoinding probes in Item 2.}
+
+\item{statsOutputFile}{the filename that you want the statistics summary output written to. DEFAULT = NULL (construct filename from "params")}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }

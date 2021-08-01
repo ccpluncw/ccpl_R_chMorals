@@ -30,6 +30,13 @@ ch.readMoralsDBfile <- function (dbfile = "moralsDBfile.txt") {
 		roundThreshold <- as.numeric(as.character(params['roundThreshold',1]))
     roundThresholdSN <- as.numeric(as.character(params['roundThresholdSN',1]))
     minOverlapN <- as.numeric(as.character(params['minOverlapN',1]))
+
+		minOverlapNsn <- as.numeric(as.character(params['minOverlapNsn',1]))
+		#if the dbfile does not contain this field (it was added later), then set it to 0, so nothing is filtered
+		if(is.na(minOverlapNsn)) {
+			minOverlapNsn <- 0
+		}
+
     numPlotRows <- as.numeric(as.character(params['numPlotRows',1]))
 		roundDirection <- eval(parse(text=as.character(params['roundDirection',1])))
 		keybRTtransform = as.character(params['keybRTtransform',1])
@@ -64,6 +71,7 @@ ch.readMoralsDBfile <- function (dbfile = "moralsDBfile.txt") {
       roundThresholdSN = roundThresholdSN,
       roundDirection = roundDirection,
       minOverlapN = minOverlapN,
+      minOverlapNsn = minOverlapNsn,
       numPlotRows = numPlotRows,
       keybRTtransform = keybRTtransform,
       RTresid = RTresid,

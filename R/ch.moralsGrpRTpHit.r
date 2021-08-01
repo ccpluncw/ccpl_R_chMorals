@@ -11,13 +11,14 @@
 #' @param yesNoVal a vector of two values that specifies the yes "take action" value (index 1) and the no "take no action" value (index 2). e.g, c("yes", "no")
 #' @param correctCol a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
+#' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals group data analysis
 #' @return dataframe with the learning function fit and residuals
 #' @export
 #' @examples ch.moralsGrpRTpHit (data=moralsData,"trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", c("yes", "no"), params=parameters)
 
-ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), params) {
+ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel = FALSE, params) {
 
 		#create new directories
 		mainDir <- getwd()
@@ -59,7 +60,7 @@ ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRo
 
 		### fit RT and pHit data
 		plotFilename <- file.path(gpDir,paste(params$dt.set,"gp rt p(Hit).pdf"))
-		outList <- ch.moralsRTpHitFit(data, overlapRoundCol, resCol, correctCol, correctVals, filename = plotFilename)
+		outList <- ch.moralsRTpHitFit(data, overlapRoundCol, resCol, correctCol, correctVals, useTwoParameterModel = useTwoParameterModel, filename = plotFilename)
 		sink(statsOutputFile, append = T)
 			cat("\n\n**** Average RT ****\n\n")
 			print(summary(outList$RTfit))

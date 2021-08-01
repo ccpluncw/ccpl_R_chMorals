@@ -4,8 +4,7 @@
 \alias{ch.moralsPlotFitsByGrps}
 \title{A function to plot multiple model fits on one graph}
 \usage{
-ch.moralsPlotFitsByGrps(df.models, xxyCols, xCol, data,
-  filenameID = NULL)
+ch.moralsPlotFitsByGrps(df.models, xxyCols, xCol, data, filenameID = NULL)
 }
 \arguments{
 \item{df.models}{a models list containing: a dfIndex, created by ch.subsetDFbyGroups() and a series of model fits output by ch.getLmModel() or ch.getPhitModel();}

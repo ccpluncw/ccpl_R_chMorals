@@ -12,14 +12,15 @@
 #' @param targetPresentCol a string that specifies the name of the column in "data" that contains the whether or not the target was presented.
 #' @param targetPresentVals a vector of two values that specifies the "target present" value (index 1) and the "target absent" value (index 2). e.g, c("yes", "no")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
-#' @param addCorrection a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.
+#' @param minNperOverlap an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.
+#' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param savePlots a boolean that specifies whether to save plots. DEFAULT = T.
 #' @keywords morals data analysis by grouping group variable
 #' @return .
 #' @export
 #' @examples ch.moralsPlotsByGrpsAndGetModels (data=moralsData,c("title", "typeOfScen"), "res.RT", "overlapRound", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
-ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals, params, addCorrection = TRUE, savePlots = T) {
+ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals, params, minNperOverlap = 0, useTwoParameterModel = useTwoParameterModel, savePlots = T) {
 
   	mainDir <- getwd()
 
@@ -64,16 +65,16 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
       }
 
       #plot p(No) by overlap round
-      probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, plotFilename = filenamePno, plotTitle = title)
+      probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, minNperXbin = minNperOverlap, plotFilename = filenamePno, plotTitle = title)
       pNoModel <- ch.getLmModel(probNoFit, yLab="p(No)")
 
       #plot RT and p(Hit) by overlap round
-      rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, printR2 = T, filename = filenameRT, topTitle = title)
+      rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, minNperOverlap = minNperOverlap, useTwoParameterModel = useTwoParameterModel, printR2 = T, filename = filenameRT, topTitle = title)
       RTModel <- ch.getLmModel(rt.outList$RTfit, yLab="RT")
       pHitModel <- ch.getPhitModel(rt.outList$pHitFit)
 
   		#plot d prime and beta by overlap round
-      dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = T, filename = filenameDP, topTitle = title)
+      dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, printR2 = T, filename = filenameDP, topTitle = title)
       dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
       betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
 

@@ -4,9 +4,20 @@
 \alias{ch.moralsGrpRTpHit}
 \title{A function to analyze the group Morals data}
 \usage{
-ch.moralsGrpRTpHit(data, trialCol, RTCol, fitCol, resCol, overlapRoundCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol,
-  correctVals = c(TRUE, FALSE), params)
+ch.moralsGrpRTpHit(
+  data,
+  trialCol,
+  RTCol,
+  fitCol,
+  resCol,
+  overlapRoundCol,
+  yesNoCol,
+  yesNoVal = c("Yes", "No"),
+  correctCol,
+  correctVals = c(TRUE, FALSE),
+  useTwoParameterModel = FALSE,
+  params
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -26,6 +37,8 @@ ch.moralsGrpRTpHit(data, trialCol, RTCol, fitCol, resCol, overlapRoundCol,
 \item{correctCol}{a string that specifies the name of the new column that will contains a "1" if the participant chose the item with the greatest value distribution and a "0" if they did not.}
 
 \item{correctVals}{a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")}
+
+\item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 

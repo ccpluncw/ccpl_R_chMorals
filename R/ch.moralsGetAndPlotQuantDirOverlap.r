@@ -11,7 +11,7 @@
 #' @return a dataframe with the probe in one column, it's average directional overlap in another, its N in another, followed by separate columns containing the average directional overlap and N for each group.
 #' @keywords morals quantity plot directional overlaps
 #' @export
-#' @examples ch.moralsGetDirOverlapForAllProbes (overlapData, "IA1", "IB1", "overlap","direction")
+#' @examples ch.moralsGetAndPlotQuantDirOverlap (overlapData, "IA1", "IB1", "overlap","direction", quantValueCuts = c(1, 7, 15), filename = "out.pdf")
 
 ch.moralsGetAndPlotQuantDirOverlap <- function (data, probe1Col, probe2Col, overlapCol, directionCol, quantValueCuts, filename=NULL, ...) {
 

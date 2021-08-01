@@ -1,79 +1,312 @@
-require(h20)
-require(h2o)
-h2o.shutdown()
-h2o.init(nthreads = -1)
-h2o.shutdown()
-h2o.init(nthreads = -1)
-train_file <- "https://h2o-public-test-data.s3.amazonaws.com/bigdata/laptop/mnist/train.csv.gz"test_file <- "https://h2o-public-test-data.s3.amazonaws.com/bigdata/laptop/mnist/test.csv.gz"
-train <- h2o.importFile(train_file) #
-test <- h2o.importFile(test_file)
-y <- "C785"#
-x <- setdiff(names(train), y)
-train[,y] <- as.factor(train[,y])test[,y] <- as.factor(test[,y])
-model <- h2o.deeplearning(x = x, y = y, training_frame = train, validation_frame = test, distribution = "multinomial", activation = "RectifierWithDropout", hidden = c(200,200,200), input_dropout_ratio = 0.2, l1 = 1e-5, epochs = 10)
-h2o.performance(model, train = TRUE) # training set metrics
-h2o.performance(model, valid = TRUE) # validation set metrics # Get MSE onlyh2o.mse(model, valid = TRUE) # Cross-validated MSEh2o.mse(model_cv, xval = TRUE)
-h2o.mse(model, xval = TRUE)
-h2o.shutdown()
-rnorm
-dnorm(0)
-v1 <- c(1, 2, 3)
-v1
-M = matrix( c(1, "a", 3, 4, "b", "c"), nrow=2, ncol=3, byrow=TRUE)
-M
-M+2
-M[1,1}=1]
-M[1,1]+1
-x <- 30
-if(is.integer(x)) {}
-if(is.integer(x)) {print ("X is an integer")}
-if(is.integer(x)) {print("X is an integer")}
-x<-30L
-if(is.integer(x)) {print("X is an integer")}
-v <- c(3, 7, 5, 8)
-x <- 1
-t <- 1
-if(v[x])
-if(v[x] > v[x+1]) {}
-smallest <- v[1]
-if(smalllest > v[2]) {smallest <- v[2]}
-if(smallest > v[2]) {smallest <- v[2]}
-smallest
-if(smallest > v[3]0 {smallest <- v[3]}
-if(smallest > v[3]) {smallest <- v[3]}
-if(sma)
-if(smallest > v[4]) {smallest <- v[4]}
-if(smallest > v[5]) {smallest <- v[5]}
-v <- c(7, 2, 5, 9, 10)
-if(smallest > v[2]) {smallest <- v[2]}
-if(smallest > v[3]) {smallest <- v[3]}
-if(smallest > v[4]) {smallest <- v[4]}
-if(smallest > v[5]) {smallest <- v[5]}
-smallest
-x <- 1#
-first <- 10#
-v <- c(4, 6, 2, 7)#
-while(x<5) {#
-  if(first>v[x]) {#
-    first <- v[x]#
-  } #
-  x=x+1#
-}#
-s <- 1#
-while (v[s] != first) {#
-  s+1#
-}#
-s#
-p = v[1]#
-v[1] = first#
-v[s] = p
-s
-source("vectloop.r", echo=T)
-source("vectLoop.r", echo=T)
 library(chutils)
-ch.updateRpackage (packageName = "chutils")
+ch.updateRpackage (packageName = "RRW")
+source("modelspecs_Charity.r")
+library(chValues)
+source("modelspecs_Charity.r")
+getGroupColsFromModelList(simpleModelList)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+source("chyTest1.r")
+head(df.out4)
+regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+data <- df.out4
+RTcol <- resCol
+RTcol
+overlapRoundCol="overlapRound"; correctCol = "correct"; correctVals = c(1,0); minNperOverlap = params$minOverlapN; useTwoParameterModel = TRUE
+df.raw <- rrwRawDataToRRWFormatData(data, grpCols, dataRtCol = RTcol, correctCol = correctCol, correctVals = correctVals, dataOverlapCol= overlapRoundCol)
+grpCols
+rrwRawDataToRRWFormatData
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+rrwRawDataToRRWFormatData
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+regFits
+out.rss <- getMinR2RRW(as.vector(regFits$data$pHVOfit), as.vector(regFits$data$pHit), as.vector(regFits$data$RTfit), as.vector(regFits$data$rt), equalizeRTandPhit = TRUE)
+out.rss
+plotRRWFit2 (regFits$data, dataRtCol = "rt", dataPhitCol = "pHit",  rtFitCol = "RTfit", pHitFitCol = "pHVOfit", correctCol = "correct", overlapCol = "overlapROund", condCol = "refValue", numSimsToPlot = 0, plotFilename = "tmp.pdf", multiplePlotsPerPage = TRUE, yMinMixRT = NULL)
+regFits$data
+plotRRWFit2 (regFits$data, dataRtCol = "rt", dataPhitCol = "pHit",  rtFitCol = "RTfit", pHitFitCol = "pHVOfit", correctCol = "correct", overlapCol = "overlapRound", condCol = "refValue", numSimsToPlot = 0, plotFilename = "tmp.pdf", multiplePlotsPerPage = TRUE, yMinMixRT = NULL)
+grpCols <- NULL#
+	regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+df.raw <- rrwRawDataToRRWFormatData(df.out4, grpCols, dataRtCol = RTcol, correctCol = correctCol, correctVals = correctVals, dataOverlapCol= overlapRoundCol)
+df.raw
+df.list <- chutils::ch.subsetDFbyGroups(df.raw, grpCols)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+grpCols <- NULL#
+	regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+df.tmp <- df.raw[df.raw[["correct"]] & df.raw[["n"]] > minNperOverlap,]
+df.tmp
+pHVOFit <- chutils::ch.pHVOfit(df.tmp[[overlapRoundCol]], df.tmp[["pHit"]], useTwoParameterModel = useTwoParameterModel)
+df.tmp$pHVOfit <- fitted(pHVOFit[["nlsObject"]])
+RTfit <- lm(df.tmp$rt~df.tmp[[overlapRoundCol]])
+df.tmp$RTfit <- fitted(RTfit)
+regFits <- chutils::ch.rbind(regFits,df.tmp)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+grpCols <- NULL#
+	regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+regFits
+out.rss <- getMinR2RRW(as.vector(regFits$data$pHVOfit), as.vector(regFits$data$pHit), as.vector(regFits$data$RTfit), as.vector(regFits$data$rt), equalizeRTandPhit = TRUE)
+out.rss
+plotRRWFit2 (regFits$data, dataRtCol = "rt", dataPhitCol = "pHit",  rtFitCol = "RTfit", pHitFitCol = "pHVOfit", correctCol = "correct", overlapCol = "overlapROund", condCol = "refValue", numSimsToPlot = 0, plotFilename = "tmp.pdf", multiplePlotsPerPage = TRUE, yMinMixRT = NULL)
+plotRRWFit2 (regFits$data, dataRtCol = "rt", dataPhitCol = "pHit",  rtFitCol = "RTfit", pHitFitCol = "pHVOfit", correctCol = "correct", overlapCol = "overlapROund", condCol = NULL, numSimsToPlot = 0, plotFilename = "tmp.pdf", multiplePlotsPerPage = TRUE, yMinMixRT = NULL)
+plotRRWFit2 (regFits$data, dataRtCol = "rt", dataPhitCol = "pHit",  rtFitCol = "RTfit", pHitFitCol = "pHVOfit", correctCol = "correct", overlapCol = "overlapRound", condCol = NULL, numSimsToPlot = 0, plotFilename = "tmp.pdf", multiplePlotsPerPage = TRUE, yMinMixRT = NULL)
+grpCols <- c("refValue")#
+	regFits <- getPredictedRTpHVOfitByGroup(df.out4, grpCols,resCol, overlapRoundCol="overlapRound", correctCol = "correct", correctVals = c(1,0), minNperOverlap = params$minOverlapN, useTwoParameterModel = TRUE)
+print(summary(regFits$RTfit))
+print(summary(regFits$pHVOFit))
+regFits
+print(summary(regFits$pHVOFit[[1]]))
+print(summary(regFits$pHVOFit[[1]]$nlsObject))
+print(summary(regFits$RTfit[[2]]))
+length(regFits$pHVOFit)
+length(pHVOFit[[1]]$r2)
+length(pHVOFit$r2)
+print(regFits$pHVOFit$r2)
+[[1]]
+print(regFits$pHVOFit[[1]]$r2)
+print(regFits$RTfit[[i]]$r2)
+print(regFits$RTfit[[1]]$r2)
+print(summary(regFits$RTfit[[1]])$r.squared))
+print(summary(regFits$RTfit[[1]])$r.squared)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+source("runRRW_chTest.r")
+source("runRRW_chTest.r")
+rrwList <-  list(choiceData = tmp.df, valueData = df.valueDat, rrwModelList = tmpModelList, item1cols = c("Item"), item2cols = c("ref_holder"), respChoiceCol = "keyDef", respChoiceVal = c("Donate", "Keep"), RTcol = resCol, chanceThreshold = params$chanceThreshold, lowRTquantileThreshold = params$lowRTthreshold, highRTquantileThreshold = params$highRTthreshold, minOverlapN = params$minOverlapN, pars.n = NULL, equalizeRTandPhit = equalizeRTandPhit, minimizeStat = minimizeStat, roundThreshold = 0.1, roundDirection = ceiling, overlapNumRuns = 1000, combFun = ch.maxAveComb, useTwoParameterModel = useTwoParameterModel, numLoops = numGridLoops, numIntervals = numGridIntervals, optParamListN = optParamListN, optBoundLoops = optBoundLoops, multicore = useMultiCore, multicorePackages = multicorePackages, fileTag = fileTag, probMax = 0.5)
+useMultiCore <- FALSE
+rrwList <-  list(choiceData = tmp.df, valueData = df.valueDat, rrwModelList = tmpModelList, item1cols = c("Item"), item2cols = c("ref_holder"), respChoiceCol = "keyDef", respChoiceVal = c("Donate", "Keep"), RTcol = resCol, chanceThreshold = params$chanceThreshold, lowRTquantileThreshold = params$lowRTthreshold, highRTquantileThreshold = params$highRTthreshold, minOverlapN = params$minOverlapN, pars.n = NULL, equalizeRTandPhit = equalizeRTandPhit, minimizeStat = minimizeStat, roundThreshold = 0.1, roundDirection = ceiling, overlapNumRuns = 1000, combFun = ch.maxAveComb, useTwoParameterModel = useTwoParameterModel, numLoops = numGridLoops, numIntervals = numGridIntervals, optParamListN = optParamListN, optBoundLoops = optBoundLoops, multicore = useMultiCore, multicorePackages = multicorePackages, fileTag = fileTag, probMax = 0.5)
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+sink(NULL)
+sink(NULL)
+sink(NULL)
+sink(NULL)
+sink(NULL)
+sink(NULL)
+sink(NULL)
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+sink(NULL)
+sink(NULL)
+sink(NULL)
+unloadNamespace("RRW")#
+ch.updateRpackage (packageName = "RRW")
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+useTwoParameterModel <- TRUE
+rrwList <-  list(choiceData = tmp.df, valueData = df.valueDat, rrwModelList = tmpModelList, item1cols = c("Item"), item2cols = c("ref_holder"), respChoiceCol = "keyDef", respChoiceVal = c("Donate", "Keep"), RTcol = resCol, chanceThreshold = params$chanceThreshold, lowRTquantileThreshold = params$lowRTthreshold, highRTquantileThreshold = params$highRTthreshold, minOverlapN = params$minOverlapN, pars.n = NULL, equalizeRTandPhit = equalizeRTandPhit, minimizeStat = minimizeStat, roundThreshold = 0.1, roundDirection = ceiling, overlapNumRuns = 1000, combFun = ch.maxAveComb, useTwoParameterModel = useTwoParameterModel, numLoops = numGridLoops, numIntervals = numGridIntervals, optParamListN = optParamListN, optBoundLoops = optBoundLoops, multicore = useMultiCore, multicorePackages = multicorePackages, fileTag = fileTag, probMax = 0.5)
+df.fitted <- do.call(rrwIdentifyReferenceDistributionSGS, rrwList)
+sink(NULL)
+ls
+unloadNamespace("chMorals")#
 ch.updateRpackage (packageName = "chMorals")
+unloadNamespace("chMorals")#
 ch.updateRpackage (packageName = "chMorals")
-ch.updateRpackage (packageName = "chMorals")
-require(tidyr)
-library(tidyr)
+head(df.valueAll)
+df.over <- ch.MCbatchOverlapPromptFile(df.valueAll$respS, df.valueAll$prompt, df.prompts = df.prompts, itemAcolNames = "Item",itemBcolNames = "ref_holder", numRuns = 1000, outFile = "tmpOverlaps.txt",  combFun = ch.maxAveComb, probMax = 0.5)
+head(df.over)
+df.out3 <- ch.mergeChoiceDataWithOverlapsData(df.out2, df.over, "overlap", "direction", "keyDef", respChoiceVal = c("Donate", "Keep"), item1cols = c("Item"), item2cols = c("ref_holder"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),outfile = "testMerge.txt", roundThreshold = 0.1, roundDirection = ceiling)
+head(df.out3)
+unique(df.out3$overlapRound)
+df.out3 <- ch.mergeChoiceDataWithOverlapsData(df.out2, df.over, "overlap", "direction", "keyDef", respChoiceVal = c("Donate", "Keep"), item1cols = c("Item"), item2cols = c("ref_holder"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),outfile = "testMerge.txt", roundThreshold = NULL, numOverlapBins = 10, roundDirection = ceiling)
+head(df.out3)
+unique(df.out3$overlapRound)
+df.out3 <- ch.mergeChoiceDataWithOverlapsData(df.out2, df.over, "overlap", "direction", "keyDef", respChoiceVal = c("Donate", "Keep"), item1cols = c("Item"), item2cols = c("ref_holder"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),outfile = "testMerge.txt", roundThreshold = NULL, numOverlapBins = 11, roundDirection = ceiling)
+unique(df.out3$overlapRound)
+roundThreshold <- (max(df.out3[["overlap"]]) - min(dt.merged[["overlap"]]))/(10-1)
+roundThreshold <- (max(df.out3[["overlap"]]) - min(df.out3[["overlap"]]))/(10-1)
+roundThreshold
+(.99/roundThreshold) * roundThreshold
+(1/roundThreshold) * roundThreshold
+ceiling((1/roundThreshold) * roundThreshold)
+ceiling((.88/roundThreshold) * roundThreshold)
+ceiling((.7/roundThreshold) * roundThreshold)
+roundThreshold
+ceiling(.7/roundThreshold) * roundThreshold
+ceiling(.99/roundThreshold) * roundThreshold
+ceiling(.99/roundThreshold)
+roundThreshold <- (max(df.out3[["overlap"]]) - min(df.out3[["overlap"]]))/(10-1)
+roundThreshold
+min(df.out3[["overlap"]]))
+min(df.out3[["overlap"]])
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data() - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data(), interval)#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+  outVec <- cut(students$Income, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data() - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+  outVec <- cut(students$Income, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+  outVec <- cut(students$Income, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+print("***")#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+print(breaks)#
+print("***")#
+print(labels)#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+?cut
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+print("***")#
+  breaks <- breaks[-1]#
+  breaks <- breaks[-length(breaks)]#
+  labels <- breaks#
+print(breaks)#
+print("***")#
+print(labels)#
+  outVec <- cut(data, breaks = breaks, labels = FALSE)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+head(df.out3[["overlap"]])
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+print("***")#
+#  breaks[1] <- -Inf#
+#  breaks[length(breaks)] <- 1#
+  labels <- breaks#
+print(breaks)#
+print("***")#
+print(labels)#
+  outVec <- cut(data, breaks = breaks)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+df.out3[["overlap"]][8732]
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+labels <- breaks#
+print("***")#
+breaks[1] <- -Inf#
+breaks[length(breaks)] <- Inf#
+#
+print(breaks)#
+print("***")#
+print(labels)#
+#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+labels <- breaks[2:length(breaks)]#
+print("***")#
+breaks[1] <- -Inf#
+breaks[length(breaks)] <- Inf#
+#
+print(breaks)#
+print("***")#
+print(labels)#
+#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/(numBins-1)#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+labels <- round(breaks[2:length(breaks)],2)#
+print("***")#
+breaks[1] <- -Inf#
+breaks[length(breaks)] <- Inf#
+#
+print(breaks)#
+print("***")#
+print(labels)#
+#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+ch.binNumbers <- function(data, numBins) {#
+#
+  interval <- (max(data) - min(data))/numBins#
+  breaks <- seq(min(data), max(data), interval)#
+print(breaks)#
+labels <- round(breaks[2:length(breaks)],2)#
+print("***")#
+breaks[1] <- -Inf#
+breaks[length(breaks)] <- Inf#
+#
+print(breaks)#
+print("***")#
+print(labels)#
+#
+  outVec <- cut(data, breaks = breaks, labels = labels)#
+  return(outVec)#
+}
+ch.binNumbers(df.out3[["overlap"]], 10)
+unique(ch.binNumbers(df.out3[["overlap"]], 10))
+ch.binNumbers (rnorm(100, 10, 2), 10)
+unloadNamespace("chMorals")

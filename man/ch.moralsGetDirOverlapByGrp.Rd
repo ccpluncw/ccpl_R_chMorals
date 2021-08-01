@@ -4,14 +4,14 @@
 \alias{ch.moralsGetDirOverlapByGrp}
 \title{A function to get the average directional overlap by group.}
 \usage{
-ch.moralsGetDirOverlapByGrp(data, probe1Col, grpCol, dirOverlapCol)
+ch.moralsGetDirOverlapByGrp(data, probe1Col, grpCol = NULL, dirOverlapCol)
 }
 \arguments{
 \item{data}{an overlaps dataframe that contains the directional overlaps for all probes (use ch.moralsGetDirOverlapForAllProbes()) and one column with the group name and one column with the probe name (that is the same for all the groups that it belongs to). So, there may be a probe "book" that is the member of three groups "gp1", "gp2", and "gp3".  Here, the "book" would be in the probe column, and gp# would be in the group column.}
 
 \item{probe1Col}{a string the specifies the column name in "data" that contains the first probe item. Only one probe column is needed because all the probes and their reversals are present in the data.}
 
-\item{grpCol}{a string the specifies the column name in "data" that contains the grouping column.}
+\item{grpCol}{a string the specifies the column name in "data" that contains the grouping column. If NULL, there is not grouping. DEFAULT = NULL.}
 
 \item{dirOverlapCol}{a string the specifies the column name in "data" that contains the directional overlap column.}
 }

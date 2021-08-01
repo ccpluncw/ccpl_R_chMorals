@@ -9,6 +9,7 @@
 #' @param resCol a string that specifies the name of the new column that will contain the residual datapoints.
 #' @param overlapCol a string that specifies the name of the column in "data" that contains the overlap column.
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
+#' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @keywords morals data analysis by subject
 #' @return dataframe with the learning function fit and residuals
@@ -16,7 +17,7 @@
 #' @examples ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 
-ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, correctCol, correctVals = c(TRUE, FALSE), params) {
+ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel= FALSE, params) {
 
     #create new directories
     mainDir <- getwd()
@@ -64,7 +65,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 		### fit RT and pHit data for All data with Sn resids
 		op2 <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
 		plotFilename = file.path(snDir,paste(params$dt.set, "snAll rt p(Hit).pdf"))
-		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, filename = plotFilename)
+		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel = useTwoParameterModel, filename = plotFilename)
 
 		sink(statsOutputFile, append = T)
 			cat("\n\n********************************** Analysis By SN  **********************************\n\n")
@@ -85,30 +86,36 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
     rowNum <- 1
     for (j in subs)  {
 			tmp <- subData[subData[[snCol]]==j,]
-			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, correctVals, plotTitle = paste("sn", j), printR2 = T, cex1=1)
+      ### filter out Overlaps with fewer than params$minOverlapNsn observations
+      tmpOut <- ch.filterGrpByN(tmp, "overlapRoundSN", grpCol="overlapRoundSN", params$minOverlapNsn)
+      tmp <- tmpOut$datKept
+      uniqueOverlapsN <- length(unique(tmp$overlapRoundSN))
+      #run the analysis if there are at least three overlap levels
+      if(uniqueOverlapsN > 2) {
+  			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel= useTwoParameterModel, plotTitle = paste("sn", j), printR2 = T, cex1=1)
 
-	    if(rowNum %% params$numPlotRows == 0) {
-				plotFilename <- file.path(snDir,paste(params$dt.set, "sn", j, "rt p(Hit).pdf"))
-		    dev.copy(pdf, plotFilename, width=12, height=9)
-		    dev.off();
-	    }
+  	    if(rowNum %% params$numPlotRows == 0) {
+  				plotFilename <- file.path(snDir,paste(params$dt.set, "sn", j, "rt p(Hit).pdf"))
+  		    dev.copy(pdf, plotFilename, width=12, height=9)
+  		    dev.off();
+  	    }
 
-			#make r2 negative if the RT slope is negative
-	    rtR2 <- ifelse( coef(outList$RTfit)[2] < 0, -1*summary(outList$RTfit)$r.squared, summary(outList$RTfit)$r.squared)
-			#store all the subject fit parameters in a dataframe
-			tmp1 <- data.frame(sn = j, rtInt = coef(outList$RTfit)[1],rtSlo = coef(outList$RTfit)[2],rtR2 = rtR2 ,phB = outList$pHitBeta, phR2 = outList$pHitR2)
-			subOutData <- ch.rbind (subOutData, tmp1)
-	    rowNum <- rowNum + 1
+  			#make r2 negative if the RT slope is negative
+  	    rtR2 <- ifelse( coef(outList$RTfit)[2] < 0, -1*summary(outList$RTfit)$r.squared, summary(outList$RTfit)$r.squared)
+  			#store all the subject fit parameters in a dataframe
+  			tmp1 <- data.frame(sn = j, rtInt = coef(outList$RTfit)[1],rtSlo = coef(outList$RTfit)[2],rtR2 = rtR2 ,phB = outList$pHitBeta,phA = outList$pHitAlpha, phR2 = outList$pHitR2)
+  			subOutData <- ch.rbind (subOutData, tmp1)
+  	    rowNum <- rowNum + 1
 
-	    sink(statsOutputFile, append = T)
-		    cat("\n\n********************************** sn", j , "**********************************\n\n")
-				cat("\n\n**** Average RT ****\n\n")
-				print(summary(outList$RTfit))
-				cat("\n\n**** p(Hit) ****\n\n")
-				print(summary(outList$pHitFit))
-				cat("r_square: ",outList$pHitR2)
-	    sink(NULL)
-
+  	    sink(statsOutputFile, append = T)
+  		    cat("\n\n********************************** sn", j , "**********************************\n\n")
+  				cat("\n\n**** Average RT ****\n\n")
+  				print(summary(outList$RTfit))
+  				cat("\n\n**** p(Hit) ****\n\n")
+  				print(summary(outList$pHitFit))
+  				cat("r_square: ",outList$pHitR2)
+  	    sink(NULL)
+      }
     }
     #print last graph - just in case there was not a full set that finished
 		plotFilename <- file.path(snDir,paste(params$dt.set, "sn", j, "rt p(Hit).pdf"))
@@ -139,7 +146,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 		#plot all the subjects RT slopes, pHit curves, and respective r2s on a single graph for publication
 		filename <- file.path(snDir,paste(params$dt.set, "RT pHit r2 sn.pdf"))
 		xAll <- with(subData, tapply(overlapRoundSN, overlapRoundSN, mean))
-		ch.moralsPlotSnRTpHitFits(subOutData, "sn", "rtSlo", "rtInt", "rtR2", "phB", "phR2", xAll, filename)
+		ch.moralsPlotSnRTpHitFits(subOutData, "sn", "rtSlo", "rtInt", "rtR2", "phB", "phA", "phR2", xAll, filename)
 
     par(op)
 		#return a dataframe with the residuals based on fitting individual subjects learning functions

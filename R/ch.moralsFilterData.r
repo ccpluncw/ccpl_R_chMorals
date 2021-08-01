@@ -33,6 +33,8 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 
 				substats.raw <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
 
+				data <- merge(data,substats.raw, by= snCol)
+
 				#remove subs with average RT outside of thresholds
 				outList <- ch.filterGrpBtwn(data, RTcol, snCol, params$lowAveThresholdRT, params$highAveThresholdRT, FUN=mean)
 				data <- outList$datKeptRaw

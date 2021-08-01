@@ -4,8 +4,16 @@
 \alias{ch.moralsGetAndPlotQuantDirOverlap}
 \title{A function to get and plot directional overlaps by quantity.}
 \usage{
-ch.moralsGetAndPlotQuantDirOverlap(data, probe1Col, probe2Col, overlapCol,
-  directionCol, quantValueCuts, filename = NULL, ...)
+ch.moralsGetAndPlotQuantDirOverlap(
+  data,
+  probe1Col,
+  probe2Col,
+  overlapCol,
+  directionCol,
+  quantValueCuts,
+  filename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{a dataframe containing overlap data for probe combinations.}
@@ -29,7 +37,7 @@ a dataframe with the probe in one column, it's average directional overlap in an
 This function gets and plots directional overlaps by quantity. It simply combines four other functions: ch.moralsGetDirOverlapForAllProbes(); ch.moralsQuantsToGrps(); ch.moralsGetDirOverlapByGrp(); and ch.stripPlotByGrp().
 }
 \examples{
-ch.moralsGetDirOverlapForAllProbes (overlapData, "IA1", "IB1", "overlap","direction")
+ch.moralsGetAndPlotQuantDirOverlap (overlapData, "IA1", "IB1", "overlap","direction", quantValueCuts = c(1, 7, 15), filename = "out.pdf")
 }
 \keyword{directional}
 \keyword{morals}

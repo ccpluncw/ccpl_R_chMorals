@@ -4,10 +4,22 @@
 \alias{ch.moralsPlotDprimeBetaFits}
 \title{A function to plot the dPrime and Beta by OverlapRound for the Morals data.}
 \usage{
-ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals,
-  targetPresentCol, targetPresentVals, addCorrection = TRUE,
-  cex1 = 1.25, cex.topTile = 1.25, printR2 = T, topTitle = NULL,
-  filename = NULL, ...)
+ch.moralsPlotDprimeBetaFits(
+  data,
+  overlapRoundCol,
+  correctCol,
+  correctVals,
+  targetPresentCol,
+  targetPresentVals,
+  addCorrection = TRUE,
+  minNperOverlap = 0,
+  cex1 = 1.25,
+  cex.topTile = 1.25,
+  printR2 = T,
+  topTitle = NULL,
+  filename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -23,6 +35,8 @@ ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals,
 \item{targetPresentVals}{a vector of two values that specifies the "target present" value (index 1) and the "target absent" value (index 2). e.g, c("yes", "no")}
 
 \item{addCorrection}{a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.}
+
+\item{minNperOverlap}{an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.}
 
 \item{cex1}{sets the default font size. DEFAULT = 1.25.}
 

@@ -8,6 +8,7 @@
 #' @param targetPresentCol a string that specifies the name of the column in "data" that contains the whether or not the target was presented.
 #' @param targetPresentVals a vector of two values that specifies the "target present" value (index 1) and the "target absent" value (index 2). e.g, c("yes", "no")
 #' @param addCorrection a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.
+#' @param minNperOverlap an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.
 #' @param cex1 sets the default font size. DEFAULT = 1.25.
 #' @param cex.topTile sets the default font size of the title at the top of the page. DEFAULT = 1.25.
 #' @param printR2 a boolean that determines whether to print the r square on the graph. DEFAULT = FALSE.
@@ -18,10 +19,11 @@
 #' @export
 #' @examples ch.moralsPlotDprimeBetaFits (data=moralsData,"overlapRound", "correct", c(1,0), "targetPresent", c(TRUE,FALSE), filename = "myplot.pdf")
 
-ch.moralsPlotDprimeBetaFits <- function (data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, addCorrection = TRUE, cex1 = 1.25, cex.topTile =1.25, printR2 = T, topTitle = NULL, filename = NULL, ...) {
+ch.moralsPlotDprimeBetaFits <- function (data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, addCorrection = TRUE, minNperOverlap = 0, cex1 = 1.25, cex.topTile =1.25, printR2 = T, topTitle = NULL, filename = NULL, ...) {
 
-    df.dPrime <- ch.calculateDprimeStats(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, addCorrection = TRUE)
+    df.tmp <- ch.calculateDprimeStats(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, addCorrection = TRUE)
 
+    df.dPrime <- df.tmp[df.tmp$N.targetPresent > minNperOverlap & df.tmp$N.targetAbsent > minNperOverlap,]
     #plot d prime and beta by overlap round
     op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.25, las=1)
 

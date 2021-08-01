@@ -4,8 +4,16 @@
 \alias{ch.moralsPlotLearningEffect}
 \title{A function to plot learning effects}
 \usage{
-ch.moralsPlotLearningEffect(data, trialCol, RTCol, fitCol, resCol, yLabel,
-  filenameID = "gp", ...)
+ch.moralsPlotLearningEffect(
+  data,
+  trialCol,
+  RTCol,
+  fitCol,
+  resCol,
+  yLabel,
+  filenameID = "gp",
+  ...
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}

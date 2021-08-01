@@ -81,6 +81,6 @@ ch.moralsItemChoiceAnalysis <- function (data, item1Col, item2Col, overlapRoundC
 
 			par(op)
 
-		return(itemOutData)
+		return(list(data = itemOutData, dataSummary = table.hold))
 
 }

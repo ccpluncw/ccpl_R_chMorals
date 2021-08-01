@@ -4,8 +4,16 @@
 \alias{ch.moralsGetProbNo}
 \title{A function to assess the participants bias to say no as a function of "x"}
 \usage{
-ch.moralsGetProbNo(data, x, yesNoCol, yesNoVal = c("Yes", "No"),
-  summarize = T, plotFilename = NULL, ...)
+ch.moralsGetProbNo(
+  data,
+  x,
+  yesNoCol,
+  yesNoVal = c("Yes", "No"),
+  summarize = T,
+  minNperXbin = 0,
+  plotFilename = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{the dataframe.}
@@ -15,6 +23,8 @@ ch.moralsGetProbNo(data, x, yesNoCol, yesNoVal = c("Yes", "No"),
 \item{yesNoCol}{a string the specifies the column name in "data" that contains the variable with the participant's yes/no response.}
 
 \item{summarize}{Do you want to collapse the data by "x"? DEFAULT = TRUE.}
+
+\item{minNperXbin}{an integer that specifies the minimum number of trials necessary to include an group of the x variable in the graph. DEFAULT = 0.}
 
 \item{plotFilename}{the filename to save the plot (pdf) if you want it. DEFAULT = NULL (no plot saved).}
 

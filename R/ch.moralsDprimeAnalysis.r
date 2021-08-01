@@ -36,7 +36,7 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 		if (!is.null(filenameID)) {
 			filename <- file.path(gpDir,paste(params$dt.set, filenameID, "d prime.pdf"))
 		}
-		dp.outList <- ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = printR2, filename = filename)
+		dp.outList <- ch.moralsPlotDprimeBetaFits(data, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, printR2 = printR2, filename = filename, minNperOverlap = params$minOverlapN)
 
 		#get RT summarized by overlap for plot
 		df.sum <- ch.summariseBy(data, overlapRoundCol, resCol, "aveRT", mean)
@@ -44,8 +44,10 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 
 		#plot d prime and beta by RT
 		op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.25, las=1)
-		DprimeRTFit <- ch.plot.lm(df.dPrime$aveRT, df.dPrime$dPrime, cex1 = 1.5, printR2 = printR2, yLabel  = "d'")
-		betaRTFit <- ch.plot.lm(df.dPrime$aveRT, df.dPrime$beta, cex1 = 1.5, printR2 = printR2, yLabel  = 'beta')
+
+		df.tmp <- df.dPrime[df.dPrime$N.targetPresent > params$minOverlapN & df.dPrime$N.targetAbsent > params$minOverlapN,]
+		DprimeRTFit <- ch.plot.lm(df.tmp$aveRT, df.tmp$dPrime, cex1 = 1.5, printR2 = printR2, yLabel  = "d'")
+		betaRTFit <- ch.plot.lm(df.tmp$aveRT, df.tmp$beta, cex1 = 1.5, printR2 = printR2, yLabel  = 'beta')
 
 		if (!is.null(filenameID)) {
 				filename <- file.path(gpDir,paste(params$dt.set, filenameID, "RT by d prime and beta.pdf"))
@@ -62,6 +64,7 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 			cat("\n\n********************************** D Prime Statistic Output **********************************\n\n")
 			cat("\n\n**** Summary d primes ****\n\n")
 			print(df.dPrime)
+			cat("\nMinimum N for N.targetPresent and N.targetAbsent in the dPrime regressions: ", params$minOverlapN)
 			cat("\n\n**** D Prime by Overlap lm fit ****\n\n")
 			print(summary(dp.outList$dPrimeFit))
 			cat("\n\n**** Beta by Overlap lm fit ****\n\n")

@@ -1,0 +1,24 @@
+starting worker pid=19983 on localhost:11771 at 17:59:27.983
+starting worker pid=19988 on localhost:11771 at 17:59:27.990
+starting worker pid=19985 on localhost:11771 at 17:59:27.990
+starting worker pid=19984 on localhost:11771 at 17:59:27.991
+starting worker pid=19987 on localhost:11771 at 17:59:27.990
+starting worker pid=19986 on localhost:11771 at 17:59:28.005
+starting worker pid=19981 on localhost:11771 at 17:59:27.993
+starting worker pid=19982 on localhost:11771 at 17:59:27.993
+Loading required package: chValues
+loaded chValues and set parent environment
+Loading required package: chValues
+loaded chValues and set parent environment
+Loading required package: chValues
+Loading required package: chValues
+loaded chValues and set parent environment
+loaded chValues and set parent environment
+Loading required package: chValues
+loaded chValues and set parent environment
+Loading required package: chValues
+Loading required package: chValues
+loaded chValues and set parent environment
+loaded chValues and set parent environment
+Loading required package: chValues
+loaded chValues and set parent environment

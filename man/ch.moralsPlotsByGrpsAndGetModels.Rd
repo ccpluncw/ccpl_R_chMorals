@@ -4,10 +4,22 @@
 \alias{ch.moralsPlotsByGrpsAndGetModels}
 \title{A function to analyze the Morals data by grouping variables}
 \usage{
-ch.moralsPlotsByGrpsAndGetModels(data, grpCols, RTCol, overlapRoundCol,
-  yesNoCol, yesNoVal = c("Yes", "No"), correctCol,
-  correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals,
-  params, addCorrection = TRUE, savePlots = T)
+ch.moralsPlotsByGrpsAndGetModels(
+  data,
+  grpCols,
+  RTCol,
+  overlapRoundCol,
+  yesNoCol,
+  yesNoVal = c("Yes", "No"),
+  correctCol,
+  correctVals = c(TRUE, FALSE),
+  targetPresentCol,
+  targetPresentVals,
+  params,
+  minNperOverlap = 0,
+  useTwoParameterModel = useTwoParameterModel,
+  savePlots = T
+)
 }
 \arguments{
 \item{data}{the morals dataframe after running through ch.moralsDataPrep().}
@@ -30,7 +42,9 @@ ch.moralsPlotsByGrpsAndGetModels(data, grpCols, RTCol, overlapRoundCol,
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 
-\item{addCorrection}{a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.}
+\item{minNperOverlap}{an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.}
+
+\item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 
 \item{savePlots}{a boolean that specifies whether to save plots. DEFAULT = T.}
 
