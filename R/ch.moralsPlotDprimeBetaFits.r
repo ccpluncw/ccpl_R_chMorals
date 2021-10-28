@@ -27,8 +27,13 @@ ch.moralsPlotDprimeBetaFits <- function (data, overlapRoundCol, correctCol, corr
     #plot d prime and beta by overlap round
     op <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.25, las=1)
 
-    dPrimeFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$dPrime, cex1 = cex1, printR2 = printR2, yLabel  = "d'", ...)
-    betaFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$beta, cex1 = cex1, printR2 = printR2, yLabel  = 'beta', ...)
+    #get x axis limits
+    minX <- floor(min(df.dPrime[[overlapRoundCol]]))
+    maxX <- ceiling(max(df.dPrime[[overlapRoundCol]]))
+    xLims <- c(minX, maxX)
+
+    dPrimeFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$dPrime, cex1 = cex1, printR2 = printR2, yLabel  = "d'", xlim = xLims, ...)
+    betaFit <- ch.plot.lm(df.dPrime[[overlapRoundCol]], df.dPrime$beta, cex1 = cex1, printR2 = printR2, yLabel  = 'beta', xlim = xLims, ...)
     if(!is.null(topTitle)) {
       mtext(topTitle, outer = TRUE, cex = cex.topTile)
     }

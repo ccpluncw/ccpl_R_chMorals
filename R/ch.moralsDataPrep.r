@@ -15,6 +15,7 @@
 #' @param overlapItem2cols a vector of strings that specifies the names of the columns in the overlaps file that contains the correspoinding probes in Item 2.
 #' @param statsOutputFile the filename that you want the statistics summary output written to. DEFAULT = NULL (construct filename from "params")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
+#' @param overlapDataIsComplete A boolean that specifies whether the overlap data contains all the possible trial stimuli in the exact column order (TRUE) or whether the overlap file contains the trial stimuli in only one order and therefore has to be permuted to be merged with the choice data (FALSE).  DEFAULT = FALSE.
 #' @keywords morals data prep
 #' @return a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.
 #' @export
@@ -22,7 +23,7 @@
 #' @importFrom dplyr %>%
 #' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"), params=parameters)
 
-ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),statsOutputFile = NULL, params) {
+ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),statsOutputFile = NULL, params, overlapDataIsComplete = FALSE) {
 
 
 	transformRT <- ifelse (params$keybRTtransform == "log", TRUE, FALSE)
@@ -31,7 +32,7 @@ ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, tr
 
 	dat.over <-read.table(params$valueOverlapDataFile, sep="\t", header=T, quote="\"")
 
-	df.out <- ch.mergeChoiceDataWithOverlapsData(df.out, dat.over, overlapCol = overlapCol, directionCol = directionCol, respChoiceCol = respChoiceCol, respChoiceVal = respChoiceVal, item1cols = item1cols, item2cols = item2cols, overlapItem1cols = overlapItem1cols, overlapItem2cols = overlapItem2cols,outfile = params$prepDataOutFile, roundThreshold = params$roundThreshold, roundDirection = params$roundDirection)
+	df.out <- ch.mergeChoiceDataWithOverlapsData(df.out, dat.over, overlapCol = overlapCol, directionCol = directionCol, respChoiceCol = respChoiceCol, respChoiceVal = respChoiceVal, item1cols = item1cols, item2cols = item2cols, overlapItem1cols = overlapItem1cols, overlapItem2cols = overlapItem2cols,outfile = params$prepDataOutFile, roundThreshold = params$roundThreshold, roundDirection = params$roundDirection, overlapDataIsComplete = overlapDataIsComplete)
 
 	if(is.null(statsOutputFile)) {
 		statsOutputFile <- paste(params$dt.set, params$statsOutputFilePrefix)

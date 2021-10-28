@@ -18,7 +18,8 @@ ch.moralsDataPrep(
   overlapItem1cols = c("IA1"),
   overlapItem2cols = c("IB1"),
   statsOutputFile = NULL,
-  params
+  params,
+  overlapDataIsComplete = FALSE
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ ch.moralsDataPrep(
 \item{statsOutputFile}{the filename that you want the statistics summary output written to. DEFAULT = NULL (construct filename from "params")}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
+
+\item{overlapDataIsComplete}{A boolean that specifies whether the overlap data contains all the possible trial stimuli in the exact column order (TRUE) or whether the overlap file contains the trial stimuli in only one order and therefore has to be permuted to be merged with the choice data (FALSE).  DEFAULT = FALSE.}
 }
 \value{
 a dataframe of prepared data.  It also writes the data to prepDataOutFile (specified in params) which will be used by other functions.

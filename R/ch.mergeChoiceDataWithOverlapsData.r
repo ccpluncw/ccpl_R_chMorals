@@ -16,12 +16,13 @@
 #' @param numOverlapBins An integer that specifies the number of bins the overlaps should be binned into. This is only used if roundThreshold = NULL.  DEFAULT = 10 (round overlaps so that there are 10 bins)
 #' @param outputFile the filename that you want the output written to. DEFAULT = NULL (no file written)
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
+#' @param overlapDataIsComplete A boolean that specifies whether the overlap data contains all the possible trial stimuli in the exact column order (TRUE) or whether the overlap file contains the trial stimuli in only one order and therefore has to be permuted to be merged with the choice data (FALSE).  DEFAULT = FALSE.
 #' @keywords morals merge overlaps choice datafile
 #' @return a dataframe of merged data.
 #' @export
 #' @examples ch.mergeChoiceDataWithOverlapsData (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"))
 
-ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, directionCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),roundThreshold = 0.1, roundDirection = ceiling, numOverlapBins = 10, outfile = NULL) {
+ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, directionCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),roundThreshold = 0.1, roundDirection = ceiling, numOverlapBins = 10, outfile = NULL, overlapDataIsComplete = FALSE) {
 
   #remove leading whitespace and make all lowercase to make more similar.
   #then get the unique items to ensure they are in both sets
@@ -62,56 +63,65 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
 
 
 ######_____MERGE MORALS DATA WITH OVERLAP DATA_____######
-## to do that, we get all possible permutations of the items presented in the experiment
-## then we use those permutations to merge the morals data and the overlap dataset
-## We have to do this because the overlap data exists only in one order (e.g., a-b, not b-a)
-## and the morals data can have any order (e.g, a-b, and b-a)
 
-  #get all combinations that produce the same outcomes
-  xColPermA <- matrix(item1cols[ch.permute(length(item1cols))], ncol=length(item1cols))
-  xColPermB <- matrix(item2cols[ch.permute(length(item2cols))], ncol=length(item2cols))
+  if(overlapDataIsComplete == FALSE) {
+      ## to do that, we get all possible permutations of the items presented in the experiment
+      ## then we use those permutations to merge the morals data and the overlap dataset
+      ## We have to do this because the overlap data exists only in one order (e.g., a-b, not b-a)
+      ## and the morals data can have any order (e.g, a-b, and b-a)
 
-  xTot1 <- NULL
-  for (i in 1:nrow(xColPermA)) {
-    xTmp <- chutils:::cbind.fill(t(xColPermA[i,]), xColPermB)
-    xTot1 <- ch.rbind(xTot1, xTmp)
-  }
+      #get all combinations that produce the same outcomes
+      xColPermA <- matrix(item1cols[ch.permute(length(item1cols))], ncol=length(item1cols))
+      xColPermB <- matrix(item2cols[ch.permute(length(item2cols))], ncol=length(item2cols))
 
-  #revere order for reversed direction
-  xTot2 <- xTot1[,ncol(xTot1):1]
+      xTot1 <- NULL
+      for (i in 1:nrow(xColPermA)) {
+        xTmp <- chutils:::cbind.fill(t(xColPermA[i,]), xColPermB)
+        xTot1 <- ch.rbind(xTot1, xTmp)
+      }
 
-  #now get y vector: it only needs one order because all variations were in xTot1 and 2
-  yTot <- c(overlapItem1cols, overlapItem2cols)
+      #revere order for reversed direction
+      xTot2 <- xTot1[,ncol(xTot1):1]
 
-  dt.merged.d <- NULL
+      #now get y vector: it only needs one order because all variations were in xTot1 and 2
+      yTot <- c(overlapItem1cols, overlapItem2cols)
 
-  #may need to convert all strings to lower case (tolower) to match appropriately
+      dt.merged.d <- NULL
 
-  for(j in 1:2) {
-    if (j==1) {
-      #first run for xTot1
-      xCol <- data.frame(lapply(xTot1, as.character), stringsAsFactors=FALSE)
-    } else {
-      #next run for xTot2 (reverse order of items) and reverse "direction"
-      xCol <- data.frame(lapply(xTot2, as.character), stringsAsFactors=FALSE)
-    }
-    for(i in 1:nrow(xCol)) {
-        dt.merged.a <-merge(data, overlap.data, by.x=c(unlist(xCol[i,])), by.y=c(unlist(yTot)))
-        if(j == 1) {
-          dt.merged.a$direct.xVy <- dt.merged.a[[directionCol]]
+      #may need to convert all strings to lower case (tolower) to match appropriately
+
+      for(j in 1:2) {
+        if (j==1) {
+          #first run for xTot1
+          xCol <- data.frame(lapply(xTot1, as.character), stringsAsFactors=FALSE)
         } else {
-          #	change the direction of choice  because we reversed the order xTot2
-          dt.merged.a$direct.xVy <-ifelse(dt.merged.a[[directionCol]]==1,-1,1)
+          #next run for xTot2 (reverse order of items) and reverse "direction"
+          xCol <- data.frame(lapply(xTot2, as.character), stringsAsFactors=FALSE)
         }
+        for(i in 1:nrow(xCol)) {
+            dt.merged.a <-merge(data, overlap.data, by.x=c(unlist(xCol[i,])), by.y=c(unlist(yTot)))
+            if(j == 1) {
+              dt.merged.a$direct.xVy <- dt.merged.a[[directionCol]]
+            } else {
+              #	change the direction of choice  because we reversed the order xTot2
+              dt.merged.a$direct.xVy <-ifelse(dt.merged.a[[directionCol]]==1,-1,1)
+            }
 
-        # #round dt.merged$overlap
-        # dt.merged.a$overlapRound <- ch.round_any(dt.merged.a[[overlapCol]], roundThreshold, roundDirection)
-        # #create the Correct Response column. This is necessary to calculate "percentHit", "freq.pred"
-        # #Here, correct == 1 indicates the person chose the item with the highest value
-        # dt.merged.a$correct <- ifelse(dt.merged.a$direct.xVy==-1 & dt.merged.a[[respChoiceCol]]==respChoiceVal[2], 1, ifelse(dt.merged.a$direct.xVy==1 & dt.merged.a[[respChoiceCol]]==respChoiceVal[1], 1, 0))
-        #merge it all into a big dataset and remove some extraneous columns
-        dt.merged.d <- ch.rbind(dt.merged.d, dt.merged.a)
+            #merge it all into a big dataset and remove some extraneous columns
+            dt.merged.d <- ch.rbind(dt.merged.d, dt.merged.a)
+        }
+      }
+  } else {
+    #if the overlaps data is complete, simply do the following
+    nRowsData <- nrow(data)
+    dt.merged.d <- merge(data, overlap.data, by.x=c(item1cols, item2cols), by.y=c(overlapItem1cols, overlapItem2cols))
+    nRowsMerged <- nrow(dt.merged.d)
+    if(nRowsData != nRowsMerged) {
+      cat("The number of rows in the original dataset (", nRowsData, ") does not equal the number of rows in the dataset once it is merged with the overlaps (", nRowsMerged, "). You should find out why.  Generally, this is because there are stimuli in the choice dataset that are missing in the values dataset.")
+      stop()
     }
+    #add direct.xvy column.  This is the same as direction when using a complete overlaps file
+    dt.merged.d$direct.xVy <- dt.merged.d$direction
   }
 
   #remove duplicate rows that got inserted when the same item is part of a pair in groupA or groupB
@@ -119,7 +129,10 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
 
   if(is.null(roundThreshold)) {
     dt.merged$overlapRound <-chutils::ch.binNumbers(dt.merged[[overlapCol]], numOverlapBins)
+    #sometimes round
   } else {
+    #sometimes round_any will produce negative bins when the overlap == 0.  Here, we correct for that.
+    dt.merged[[overlapCol]] <- ifelse(dt.merged[[overlapCol]] == 0, 0.00000001, dt.merged[[overlapCol]])
     #round dt.merged$overlap
     dt.merged$overlapRound <- chutils::ch.round_any(dt.merged[[overlapCol]], roundThreshold, roundDirection)
   }

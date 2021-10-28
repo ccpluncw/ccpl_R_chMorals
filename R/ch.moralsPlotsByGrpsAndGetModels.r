@@ -52,56 +52,58 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
 
       tmpDF <- list.DFbyGroups[[dfIndex$indexNum[i]]]
 
-      title <- paste(colNames,"=",colValues)
+      if(nrow(tmpDF) > 2) {
+        title <- paste(colNames,"=",colValues)
 
-      if(savePlots) {
-        filenamePno <-file.path(gpDir,paste(params$dt.set,title,"p(no).pdf"))
-        filenameRT <-file.path(gpDir,paste(params$dt.set,title,"p(hit) and RT.pdf"))
-        filenameDP <- file.path(gpDir,paste(params$dt.set, title, "d prime.pdf"))
-      } else {
-        filenamePno <- NULL
-        filenameRT <- NULL
-        filenameDP <- NULL
+        if(savePlots) {
+          # filenamePno <-file.path(gpDir,paste(params$dt.set,title,"p(no).pdf"))
+          filenameRT <-file.path(gpDir,paste(params$dt.set,title,"p(hit) and RT.pdf"))
+          filenameDP <- file.path(gpDir,paste(params$dt.set, title, "d prime.pdf"))
+        } else {
+          # filenamePno <- NULL
+          filenameRT <- NULL
+          filenameDP <- NULL
+        }
+
+        #plot p(No) by overlap round
+        # probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, minNperXbin = minNperOverlap, plotFilename = filenamePno, plotTitle = title)
+        # pNoModel <- ch.getLmModel(probNoFit, yLab="p(No)")
+
+        #plot RT and p(Hit) by overlap round
+        rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, minNperOverlap = minNperOverlap, useTwoParameterModel = useTwoParameterModel, printR2 = T, filename = filenameRT, topTitle = title)
+        RTModel <- ch.getLmModel(rt.outList$RTfit, yLab="RT")
+        pHitModel <- ch.getPhitModel(rt.outList$pHitFit)
+
+    		#plot d prime and beta by overlap round
+        dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, printR2 = T, filename = filenameDP, topTitle = title)
+        dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
+        betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
+
+        #put everything into a list
+        grpOutModels$dfIndex <- ch.rbind(grpOutModels$dfIndex,dfIndex[i,])
+        grpOutModels$RTModel[i] <- list(RTModel)
+        grpOutModels$pHitModel[i] <- list(pHitModel)
+        grpOutModels$dPrimeModel[i] <- list(dPrimeModel)
+        grpOutModels$betaModel[i] <- list(betaModel)
+        # grpOutModels$pNoModel[i] <- list(pNoModel)
+
+        #output stats
+  			sink(statsOutputFile, append=T)
+  				cat("\n\n*********************************", "all",colNames,"=", colValues,  "*********************************\n\n")
+  				# cat("\n\n**** p(No) ****\n\n")
+  				# print(probNoFit)
+  				# print(summary(probNoFit))
+          cat("\n\n**** Average RT ****\n\n")
+    			print(summary(rt.outList$RTfit))
+    			cat("\n\n**** p(Hit) ****\n\n")
+    			print(summary(rt.outList$pHitFit))
+    			cat("r_square: ",rt.outList$pHitR2)
+          cat("\n\n**** d Prime ****\n\n")
+    			print(summary(dp.outList$dPrimeFit))
+          cat("\n\n**** beta ****\n\n")
+    			print(summary(dp.outList$betaFit))
+  			sink(NULL)
       }
-
-      #plot p(No) by overlap round
-      probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, minNperXbin = minNperOverlap, plotFilename = filenamePno, plotTitle = title)
-      pNoModel <- ch.getLmModel(probNoFit, yLab="p(No)")
-
-      #plot RT and p(Hit) by overlap round
-      rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, minNperOverlap = minNperOverlap, useTwoParameterModel = useTwoParameterModel, printR2 = T, filename = filenameRT, topTitle = title)
-      RTModel <- ch.getLmModel(rt.outList$RTfit, yLab="RT")
-      pHitModel <- ch.getPhitModel(rt.outList$pHitFit)
-
-  		#plot d prime and beta by overlap round
-      dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, printR2 = T, filename = filenameDP, topTitle = title)
-      dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
-      betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
-
-      #put everything into a list
-      grpOutModels$dfIndex <- ch.rbind(grpOutModels$dfIndex,dfIndex[i,])
-      grpOutModels$RTModel[i] <- list(RTModel)
-      grpOutModels$pHitModel[i] <- list(pHitModel)
-      grpOutModels$dPrimeModel[i] <- list(dPrimeModel)
-      grpOutModels$betaModel[i] <- list(betaModel)
-      grpOutModels$pNoModel[i] <- list(pNoModel)
-
-      #output stats
-			sink(statsOutputFile, append=T)
-				cat("\n\n*********************************", "all",colNames,"=", colValues,  "*********************************\n\n")
-				cat("\n\n**** p(No) ****\n\n")
-				print(probNoFit)
-				print(summary(probNoFit))
-        cat("\n\n**** Average RT ****\n\n")
-  			print(summary(rt.outList$RTfit))
-  			cat("\n\n**** p(Hit) ****\n\n")
-  			print(summary(rt.outList$pHitFit))
-  			cat("r_square: ",rt.outList$pHitR2)
-        cat("\n\n**** d Prime ****\n\n")
-  			print(summary(dp.outList$dPrimeFit))
-        cat("\n\n**** beta ****\n\n")
-  			print(summary(dp.outList$betaFit))
-			sink(NULL)
     }
     par(op)
     return(grpOutModels)

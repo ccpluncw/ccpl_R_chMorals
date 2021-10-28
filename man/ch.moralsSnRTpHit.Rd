@@ -15,7 +15,8 @@ ch.moralsSnRTpHit(
   correctCol,
   correctVals = c(TRUE, FALSE),
   useTwoParameterModel = FALSE,
-  params
+  params,
+  minUniqueOverlaps = 3
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ ch.moralsSnRTpHit(
 \item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
+
+\item{minUniqueOverlaps}{An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the pHVO and RT function.  DEFAULT = 3.}
 
 \item{RTcol}{a string that specifies the name of the column in "data" that contains the RT for each trial.}
 }

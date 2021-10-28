@@ -21,6 +21,12 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
 
   x <- unique(data[[xCol]])
   y <- rep(0, length(x))
+
+  #get x axis limits
+  minX <- floor(min(x))
+  maxX <- ceiling(max(x))
+  xLims <- c(minX, maxX)
+
   if(!is.null(subsetString)) {
     titlePrefix <- subsetString
   } else {
@@ -81,12 +87,12 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
       minMax <- ch.getPlotAxisMinMax(allYs)
 
       #create empty plot using the x and y above
-      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = minMax, cex.lab = 1)
+      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = minMax, xlim = xLims, cex.lab = 1)
       mtext(side=2,yLab, line=3, cex = 1)
     }
     if(df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$modelType == "pHit") {
       #create empty plot
-      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = c(0,1), cex.lab = 1)
+      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = c(0,1), xlim = xLims, cex.lab = 1)
       mtext(side=2,yLab, line=3, cex = 1)
       abline(a=0.5,b=0,col="grey", lwd=2)
     }

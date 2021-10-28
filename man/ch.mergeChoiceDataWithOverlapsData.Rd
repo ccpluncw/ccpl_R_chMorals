@@ -18,7 +18,8 @@ ch.mergeChoiceDataWithOverlapsData(
   roundThreshold = 0.1,
   roundDirection = ceiling,
   numOverlapBins = 10,
-  outfile = NULL
+  outfile = NULL,
+  overlapDataIsComplete = FALSE
 )
 }
 \arguments{
@@ -47,6 +48,8 @@ ch.mergeChoiceDataWithOverlapsData(
 \item{roundDirection}{An option that specifies the rounding direction: ceiling (always round up), floor (always round down), or round (round to the nearest value, up or down). DEFAULT = ceiling}
 
 \item{numOverlapBins}{An integer that specifies the number of bins the overlaps should be binned into. This is only used if roundThreshold = NULL.  DEFAULT = 10 (round overlaps so that there are 10 bins)}
+
+\item{overlapDataIsComplete}{A boolean that specifies whether the overlap data contains all the possible trial stimuli in the exact column order (TRUE) or whether the overlap file contains the trial stimuli in only one order and therefore has to be permuted to be merged with the choice data (FALSE).  DEFAULT = FALSE.}
 
 \item{outputFile}{the filename that you want the output written to. DEFAULT = NULL (no file written)}
 

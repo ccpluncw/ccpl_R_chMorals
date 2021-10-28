@@ -11,13 +11,14 @@
 #' @param correctVals a vector of two values that specifies the "correct" value (index 1) and the "incorrect" value (index 2). e.g, c("yes", "no")
 #' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
+#' @param minUniqueOverlaps An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the pHVO and RT function.  DEFAULT = 3.
 #' @keywords morals data analysis by subject
 #' @return dataframe with the learning function fit and residuals
 #' @export
 #' @examples ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 
-ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel= FALSE, params) {
+ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, overlapCol, correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel= FALSE, params, minUniqueOverlaps = 3) {
 
     #create new directories
     mainDir <- getwd()
@@ -65,7 +66,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
 		### fit RT and pHit data for All data with Sn resids
 		op2 <- par(mfrow=c(2,1),bty="n", font=1, family='serif', mar=c(2,5,2,5), oma=c(3,0,3,0), cex=1.5, las=1)
 		plotFilename = file.path(snDir,paste(params$dt.set, "snAll rt p(Hit).pdf"))
-		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel = useTwoParameterModel, filename = plotFilename)
+		outList <- ch.moralsRTpHitFit(subData, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel = useTwoParameterModel, filename = plotFilename, minUniqueOverlaps = minUniqueOverlaps)
 
 		sink(statsOutputFile, append = T)
 			cat("\n\n********************************** Analysis By SN  **********************************\n\n")
@@ -91,7 +92,7 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
       tmp <- tmpOut$datKept
       uniqueOverlapsN <- length(unique(tmp$overlapRoundSN))
       #run the analysis if there are at least three overlap levels
-      if(uniqueOverlapsN > 2) {
+      if(uniqueOverlapsN >= minUniqueOverlaps) {
   			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel= useTwoParameterModel, plotTitle = paste("sn", j), printR2 = T, cex1=1)
 
   	    if(rowNum %% params$numPlotRows == 0) {
@@ -122,10 +123,16 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
     dev.copy(pdf, plotFilename, width=12, height=9)
     dev.off();
 
+
     write.table(subOutData, file="snOutParams.txt", quote=F, sep="\t", row.names=F)
+    #remove subs that model did not fit
+    subOutData.noNA <- na.omit(subOutData)
     sink(statsOutputFile, append = T)
 	    cat("\n\n********************************** Parameter Stats **********************************\n\n")
-			cat("\n\n**** Summary Sn Fits ****\n\n")
+      cat("raw N: ", nrow(subOutData), "\n\n")
+      cat("Number of NAs in each Column:\n\n")
+      print(colSums(is.na(subOutData)))
+      cat("\n\n**** Summary Sn Fits ****\n\n")
 	    print(summary(subOutData[2:length(subOutData)]))
 			cat("\n\n**** Mean Sn Fits ****\n\n")
 	    print(colMeans(subOutData[2:length(subOutData)], na.rm = T))

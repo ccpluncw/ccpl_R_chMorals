@@ -34,8 +34,14 @@ ch.moralsPlotSnRTpHitFits <- function (snSummaryArray, snCol, rtSloCol, rtIntCol
   ylimMin <-  minY - buffer
   ylimMax <-  maxY + buffer
 
+  #get x axis limits
+  minX <- floor(min(xAll))
+  maxX <- ceiling(max(xAll))
+  xLims <- c(minX, maxX)
+
+
   #create graph with a dummy dataset that cant be seen (drawn in white)
-  plot(xAll, yAll, main="Slopes", xlab= NA, ylab=NA, type="l", col="white", lwd=1, ylim=c(ylimMin,ylimMax))
+  plot(xAll, yAll, main="Slopes", xlab= NA, ylab=NA, type="l", col="white", lwd=1, ylim=c(ylimMin,ylimMax), xlim = xLims)
 
   #add data
   for (j in 1:length(snSummaryArray[[snCol]]))  {
@@ -47,13 +53,12 @@ ch.moralsPlotSnRTpHitFits <- function (snSummaryArray, snCol, rtSloCol, rtIntCol
   yAll2 <- rep(0.5,length(xAll))
 
   #create graph with a dummy dataset that cant be seen (drawn in white)
-  plot(xAll, yAll2, main="p(hit)", xlab= NA, ylab=NA, type="l", col=lineCol, lwd=1, ylim = c(0,1))
+  plot(xAll, yAll2, main="p(hit)", xlab= NA, ylab=NA, type="l", col=lineCol, lwd=1, ylim = c(0,1), xlim = xLims)
   abline(a=0.5,b=0,col="grey", lwd=2)
 
   #add data
   for (j in 1:length(snSummaryArray[[snCol]]))  {
-    if(!is.na(snSummaryArray[[phR2Col]][j])) {
-#      y <- .5*(1-(xAll^snSummaryArray[[phBCol]][j]))+.5
+    if(!is.na(snSummaryArray[[phR2Col]][j]) & !is.na(snSummaryArray[[phACol]][j]) & !is.na(snSummaryArray[[phBCol]][j])) {
       y <- (1-snSummaryArray[[phACol]][j])*(1-(xAll^snSummaryArray[[phBCol]][j]))+snSummaryArray[[phACol]][j]
       lineCol <- rgb(1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j])
       lines(xAll, y, col=lineCol, lwd=1)

@@ -17,6 +17,7 @@ ch.moralsRTpHitFit(
   printR2 = F,
   topTitle = NULL,
   filename = NULL,
+  minUniqueOverlaps = 2,
   ...
 )
 }
@@ -42,6 +43,8 @@ ch.moralsRTpHitFit(
 \item{topTitle}{a string that will be the title at the top of the page. DEFAULT = NULL.}
 
 \item{filename}{the filename (pdf) to save the output of the graph. DEFAULT = NULL (no graph saved)}
+
+\item{minUniqueOverlaps}{An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the pHVO and RT function.  DEFAULT = 2.}
 
 \item{RTcol}{a string that specifies the name of the column in "data" that contains the RT for each trial.}
 }

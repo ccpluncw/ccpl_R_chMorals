@@ -51,12 +51,12 @@ ch.moralsGrpRTpHit <- function (data, trialCol, RTCol, fitCol, resCol, overlapRo
 		}
 
 		##### look at the probability of a No response
-		merged.probno <-file.path(gpDir,paste(params$dt.set,"gp p(no).pdf"))
-		fitno <- ch.moralsGetProbNo(data, overlapRoundCol, yesNoCol, yesNoVal, plotFilename = merged.probno)
-		sink(statsOutputFile, append = T)
-			cat("\n\n**** p(No) ****\n\n")
-			print(summary(fitno))
-		sink(NULL)
+		# merged.probno <-file.path(gpDir,paste(params$dt.set,"gp p(no).pdf"))
+		# fitno <- ch.moralsGetProbNo(data, overlapRoundCol, yesNoCol, yesNoVal, plotFilename = merged.probno)
+		# sink(statsOutputFile, append = T)
+		# 	cat("\n\n**** p(No) ****\n\n")
+		# 	print(summary(fitno))
+		# sink(NULL)
 
 		### fit RT and pHit data
 		plotFilename <- file.path(gpDir,paste(params$dt.set,"gp rt p(Hit).pdf"))
