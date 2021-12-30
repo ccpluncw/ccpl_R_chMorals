@@ -28,11 +28,13 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
   #then get the unique items to ensure they are in both sets
   overItems <- NULL
   for(i in 1:length(overlapItem1cols)) {
+    overlap.data[[overlapItem1cols[i]]] <- ifelse(is.na(overlap.data[[overlapItem1cols[i]]]), "NA", overlap.data[[overlapItem1cols[i]]])
     overlap.data[[overlapItem1cols[i]]] <- as.character(overlap.data[[overlapItem1cols[i]]])
     overlap.data[[overlapItem1cols[i]]] <- tolower(trimws(overlap.data[[overlapItem1cols[i]]]))
     overItems <- c(overItems, unique(overlap.data[[overlapItem1cols[i]]]))
   }
   for(i in 1:length(overlapItem2cols)) {
+    overlap.data[[overlapItem2cols[i]]] <- ifelse(is.na(overlap.data[[overlapItem2cols[i]]]), "NA", overlap.data[[overlapItem2cols[i]]])
     overlap.data[[overlapItem2cols[i]]] <- as.character(overlap.data[[overlapItem2cols[i]]])
     overlap.data[[overlapItem2cols[i]]] <- tolower(trimws(overlap.data[[overlapItem2cols[i]]]))
     overItems <- c(overItems, unique(overlap.data[[overlapItem2cols[i]]]))
@@ -42,11 +44,13 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
   #then get the unique items to ensure they are in both sets
   dataItems <- NULL
   for(i in 1:length(item1cols)) {
+    data[[item1cols[i]]] <- ifelse(is.na(data[[item1cols[i]]]), "NA", data[[item1cols[i]]])
     data[[item1cols[i]]] <- as.character(data[[item1cols[i]]])
     data[[item1cols[i]]] <- tolower(trimws(data[[item1cols[i]]]))
     dataItems <- c(dataItems, unique(data[[item1cols[i]]]))
   }
   for(i in 1:length(item2cols)) {
+    data[[item2cols[i]]] <- ifelse(is.na(data[[item2cols[i]]]), "NA", data[[item2cols[i]]])
     data[[item2cols[i]]] <- as.character(data[[item2cols[i]]])
     data[[item2cols[i]]] <- tolower(trimws(data[[item2cols[i]]]))
     dataItems <- c(dataItems, unique(data[[item2cols[i]]]))
