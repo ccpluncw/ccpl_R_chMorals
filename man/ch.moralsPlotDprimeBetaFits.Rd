@@ -13,6 +13,7 @@ ch.moralsPlotDprimeBetaFits(
   targetPresentVals,
   addCorrection = TRUE,
   minNperOverlap = 0,
+  minUniqueOverlaps = 3,
   cex1 = 1.25,
   cex.topTile = 1.25,
   printR2 = T,
@@ -37,6 +38,8 @@ ch.moralsPlotDprimeBetaFits(
 \item{addCorrection}{a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.}
 
 \item{minNperOverlap}{an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.}
+
+\item{minUniqueOverlaps}{An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the dPrime function.  DEFAULT = 3.}
 
 \item{cex1}{sets the default font size. DEFAULT = 1.25.}
 

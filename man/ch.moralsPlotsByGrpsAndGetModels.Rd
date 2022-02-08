@@ -17,6 +17,7 @@ ch.moralsPlotsByGrpsAndGetModels(
   targetPresentVals,
   params,
   minNperOverlap = 0,
+  minUniqueOverlaps = 3,
   useTwoParameterModel = useTwoParameterModel,
   savePlots = T
 )
@@ -43,6 +44,8 @@ ch.moralsPlotsByGrpsAndGetModels(
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 
 \item{minNperOverlap}{an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.}
+
+\item{minUniqueOverlaps}{An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the dPrime function.  DEFAULT = 3.}
 
 \item{useTwoParameterModel}{A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.}
 

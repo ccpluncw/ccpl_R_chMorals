@@ -13,6 +13,7 @@
 #' @param targetPresentVals a vector of two values that specifies the "target present" value (index 1) and the "target absent" value (index 2). e.g, c("yes", "no")
 #' @param params a list of parameters that are read in using "ch.readMoralsDBfile.r."
 #' @param minNperOverlap an integer that specifies the minimum number of trials necessary to include an overlap bin in the graph. DEFAULT = 0.
+#' @param minUniqueOverlaps An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the dPrime function.  DEFAULT = 3.
 #' @param useTwoParameterModel A boolean that specifies whether to use a two parameter p(HOV) model.  If this is set to TRUE, then this function will fit a p(HVO) model whereby the rightmost point (overlap = 1.0) is not fixed at p(HVO) = 0.5. DEFAULT = FALSE.
 #' @param savePlots a boolean that specifies whether to save plots. DEFAULT = T.
 #' @keywords morals data analysis by grouping group variable
@@ -20,7 +21,7 @@
 #' @export
 #' @examples ch.moralsPlotsByGrpsAndGetModels (data=moralsData,c("title", "typeOfScen"), "res.RT", "overlapRound", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
-ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals, params, minNperOverlap = 0, useTwoParameterModel = useTwoParameterModel, savePlots = T) {
+ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRoundCol, yesNoCol, yesNoVal = c("Yes", "No"), correctCol, correctVals = c(TRUE, FALSE), targetPresentCol, targetPresentVals, params, minNperOverlap = 0, minUniqueOverlaps = 3, useTwoParameterModel = useTwoParameterModel, savePlots = T) {
 
   	mainDir <- getwd()
 
@@ -75,9 +76,17 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
         pHitModel <- ch.getPhitModel(rt.outList$pHitFit)
 
     		#plot d prime and beta by overlap round
-        dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, printR2 = T, filename = filenameDP, topTitle = title)
-        dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
-        betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
+        dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, minUniqueOverlaps= minUniqueOverlaps, printR2 = T, filename = filenameDP, topTitle = title)
+        if(!is.na(dp.outList$dPrimeFit)) {
+          dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
+        } else {
+          dPrimeModel <- NA
+        }
+        if(!is.na(dp.outList$dPrimeFit)) {
+          betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
+        } else {
+          betaModel <- NA
+        }
 
         #put everything into a list
         grpOutModels$dfIndex <- ch.rbind(grpOutModels$dfIndex,dfIndex[i,])
@@ -99,9 +108,18 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
     			print(summary(rt.outList$pHitFit))
     			cat("r_square: ",rt.outList$pHitR2)
           cat("\n\n**** d Prime ****\n\n")
-    			print(summary(dp.outList$dPrimeFit))
+
+          if(!is.na(dp.outList$dPrimeFit)) {
+            print(summary(dp.outList$dPrimeFit))
+          } else {
+            print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
+          }
           cat("\n\n**** beta ****\n\n")
-    			print(summary(dp.outList$betaFit))
+          if(!is.na(dp.outList$betaFit)) {
+    			  print(summary(dp.outList$betaFit))
+          } else {
+            print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
+          }
   			sink(NULL)
       }
     }

@@ -13,6 +13,7 @@ ch.moralsDprimeAnalysis(
   targetPresentVals,
   resCol,
   addCorrection = TRUE,
+  minUniqueOverlaps = 3,
   params,
   printR2 = TRUE,
   filenameID = NULL
@@ -34,6 +35,8 @@ ch.moralsDprimeAnalysis(
 \item{resCol}{a string that specifies the name of the new column that will contain the residual datapoints.}
 
 \item{addCorrection}{a boolean that specifies whether you want a .5 correction to be added the total hits, FAs, misses, and CRs. This corrects for 0 and 1 values for FA and Hits. DEFAULT = T.}
+
+\item{minUniqueOverlaps}{An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the dPrime functions.  DEFAULT = 3.}
 
 \item{params}{a list of parameters that are read in using "ch.readMoralsDBfile.r."}
 }

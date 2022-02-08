@@ -22,7 +22,7 @@ ch.rmLearningBySN <- function (data, snCol, trialCol, RTcol, fitCol, resCol, out
 		subData <- NULL
 		for (j in subs) {
 			outList <- ch.moralsRmLearningEffect(data[data[[snCol]] == j,], trialCol,RTcol, fitCol, resCol)
-			subData <- ch.rbind (subData, outList$data)
+			subData <- chutils::ch.rbind (subData, outList$data)
 		}
 
     if(!is.null(outputFile)) {

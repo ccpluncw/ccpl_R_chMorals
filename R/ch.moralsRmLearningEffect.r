@@ -14,7 +14,7 @@
 
 ch.moralsRmLearningEffect <- function (data, x, y, fitCol, resCol, ...) {
 
-		fit.nls <- ch.getLearningEffect(data, x,y, a = 2000, b = -1, c = 100)
+		fit.nls <- chutils::ch.getLearningEffect(data, x,y, a = 2000, b = -1, c = 100)
 
 		data[[resCol]] <- resid(fit.nls)
 		data[[fitCol]] <- fitted(fit.nls)

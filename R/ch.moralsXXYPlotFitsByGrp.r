@@ -64,74 +64,69 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
   df.legend <- ch.getPlotLegendVals(dfIndex[1:length(dfIndex)-1])
 
   for(j in 1:numModels) {
-    yLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$yLab
-    xLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$xLab
-    #create a temporary dataframe with the name of the x variable in the formula
-    xVar <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$vars[1]
-    df.tmp <- setNames(data.frame(x), xVar)
+    if(!is.na(df.models[[modelNames[j]]])) {
+      yLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$yLab
+      xLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$xLab
+      #create a temporary dataframe with the name of the x variable in the formula
+      xVar <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$vars[1]
+      df.tmp <- setNames(data.frame(x), xVar)
 
-    if(df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$modelType == "lm") {
+      if(df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$modelType == "lm") {
+        #get y-axis bounds
+        allYs <- NULL
+        for(i in 1:numConds) {
+          if(!is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]])) {
+            model <- df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model
+            #add the y values to the temporary dataframe
+            df.tmp$y <- with(df.tmp, eval(model))
+          } else {
+            df.tmp$y <- NA
+          }
+          allYs <- c(allYs,df.tmp$y)
+        }
+        minMax <- ch.getPlotAxisMinMax(allYs)
+        #create empty plot using the x and y above
+        plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = minMax, xlim = xLims, cex.lab = 1)
+        mtext(side=2,yLab, line=3, cex = 1)
+      }
+      if(df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$modelType == "pHit") {
+        #create empty plot
+        plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = c(0,1), xlim = xLims, cex.lab = 1)
+        mtext(side=2,yLab, line=3, cex = 1)
+        abline(a=0.5,b=0,col="grey", lwd=2)
+      }
 
-      #get y-axis bounds
-      allYs <- NULL
       for(i in 1:numConds) {
-        model <- df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model
-        #add the y values to the temporary dataframe
-        if(!is.na(model)) {
+        if(!is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]])) {
+          #create a temporary dataframe with the name of the x variable in the formula
+          xVar <- df.models[[modelNames[j]]] [[dfIndex$indexNum[i]]]$vars[1]
+          df.tmp <- setNames(data.frame(x), xVar)
+          #get y values
+          model <- df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model
           df.tmp$y <- with(df.tmp, eval(model))
-        } else {
-          df.tmp$y <- NA
+          #get Condition and line attributes
+          if(numGroups == 1) {
+            tmpLgnd <- df.legend[df.legend[[grp1Col]]==dfIndex[[grp1Col]][i],]
+          } else {
+            tmpLgnd <- df.legend[df.legend[[grp1Col]]==dfIndex[[grp1Col]][i] & df.legend[[grp2Col]]==dfIndex[[grp2Col]][i],]
+          }
+          #sort dataframe and plot line
+          df.tmp <- df.tmp[order(df.tmp[[xVar]]),]
+          lines(df.tmp$y ~ df.tmp[[xVar]], lty =as.character(tmpLgnd$lty),  col=hsv(tmpLgnd$h,tmpLgnd$s, tmpLgnd$v))
         }
-        allYs <- c(allYs,df.tmp$y)
       }
-      minMax <- ch.getPlotAxisMinMax(allYs)
-
-      #create empty plot using the x and y above
-      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = minMax, xlim = xLims, cex.lab = 1)
-      mtext(side=2,yLab, line=3, cex = 1)
-    }
-    if(df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$modelType == "pHit") {
-      #create empty plot
-      plot(y ~ x, main=paste(titlePrefix, modelNames[j]), xlab= xLab, ylab=NA, type="l",  col="white", lwd=.75, ylim = c(0,1), xlim = xLims, cex.lab = 1)
-      mtext(side=2,yLab, line=3, cex = 1)
-      abline(a=0.5,b=0,col="grey", lwd=2)
-    }
-
-    for(i in 1:numConds) {
-      if(!is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model)) {
-        #create a temporary dataframe with the name of the x variable in the formula
-        xVar <- df.models[[modelNames[j]]] [[dfIndex$indexNum[i]]]$vars[1]
-        df.tmp <- setNames(data.frame(x), xVar)
-        #get y values
-        model <- df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model
-        df.tmp$y <- with(df.tmp, eval(model))
-
-        #get Condition and line attributes
-        if(numGroups == 1) {
-          tmpLgnd <- df.legend[df.legend[[grp1Col]]==dfIndex[[grp1Col]][i],]
-        } else {
-          tmpLgnd <- df.legend[df.legend[[grp1Col]]==dfIndex[[grp1Col]][i] & df.legend[[grp2Col]]==dfIndex[[grp2Col]][i],]
-        }
-        #sort dataframe and plot line
-        df.tmp <- df.tmp[order(df.tmp[[xVar]]),]
-        lines(df.tmp$y ~ df.tmp[[xVar]], lty =as.character(tmpLgnd$lty),  col=hsv(tmpLgnd$h,tmpLgnd$s, tmpLgnd$v))
+      #add legend
+      if(addLegend) {
+        ch.addLegend(df.legend, c(grp1Col, grp2Col))
+      }
+      #save file
+      if (!is.null(filenameID)) {
+        grps <- paste(grp1Col, grp2Col, sep="-")
+        filename <-paste(filenameID,modelNames[j],grps,".pdf")
+        dev.copy(pdf, filename, width=8, height=8)
+        dev.off();
       }
     }
-
-    #add legend
-    if(addLegend) {
-      ch.addLegend(df.legend, c(grp1Col, grp2Col))
-    }
-
-    #save file
-    if (!is.null(filenameID)) {
-      grps <- paste(grp1Col, grp2Col, sep="-")
-      filename <-paste(filenameID,modelNames[j],grps,".pdf")
-      dev.copy(pdf, filename, width=8, height=8)
-      dev.off();
-    }
-
   }
   par(op)
-
 }

@@ -94,7 +94,6 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
       #run the analysis if there are at least three overlap levels
       if(uniqueOverlapsN >= minUniqueOverlaps) {
   			outList <- ch.moralsRTpHitFit(tmp, "overlapRoundSN", resCol, correctCol, correctVals, useTwoParameterModel= useTwoParameterModel, plotTitle = paste("sn", j), printR2 = T, cex1=1)
-
   	    if(rowNum %% params$numPlotRows == 0) {
   				plotFilename <- file.path(snDir,paste(params$dt.set, "sn", j, "rt p(Hit).pdf"))
   		    dev.copy(pdf, plotFilename, width=12, height=9)
@@ -113,7 +112,13 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
   				cat("\n\n**** Average RT ****\n\n")
   				print(summary(outList$RTfit))
   				cat("\n\n**** p(Hit) ****\n\n")
-  				print(summary(outList$pHitFit))
+
+          tryCatch ({
+              print(summary(outList$pHitFit))
+            }, error = function(e) {
+              print(paste("pHitFit error:", e))
+          })
+
   				cat("r_square: ",outList$pHitR2)
   	    sink(NULL)
       }
