@@ -53,10 +53,10 @@ ch.moralsFilterDataQ <- function (data, snCol, RTcol, overlapRoundCol, correctCo
 				cat("\n\t", mean(substats$N), "\t", sd(substats$N))
 			sink(NULL)
 
-			dataOutFile <- file.path(mainDir,params$analysisReadyOutFile)
+			dataOutFile <- file.path(params$analysisReadyOutFile)
 			write.table(data, file=dataOutFile, quote=F, sep="\t", row.names=F)
 
-			subStatsOutFile <- file.path(mainDir,paste(params$dt.set, "subStats.txt"))
+			subStatsOutFile <- file.path(paste(params$dt.set, "subStats.txt"))
 			write.table(substats, file=subStatsOutFile, quote=F, sep="\t", row.names=F)
 
 			return(data)

@@ -2,6 +2,7 @@
 #'
 #' This function prepares the morals data for analysis by creating overlapRound, correct, and a few other columns.  It also makes sure the trials starts at 1, and computes average p(hit) and RT for each subject.
 #' @param data morals dataframe.
+#' @param dat.over A dataframe with the overlap data processed from a typical values experiment.
 #' @param snCol a string that specifies the name of the column in "data" that contains the subject number.
 #' @param RTcol a string that specifies the name of the column in "data" that contains the RT for each trial.
 #' @param overlapCol a string that specifies the name of the column in "data" that contains the overlaps for the item in each trial.
@@ -23,14 +24,14 @@
 #' @importFrom dplyr %>%
 #' @examples ch.moralsDataPrep (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"), params=parameters)
 
-ch.moralsDataPrep  <- function (data, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),statsOutputFile = NULL, params, overlapDataIsComplete = FALSE) {
+ch.moralsDataPrep  <- function (data, dat.over, snCol, RTcol, overlapCol, directionCol, trialCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),statsOutputFile = NULL, params, overlapDataIsComplete = FALSE) {
 
 
 	transformRT <- ifelse (params$keybRTtransform == "log", TRUE, FALSE)
 
 	df.out <- ch.moralsDataClean(data, snCol = snCol, RTcol = RTcol, trialCol = trialCol, respChoiceCol = respChoiceCol , respChoiceVal = respChoiceVal, dropVarFilename =params$dropVarFile, dropSNFilename = params$removeBadSNFile, transformRT,  outfile = NULL)
 
-	dat.over <-read.table(params$valueOverlapDataFile, sep="\t", header=T, quote="\"")
+	#dat.over <-read.table(params$valueOverlapDataFile, sep="\t", header=T, quote="\"")
 
 	df.out <- ch.mergeChoiceDataWithOverlapsData(df.out, dat.over, overlapCol = overlapCol, directionCol = directionCol, respChoiceCol = respChoiceCol, respChoiceVal = respChoiceVal, item1cols = item1cols, item2cols = item2cols, overlapItem1cols = overlapItem1cols, overlapItem2cols = overlapItem2cols,outfile = params$prepDataOutFile, roundThreshold = params$roundThreshold, roundDirection = params$roundDirection, overlapDataIsComplete = overlapDataIsComplete)
 

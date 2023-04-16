@@ -22,7 +22,7 @@
 #' @export
 #' @examples ch.mergeChoiceDataWithOverlapsData (data=moralsData, "sn", "RT", "overlap", "direction", "trials", "respDef", respChoiceVal = c("Yes", "No"))
 
-ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, directionCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"),roundThreshold = 0.1, roundDirection = ceiling, numOverlapBins = 10, outfile = NULL, overlapDataIsComplete = FALSE) {
+ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, directionCol, respChoiceCol, respChoiceVal = c("Item1", "Item2"), item1cols = c("Item1"), item2cols = c("Item2"), overlapItem1cols = c("IA1"), overlapItem2cols = c("IB1"), roundThreshold = 0.1, roundDirection = ceiling, numOverlapBins = 10, outfile = NULL, overlapDataIsComplete = FALSE) {
 
   #remove leading whitespace and make all lowercase to make more similar.
   #then get the unique items to ensure they are in both sets
@@ -130,6 +130,16 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
 
   #remove duplicate rows that got inserted when the same item is part of a pair in groupA or groupB
   dt.merged <- unique(dt.merged.d)
+
+  ############ MAKE SURE YOU HAVE THE SMAE NUMBER OF ROWS IN THE OUTPUT Dataset
+  nRowsData <- nrow(data)
+  nRowsMerged <- nrow(dt.merged.d)
+  if(nRowsData != nRowsMerged) {
+    cat("The number of rows in the original dataset (", nRowsData, ") does not equal the number of rows in the dataset once it is merged with the overlaps (", nRowsMerged, "). You should find out why.  If overlapDataIsComplete = TRUE, this is often because there are stimuli in the choice dataset that are missing in the values dataset. If overlapDataIsComplete = FALSE, this is often because the overlap file contains all the possible trial options in the exact order that they are presented to the participant, therefore set overlapDataIsComplete = TRUE and try again. ")
+    stop()
+  }
+  #remove duplicate rows that got inserted when the same item is part of a pair in groupA or groupB
+
 
   if(is.null(roundThreshold)) {
     dt.merged$overlapRound <-chutils::ch.binNumbers(dt.merged[[overlapCol]], numOverlapBins)

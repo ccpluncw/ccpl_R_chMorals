@@ -6,6 +6,7 @@
 \usage{
 ch.moralsDataPrep(
   data,
+  dat.over,
   snCol,
   RTcol,
   overlapCol,
@@ -24,6 +25,8 @@ ch.moralsDataPrep(
 }
 \arguments{
 \item{data}{morals dataframe.}
+
+\item{dat.over}{A dataframe with the overlap data processed from a typical values experiment.}
 
 \item{snCol}{a string that specifies the name of the column in "data" that contains the subject number.}
 
