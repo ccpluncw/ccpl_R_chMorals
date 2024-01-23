@@ -76,35 +76,35 @@ ch.moralsDprimeAnalysis <- function (data, overlapRoundCol, correctCol, correctV
 			cat("\nMinimum N for N.targetPresent and N.targetAbsent in the dPrime regressions: ", params$minOverlapN)
 			cat("\n\n**** D Prime by Overlap lm fit ****\n\n")
 
-			if(!is.na(dp.outList$dPrimeFit)) {
+			if(all(is.na(dp.outList$dPrimeFit) == FALSE)) {
 				print(summary(dp.outList$dPrimeFit))
 			} else {
 				print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
 			}
 
 			cat("\n\n**** Beta by Overlap lm fit ****\n\n")
-			if(!is.na(dp.outList$betaFit)) {
+			if(all(is.na(dp.outList$betaFit) == FALSE)) {
 				print(summary(dp.outList$betaFit))
 			} else {
 				print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
 			}
 
 			cat("\n\n**** D Prime by RT lm fit ****\n\n")
-			if(!is.na(DprimeRTFit)) {
+			if(all(is.na(DprimeRTFit) == FALSE)) {
 				print(summary(DprimeRTFit))
 			} else {
 				print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
 			}
 
 			cat("\n\n**** Beta by RT lm fit ****\n\n")
-			if(!is.na(betaRTFit)) {
+			if(all(is.na(betaRTFit) == FALSE)) {
 				print(summary(betaRTFit))
 			} else {
 				print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
 			}
 
 			cat("\n\n**** RT ~ overlapRound + beta + (overlapRound*beta) lm fit ****\n\n")
-			if(!is.na(betaRTFit)) {
+			if(all(is.na(RTbyDp.fit) == FALSE)) {
 				print(summary(RTbyDp.fit))
 			} else {
 				print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))

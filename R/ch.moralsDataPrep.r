@@ -31,8 +31,6 @@ ch.moralsDataPrep  <- function (data, dat.over, snCol, RTcol, overlapCol, direct
 
 	df.out <- ch.moralsDataClean(data, snCol = snCol, RTcol = RTcol, trialCol = trialCol, respChoiceCol = respChoiceCol , respChoiceVal = respChoiceVal, dropVarFilename =params$dropVarFile, dropSNFilename = params$removeBadSNFile, transformRT,  outfile = NULL)
 
-	#dat.over <-read.table(params$valueOverlapDataFile, sep="\t", header=T, quote="\"")
-
 	df.out <- ch.mergeChoiceDataWithOverlapsData(df.out, dat.over, overlapCol = overlapCol, directionCol = directionCol, respChoiceCol = respChoiceCol, respChoiceVal = respChoiceVal, item1cols = item1cols, item2cols = item2cols, overlapItem1cols = overlapItem1cols, overlapItem2cols = overlapItem2cols,outfile = params$prepDataOutFile, roundThreshold = params$roundThreshold, roundDirection = params$roundDirection, overlapDataIsComplete = overlapDataIsComplete)
 
 	if(is.null(statsOutputFile)) {

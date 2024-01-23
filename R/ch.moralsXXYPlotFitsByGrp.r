@@ -64,7 +64,7 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
   df.legend <- ch.getPlotLegendVals(dfIndex[1:length(dfIndex)-1])
 
   for(j in 1:numModels) {
-    if(!is.na(df.models[[modelNames[j]]])) {
+    if(all(is.na(df.models[[modelNames[[j]]]]) == FALSE)) {
       yLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$yLab
       xLab <- df.models[[modelNames[j]]] [[dfIndex$indexNum[1]]]$xLab
       #create a temporary dataframe with the name of the x variable in the formula
@@ -75,7 +75,7 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
         #get y-axis bounds
         allYs <- NULL
         for(i in 1:numConds) {
-          if(!is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]])) {
+          if(all(is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]) == FALSE)) {
             model <- df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]$model
             #add the y values to the temporary dataframe
             df.tmp$y <- with(df.tmp, eval(model))
@@ -97,7 +97,7 @@ ch.moralsXXYPlotFitsByGrp <- function (df.models, grp1Col, grp2Col = NULL, xCol,
       }
 
       for(i in 1:numConds) {
-        if(!is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]])) {
+        if(all(is.na(df.models[[modelNames[j]]][[dfIndex$indexNum[i]]]) == FALSE)) {
           #create a temporary dataframe with the name of the x variable in the formula
           xVar <- df.models[[modelNames[j]]] [[dfIndex$indexNum[i]]]$vars[1]
           df.tmp <- setNames(data.frame(x), xVar)

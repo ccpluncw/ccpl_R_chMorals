@@ -2,7 +2,7 @@
 % Please edit documentation in R/ch.moralsItemRTpHit.r
 \name{ch.moralsItemRTpHit}
 \alias{ch.moralsItemRTpHit}
-\title{A function to analyze the Morals data by subject}
+\title{A function to analyze the Morals data by item}
 \usage{
 ch.moralsItemRTpHit(
   data,
@@ -16,6 +16,7 @@ ch.moralsItemRTpHit(
   minUniqueOverlaps = 3,
   statsOutputFile = NULL,
   numPlotRows = 2,
+  numPlotCols = 2,
   dt.set = NULL
 )
 }
@@ -40,13 +41,15 @@ ch.moralsItemRTpHit(
 
 \item{numPlotRows}{an integer that specifies the number of rows in the output figure, DEFAULT = 2)}
 
+\item{numPlotCols}{an integer that specifies the number of columns in the output figure, DEFAULT = 2)}
+
 \item{dt.set}{A string that specifies the a short title to identify the output of these plots. DEFAULT = NULL)}
 }
 \value{
 dataframe with the learning function fit and residuals
 }
 \description{
-This function analyzes the group  morals data.
+This function plots the relation between overlap and p(HVO)/RT for every item.
 }
 \examples{
 ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)

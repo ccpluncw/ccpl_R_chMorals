@@ -1,6 +1,6 @@
-#' A function to analyze the Morals data by subject
+#' A function to analyze the Morals data by item
 #'
-#' This function analyzes the group  morals data.
+#' This function plots the relation between overlap and p(HVO)/RT for every item.
 #' @param data the morals dataframe after running through ch.moralsDataPrep().
 #' @param itemCols a vector of strings that specifies the names of the columns in "data" that contains the the probes. This is all the columns for all of the groups
 #' @param resCol a string that specifies the name of the new column that will contain the residual datapoints.
@@ -11,6 +11,7 @@
 #' @param minUniqueOverlaps An integer specifying the minimum number of unique overlap bins necessary for the program to calculate the pHVO and RT function.  DEFAULT = 3.
 #' @param statsOutputFile the filename that you want the statistics summary output written to. DEFAULT = NULL (construct filename from "params")
 #' @param numPlotRows an integer that specifies the number of rows in the output figure, DEFAULT = 2)
+#' @param numPlotCols an integer that specifies the number of columns in the output figure, DEFAULT = 2)
 #' @param dt.set A string that specifies the a short title to identify the output of these plots. DEFAULT = NULL)
 #' @keywords morals data analysis by subject
 #' @return dataframe with the learning function fit and residuals
@@ -18,13 +19,16 @@
 #' @examples ch.moralsSnRTpHit (data=moralsData,"sn", "trial", "RT", "res.RT", "fit.RT", "overlap", "keyDef", c("Yes", "No"), "correct", params=parameters)
 
 
-ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel= FALSE, minNperOverlap = 0, minUniqueOverlaps = 3, statsOutputFile = NULL, numPlotRows = 2, dt.set = NULL) {
+ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correctCol, correctVals = c(TRUE, FALSE), useTwoParameterModel= FALSE, minNperOverlap = 0, minUniqueOverlaps = 3, statsOutputFile = NULL, numPlotRows = 2, numPlotCols = 2, dt.set = NULL) {
 
-
+    plotWidth <- 5*numPlotCols
+    plotHeight <- 5*numPlotRows
     probes <- NULL
     for(i in length(itemCols)) {
       probes <- unique(c(probes, data[,itemCols[i]]))
     }
+    #alphabetize
+    probes <- sort(probes)
 
     sink(statsOutputFile, append = T)
       cat("\n\n*************************************** ITEM ANALYSIS ***************************************\n\n")
@@ -46,11 +50,18 @@ ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correc
 		par(op2)
 
 	  ### fit RT and pHit data for individual Subjects
-		op <- par(mfrow=c(numPlotRows,2),bty="n", font=1, family='serif', mar=c(5,6,4,2), cex=1, las=1)
+    dev.off()
+    dev.new(width=plotWidth, height = plotHeight)
+		op <- par(mfcol=c(numPlotRows,numPlotCols),bty="n", font=1, family='serif', mar=c(5,6,4,2), cex=1, las=1)
 		itemOutData <- NULL
     rowNum <- 1
+    plotNum <- 0
+    colNum <- 1
+    plotNumber <- 1
+    plotsPerPage <- (numPlotCols * numPlotRows)
     for (j in probes)  {
-      tmp <- data %>% filter_at(vars(itemCols), any_vars(. == j))
+
+      tmp <- data %>% dplyr::filter_at(dplyr::vars(itemCols), dplyr::any_vars(. == j))
       ### filter out Overlaps with fewer than params$minOverlapNsn observations
       tmpOut <- ch.filterGrpByN(tmp, overlapRoundCol, grpCol=overlapRoundCol, minNperOverlap)
       tmp <- tmpOut$datKept
@@ -58,10 +69,15 @@ ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correc
       #run the analysis if there are at least three overlap levels
       if(uniqueOverlapItem >= minUniqueOverlaps) {
   			outList <- ch.moralsRTpHitFit(tmp, overlapRoundCol, resCol, correctCol, correctVals, useTwoParameterModel= useTwoParameterModel, plotTitle = paste("probe", j), printR2 = T, cex1=1)
-  	    if(rowNum %% numPlotRows == 0) {
-  				plotFilename <- file.path(paste(dt.set, "probe", j, "rt p(Hit).pdf"))
-  		    dev.copy(pdf, plotFilename, width=12, height=9)
-  		    dev.off();
+
+        plotNum <- plotNum + 2
+  	    if(plotNum %% plotsPerPage == 0) {
+  				plotFilename <- file.path(paste(dt.set, "plot", plotNumber, "rt p(Hit).pdf"))
+  		    dev.copy(pdf, plotFilename, width=plotWidth, height=plotHeight)
+          graphics.off()
+          dev.new(width=plotWidth, height = plotHeight)
+          par(mfcol=c(numPlotRows,numPlotCols),bty="n", font=1, family='serif', mar=c(5,6,4,2), cex=1, las=1)
+          plotNumber <- plotNumber + 1
   	    }
 
   			#make r2 negative if the RT slope is negative
@@ -69,7 +85,6 @@ ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correc
   			#store all the subject fit parameters in a dataframe
   			tmp1 <- data.frame(probe = j, rtInt = coef(outList$RTfit)[1],rtSlo = coef(outList$RTfit)[2],rtR2 = rtR2 ,phB = outList$pHitBeta,phA = outList$pHitAlpha, phR2 = outList$pHitR2)
   			itemOutData <- ch.rbind (itemOutData, tmp1)
-  	    rowNum <- rowNum + 1
 
   	    sink(statsOutputFile, append = T)
   		    cat("\n\n********************************** probe:", j , "**********************************\n\n")
@@ -88,8 +103,8 @@ ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correc
       }
     }
     #print last graph - just in case there was not a full set that finished
-		plotFilename <- file.path(paste(dt.set, "probe", j, "rt p(Hit).pdf"))
-    dev.copy(pdf, plotFilename, width=12, height=9)
+		plotFilename <- file.path(paste(dt.set, "probe", plotNumber, "rt p(Hit).pdf"))
+    dev.copy(pdf, plotFilename, width=plotWidth, height=plotHeight)
     dev.off();
 
 
@@ -122,6 +137,8 @@ ch.moralsItemRTpHit <- function (data, itemCols, resCol, overlapRoundCol, correc
 		#plot all the subjects RT slopes, pHit curves, and respective r2s on a single graph for publication
 		filename <- file.path(paste(dt.set, "RT pHit r2 probe.pdf"))
 		xAll <- with(data, tapply(overlapRound, overlapRound, mean))
+    graphics.off()
+    dev.new()
 		ch.moralsPlotSnRTpHitFits(itemOutData, "probe", "rtSlo", "rtInt", "rtR2", "phB", "phA", "phR2", xAll, filename)
 
     par(op)

@@ -66,10 +66,6 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
           filenameDP <- NULL
         }
 
-        #plot p(No) by overlap round
-        # probNoFit <- ch.moralsGetProbNo(tmpDF, overlapRoundCol, yesNoCol, yesNoVal, summarize = T, minNperXbin = minNperOverlap, plotFilename = filenamePno, plotTitle = title)
-        # pNoModel <- ch.getLmModel(probNoFit, yLab="p(No)")
-
         #plot RT and p(Hit) by overlap round
         rt.outList <- ch.moralsRTpHitFit(tmpDF, overlapRoundCol, RTCol, correctCol, correctVals, minNperOverlap = minNperOverlap, useTwoParameterModel = useTwoParameterModel, printR2 = T, filename = filenameRT, topTitle = title)
         RTModel <- ch.getLmModel(rt.outList$RTfit, yLab="RT")
@@ -77,12 +73,12 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
 
     		#plot d prime and beta by overlap round
         dp.outList <- ch.moralsPlotDprimeBetaFits(tmpDF, overlapRoundCol, correctCol, correctVals, targetPresentCol, targetPresentVals, minNperOverlap = minNperOverlap, minUniqueOverlaps= minUniqueOverlaps, printR2 = T, filename = filenameDP, topTitle = title)
-        if(!is.na(dp.outList$dPrimeFit)) {
+        if(all(is.na(dp.outList$dPrimeFit) == FALSE)) {
           dPrimeModel <- ch.getLmModel(dp.outList$dPrimeFit, yLab="d'")
         } else {
           dPrimeModel <- NA
         }
-        if(!is.na(dp.outList$dPrimeFit)) {
+        if(all(is.na(dp.outList$betaFit) == FALSE)) {
           betaModel <- ch.getLmModel(dp.outList$betaFit, yLab="Beta")
         } else {
           betaModel <- NA
@@ -99,9 +95,6 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
         #output stats
   			sink(statsOutputFile, append=T)
   				cat("\n\n*********************************", "all",colNames,"=", colValues,  "*********************************\n\n")
-  				# cat("\n\n**** p(No) ****\n\n")
-  				# print(probNoFit)
-  				# print(summary(probNoFit))
           cat("\n\n**** Average RT ****\n\n")
     			print(summary(rt.outList$RTfit))
     			cat("\n\n**** p(Hit) ****\n\n")
@@ -109,13 +102,13 @@ ch.moralsPlotsByGrpsAndGetModels <- function (data, grpCols, RTCol, overlapRound
     			cat("r_square: ",rt.outList$pHitR2)
           cat("\n\n**** d Prime ****\n\n")
 
-          if(!is.na(dp.outList$dPrimeFit)) {
+          if(all(is.na(dp.outList$dPrimeFit) == FALSE)) {
             print(summary(dp.outList$dPrimeFit))
           } else {
             print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))
           }
           cat("\n\n**** beta ****\n\n")
-          if(!is.na(dp.outList$betaFit)) {
+          if(all(is.na(dp.outList$betaFit) == FALSE)) {
     			  print(summary(dp.outList$betaFit))
           } else {
             print(paste("Number of Unique OverlapRound Bins Less Than", minUniqueOverlaps))

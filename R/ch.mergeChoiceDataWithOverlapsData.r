@@ -121,7 +121,7 @@ ch.mergeChoiceDataWithOverlapsData <- function (data, overlap.data, overlapCol, 
     dt.merged.d <- merge(data, overlap.data, by.x=c(item1cols, item2cols), by.y=c(overlapItem1cols, overlapItem2cols))
     nRowsMerged <- nrow(dt.merged.d)
     if(nRowsData != nRowsMerged) {
-      cat("The number of rows in the original dataset (", nRowsData, ") does not equal the number of rows in the dataset once it is merged with the overlaps (", nRowsMerged, "). You should find out why.  Generally, this is because there are stimuli in the choice dataset that are missing in the values dataset.")
+      cat("The number of rows in the original dataset (", nRowsData, ") does not equal the number of rows in the dataset once it is merged with the overlaps (", nRowsMerged, "). You should find out why.  Generally, this is because there are stimuli in the choice dataset that are missing in the values dataset. Alternatively, it might be that you have duplicate rows in the item columns in you overlap file.")
       stop()
     }
     #add direct.xvy column.  This is the same as direction when using a complete overlaps file
