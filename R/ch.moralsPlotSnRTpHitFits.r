@@ -60,14 +60,14 @@ ch.moralsPlotSnRTpHitFits <- function (snSummaryArray, snCol, rtSloCol, rtIntCol
   for (j in 1:length(snSummaryArray[[snCol]]))  {
     if(!is.na(snSummaryArray[[phR2Col]][j]) & !is.na(snSummaryArray[[phACol]][j]) & !is.na(snSummaryArray[[phBCol]][j])) {
       y <- (1-snSummaryArray[[phACol]][j])*(1-(xAll^snSummaryArray[[phBCol]][j]))+snSummaryArray[[phACol]][j]
-      lineCol <- rgb(1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j],1-snSummaryArray[[phR2Col]][j])
+      lineCol <- rgb(1-abs(snSummaryArray[[phR2Col]][j]),1-abs(snSummaryArray[[phR2Col]][j]),1-abs(snSummaryArray[[phR2Col]][j]))
       lines(xAll, y, col=lineCol, lwd=1)
     }
   }
 
   par(lwd=2)
   hist(snSummaryArray[[rtR2Col]], main=NA, xlab= NA, ylab = NA,  xlim = c(-1,1), breaks=12, col=NULL)
-  hist(snSummaryArray[[phR2Col]], main=NA, xlab= NA, ylab = NA,  xlim = c(0,1), breaks=12, col=NULL)
+  hist(snSummaryArray[[phR2Col]], main=NA, xlab= NA, ylab = NA,  xlim = c(-1,1), breaks=12, col=NULL)
 
   if(!is.null(filename)) {
     dev.copy(pdf, filename, width=12, height=9)

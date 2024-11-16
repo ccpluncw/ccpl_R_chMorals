@@ -100,10 +100,11 @@ ch.moralsSnRTpHit <- function (data, snCol, trialCol, RTCol, fitCol, resCol, ove
   		    dev.off();
   	    }
 
-  			#make r2 negative if the RT slope is negative
+  			#make r2 negative if the slope is negative
   	    rtR2 <- ifelse( coef(outList$RTfit)[2] < 0, -1*summary(outList$RTfit)$r.squared, summary(outList$RTfit)$r.squared)
+        pHitR2 <- ifelse(outList$pHitBeta < 0, -1*outList$pHitR2, outList$pHitR2)
   			#store all the subject fit parameters in a dataframe
-  			tmp1 <- data.frame(sn = j, rtInt = coef(outList$RTfit)[1],rtSlo = coef(outList$RTfit)[2],rtR2 = rtR2 ,phB = outList$pHitBeta,phA = outList$pHitAlpha, phR2 = outList$pHitR2)
+  			tmp1 <- data.frame(sn = j, rtInt = coef(outList$RTfit)[1],rtSlo = coef(outList$RTfit)[2],rtR2 = rtR2 ,phB = outList$pHitBeta,phA = outList$pHitAlpha, phR2 = pHitR2)
   			subOutData <- ch.rbind (subOutData, tmp1)
   	    rowNum <- rowNum + 1
 
