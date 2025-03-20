@@ -16,7 +16,7 @@ ch.globalFilterByQuantile <- function (data, snCol, RTcol, CVlowQuantileThreshol
 
 			total.rawsubs <-length(levels(factor(data[[snCol]])))
 
-			substats.raw <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mlRT = mean(eval(parse(text=RTcol)), na.rm = T), sdlRT = sd(eval(parse(text=RTcol)), na.rm = T), cv = sd(eval(parse(text=RTcol)), na.rm = T)/mean(eval(parse(text=RTcol)), na.rm = T), N = length(eval(parse(text=RTcol))) ) )
+			substats.raw <- as.data.frame(data %>% dplyr::group_by(across(all_of(snCol))) %>% dplyr::summarise(mlRT = mean(eval(parse(text=RTcol)), na.rm = T), sdlRT = sd(eval(parse(text=RTcol)), na.rm = T), cv = sd(eval(parse(text=RTcol)), na.rm = T)/mean(eval(parse(text=RTcol)), na.rm = T), N = length(eval(parse(text=RTcol))) ) )
 
 #			data <- merge(data,substats.raw, by= snCol)
 

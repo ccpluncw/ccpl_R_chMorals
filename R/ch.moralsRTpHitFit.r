@@ -28,7 +28,7 @@ ch.moralsRTpHitFit <- function (data, overlapRoundCol, RTCol, correctCol, correc
 		}
 
 		#get summarized data
-		df.tmp.1 <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(aveRT = mean(eval(parse(text = RTCol)), na.rm=T), medianRT = median(eval(parse(text = RTCol)), na.rm=T), pHit = mean(correct01, na.rm=T), n =sum(!is.na(correct01)) ) )
+		df.tmp.1 <- as.data.frame(data %>% dplyr::group_by(across(all_of(overlapRoundCol))) %>% dplyr::summarise(aveRT = mean(eval(parse(text = RTCol)), na.rm=T), medianRT = median(eval(parse(text = RTCol)), na.rm=T), pHit = mean(correct01, na.rm=T), n =sum(!is.na(correct01)) ) )
 
 		#filter out overlaps that are too small
 		df.tmp <- df.tmp.1[df.tmp.1$n > minNperOverlap,]

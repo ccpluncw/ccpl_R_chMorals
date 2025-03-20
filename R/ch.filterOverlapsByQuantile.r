@@ -22,7 +22,7 @@ ch.filterOverlapsByQuantile <- function (data, snCol, RTcol, overlapRoundCol, co
 				#ensure correct/incorrect is coded as 1/0
 				data$correct01 <- ifelse (data[[correctCol]]==correctVals[1], 1, 0)
 
-				substats.raw <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(avePred = mean(correct01, na.rm = T), N = length(correct01) ) )
+				substats.raw <- as.data.frame(data %>% dplyr::group_by(across(all_of(snCol))) %>% dplyr::summarise(avePred = mean(correct01, na.rm = T), N = length(correct01) ) )
 
 #				data <- merge(data,substats.raw, by= snCol)
 
@@ -44,7 +44,7 @@ ch.filterOverlapsByQuantile <- function (data, snCol, RTcol, overlapRoundCol, co
 				data <- outList$datKeptRaw
 				overlapsToRemove <- outList$datRemoved
 
-				overlapStats <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol)), na.rm=T), sdRT = sd(eval(parse(text=RTcol)), na.rm=T), avePred = mean(correct01, na.rm=T), N = length(eval(parse(text=RTcol)))))
+				overlapStats <- as.data.frame(data %>% dplyr::group_by(across(all_of(overlapRoundCol))) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol)), na.rm=T), sdRT = sd(eval(parse(text=RTcol)), na.rm=T), avePred = mean(correct01, na.rm=T), N = length(eval(parse(text=RTcol)))))
 
 			if(!is.null(statsOutputFile)) {
 				sink(statsOutputFile, append = T)

@@ -33,7 +33,7 @@ ch.moralsModelOvrlpPredPhitQ <- function (data, OvrlpQuantConsistentCol, itemQua
 
   #make sure all the data is complete and then get averages
   data <- data[complete.cases(data),]
-  df.tmp <- as.data.frame(data %>% dplyr::group_by_(OvrlpQuantConsistentCol, itemQuantDiffCol) %>% dplyr::summarise(
+  df.tmp <- as.data.frame(data %>% dplyr::group_by(across(all_of(c(OvrlpQuantConsistentCol, itemQuantDiffCol)))) %>% dplyr::summarise(
     N = length(eval(parse(text = pHitQCol))),
     percentHit = mean(eval(parse(text = pHitQCol))),
     meanOv =  mean(eval(parse(text = overlapRoundCol))),

@@ -31,7 +31,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 
 				total.rawsubs <-length(levels(factor(data[[snCol]])))
 
-				substats.raw <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
+				substats.raw <- as.data.frame(data %>% dplyr::group_by(across(all_of(snCol))) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
 
 				data <- merge(data,substats.raw, by= snCol)
 
@@ -47,7 +47,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				sn.removed.belowchance	<- outList$datRemoved
 				final.numSbj <- length(unique(data[[snCol]]))
 
-				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
+				substats <- as.data.frame(data %>% dplyr::group_by(across(all_of(snCol))) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(correct01) ) )
 
 				mean.avePred <-mean(substats$avePred)
 
@@ -55,7 +55,7 @@ ch.moralsFilterData <- function (data, snCol, RTcol, overlapRoundCol, aveRTcol, 
 				outList <- ch.filterGrpBtwn(data, RTcol, overlapRoundCol, lowThresh = params$minOverlapN, FUN=length)
 				data <- outList$datKeptRaw
 				overlapsToRemove <- outList$datRemoved
-				overlapStats <- as.data.frame(data %>% dplyr::group_by_(overlapRoundCol) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(eval(parse(text=RTcol)))))
+				overlapStats <- as.data.frame(data %>% dplyr::group_by(across(all_of(overlapRoundCol))) %>% dplyr::summarise(mRT = mean(eval(parse(text=RTcol))), sdRT = sd(eval(parse(text=RTcol))), avePred = mean(correct01), N = length(eval(parse(text=RTcol)))))
 
 				sink(statsOutputFile, append = F)
 					cat("\nMinimum Overlap N:")

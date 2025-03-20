@@ -12,11 +12,11 @@
 ch.moralsGetDirOverlapByGrp <- function (data, probe1Col, grpCol = NULL, dirOverlapCol) {
 
   #get the average directional overlap by by probe 1
-  probeOrder.table <- data.frame (data %>% dplyr::group_by_(probe1Col) %>%  dplyr::summarise( meanDO = mean(eval(parse(text=dirOverlapCol))), nDO = length(eval(parse(text=dirOverlapCol))) ))
+  probeOrder.table <- data.frame (data %>% dplyr::group_by(across(all_of(probe1Col))) %>%  dplyr::summarise( meanDO = mean(eval(parse(text=dirOverlapCol))), nDO = length(eval(parse(text=dirOverlapCol))) ))
 
   if(!is.null(grpCol)) {
     #get the average directional overlap by quanty (group) size
-    probeOrder.table2 <- data.frame (data %>% dplyr::group_by_(probe1Col, grpCol) %>%  dplyr::summarise( meanDO = mean(eval(parse(text=dirOverlapCol))), nDO = length(eval(parse(text=dirOverlapCol))) ))
+    probeOrder.table2 <- data.frame (data %>% dplyr::group_by(across(all_of(c(probe1Col, grpCol)))) %>%  dplyr::summarise( meanDO = mean(eval(parse(text=dirOverlapCol))), nDO = length(eval(parse(text=dirOverlapCol))) ))
 
     #reshape to wide so that each group size in a different column
     probeOrder.table.wide <- reshape(probeOrder.table2, idvar = probe1Col, timevar = grpCol, direction = "wide")

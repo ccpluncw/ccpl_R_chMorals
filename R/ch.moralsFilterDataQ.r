@@ -33,7 +33,7 @@ ch.moralsFilterDataQ <- function (data, snCol, RTcol, overlapRoundCol, correctCo
 
 				final.numSbj <- length(unique(data[[snCol]]))
 
-				substats <- as.data.frame(data %>% dplyr::group_by_(snCol) %>% dplyr::summarise(mlRT = mean(eval(parse(text=RTcol)), na.rm=T), sdlRT = sd(eval(parse(text=RTcol)), na.rm=T), cv = sd(eval(parse(text=RTcol)), na.rm = T)/mean(eval(parse(text=RTcol)), na.rm = T), avePred = mean(correct01, na.rm=T), N = length(correct01) ) )
+				substats <- as.data.frame(data %>% dplyr::group_by(across(all_of(snCol))) %>% dplyr::summarise(mlRT = mean(eval(parse(text=RTcol)), na.rm=T), sdlRT = sd(eval(parse(text=RTcol)), na.rm=T), cv = sd(eval(parse(text=RTcol)), na.rm = T)/mean(eval(parse(text=RTcol)), na.rm = T), avePred = mean(correct01, na.rm=T), N = length(correct01) ) )
 
 				mean.avePred <-mean(substats$avePred)
 

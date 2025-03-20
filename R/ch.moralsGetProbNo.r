@@ -18,7 +18,7 @@ ch.moralsGetProbNo <- function (data, x, yesNoCol, yesNoVal = c("Yes", "No"), su
   data$NoResp <- ifelse(data[[yesNoCol]]==yesNoVal[2],1,0)
 
   if(summarize) {
-    overno <- as.data.frame(data %>% dplyr::group_by_(x) %>% dplyr::summarise(propNo =mean(NoResp, na.rm=T), n =sum(!is.na(NoResp))) )
+    overno <- as.data.frame(data %>% dplyr::group_by(across(all_of(x))) %>% dplyr::summarise(propNo =mean(NoResp, na.rm=T), n =sum(!is.na(NoResp))) )
   } else {
     overno <- data
   }

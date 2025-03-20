@@ -38,7 +38,7 @@ ch.moralsAnalyzeLearningEffect <- function (data, trialCol, RTCol, fitCol, resCo
 
 	op <- par(mfrow=c(1,1), bg="white",  bty="n", font=2, family='serif', mar=c(5,6,4,7), cex=1, las=1)
 
-	aveTrial <- as.data.frame(data %>% dplyr::group_by_(trialCol) %>% dplyr::summarise(keybRT=mean(eval(parse(text=RTCol))), fitRT = mean(eval(parse(text=fitCol))) ) )
+	aveTrial <- as.data.frame(data %>% dplyr::group_by(across(all_of(trialCol))) %>% dplyr::summarise(keybRT=mean(eval(parse(text=RTCol))), fitRT = mean(eval(parse(text=fitCol))) ) )
 
 	aveDV.fn <- file.path(gpDir,paste("(", params$dt.set, filenameID, ") learning curve.aveDV.pdf"))
 	ch.plot.learning(aveTrial[[trialCol]], aveTrial[[RTCol]], fit = aveTrial$fitRT, plotTitle = paste(filenameID, "learning curve.aveDV"), filename = aveDV.fn, yLabel = ReactionTime)

@@ -62,7 +62,7 @@ ch.moralsItemChoiceAnalysis <- function (data, item1Col, item2Col, overlapRoundC
 				#even though there are duplicates in temp.merge (reverse order duplicates), they do not affect the following call because
 				#we are calculating means by probe1 first, so the duplicates are necessary to get all the data recorded.
 
-				table.hold <- as.data.frame(temp.merge %>% dplyr::group_by_(overlapRoundCol, item1Col, item2Col) %>% dplyr::summarise(N = length(chose), pctChosen=mean(chose), mDirOverlap= mean(eval(parse(text=dirOverlapCol))) ) )
+				table.hold <- as.data.frame(temp.merge %>% dplyr::group_by(across(all_of(c(overlapRoundCol, item1Col, item2Col)))) %>% dplyr::summarise(N = length(chose), pctChosen=mean(chose), mDirOverlap= mean(eval(parse(text=dirOverlapCol))) ) )
   		  table.hold <-droplevels(table.hold)
 
   			levels(table.hold[[item2Col]])[which(levels(table.hold[[item2Col]])=="an adult with a deadly contagious disease")] <- "an adult w/ DCD*"
